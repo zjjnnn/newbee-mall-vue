@@ -1,7 +1,10 @@
 <template>
   <div class="p-reviewScore p-reviewScore-sm">
-    <review-total-left :reviewTotal="reviewTotal"></review-total-left>
-    <review-total-right></review-total-right>
+    <review-total-left
+      :reviewTotal="reviewTotal"
+      class="left"
+    ></review-total-left>
+    <review-total-right class="right"></review-total-right>
   </div>
   <p class="p-reviw-graph-area-foot">
     {{ reviewTotal.reviewCount }}評価 {{ reviewTotal.titleCount }}商品レビュー
@@ -26,7 +29,7 @@ onMounted(() => {
 let reviewTotal = computed(() => store.getters.getReviewTotal);
 </script>
 
-<style scoped>
+<style>
 .p-reviewScore {
   display: flex;
   margin-bottom: 15px;

@@ -454,7 +454,7 @@
       "goodsId": 10195,
       "goodsName": "华为 HUAWEI P30 Pro",
       "count": 3,
-      "title": "742verygood",
+      "title": "ぴったり",
       "content": "content8",
       "photo1": "742_20.image1.jpg",
       "photo2": "742_20.image2.jpg",
@@ -502,7 +502,7 @@
       "goodsId": 10196,
       "goodsName": "华为 HUAWEI P30 Pro",
       "count": 2,
-      "title": "742verygood",
+      "title": "すごくいい",
       "content": "content2",
       "photo1": "742_2.image1.jpg",
       "photo2": null,
@@ -510,14 +510,62 @@
       "photo4": null,
       "photo5": null,
       "reviewDate": "2022-04-02"
+    },
+    {
+      "id": 5,
+      "rating": 5,
+      "nickName": "user6",
+      "goodsId": 10195,
+      "goodsName": "华为 HUAWEI P30 Pro",
+      "count": 3,
+      "title": "使いやすい",
+      "content": "content8",
+      "photo1": "742_20.image1.jpg",
+      "photo2": "742_20.image2.jpg",
+      "photo3": "742_20.image3.jpg",
+      "photo4": "742_20.image4.jpg",
+      "photo5": null,
+      "reviewDate": "2022-04-19"
+    },
+    {
+      "id": 6,
+      "rating": 4,
+      "nickName": "user6",
+      "goodsId": 10195,
+      "goodsName": "华为 HUAWEI P30 Pro",
+      "count": 0,
+      "title": null,
+      "content": null,
+      "photo1": null,
+      "photo2": null,
+      "photo3": null,
+      "photo4": null,
+      "photo5": null,
+      "reviewDate": "2022-04-19"
+    },
+    {
+      "id": 7,
+      "rating": 2,
+      "nickName": "user6",
+      "goodsId": 10195,
+      "goodsName": "华为 HUAWEI P30 Pro",
+      "count": 5,
+      "title": "普通",
+      "content": "content8",
+      "photo1": "742_20.image1.jpg",
+      "photo2": "742_20.image2.jpg",
+      "photo3": "742_20.image3.jpg",
+      "photo4": "742_20.image4.jpg",
+      "photo5": null,
+      "reviewDate": "2022-04-19"
     }
   ],
   "goodsDetailReviewTotal": [
     {
       "goodsId": 10195,
-      "ratingAvg": 4.0,
-      "reviewCount": 2,
-      "titleCount": 2
+      "ratingAvg": 3.8,
+      "reviewCount": 5,
+      "titleCount": 4
     },
     {
       "goodsId": 10196,
@@ -532,23 +580,23 @@
       "rating": [
         {
           "rating": 5,
-          "percentage": 50,
-          "ratingCount": 1
+          "percentage": 40,
+          "ratingCount": 2
         },
         {
           "rating": 4,
-          "percentage": 0,
-          "ratingCount": 0
+          "percentage": 20,
+          "ratingCount": 1
         },
         {
           "rating": 3,
-          "percentage": 50,
+          "percentage": 20,
           "ratingCount": 1
         },
         {
           "rating": 2,
-          "percentage": 0,
-          "ratingCount": 0
+          "percentage": 20,
+          "ratingCount": 1
         },
         {
           "rating": 1,

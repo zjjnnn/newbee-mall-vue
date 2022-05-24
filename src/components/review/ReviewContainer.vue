@@ -1,14 +1,21 @@
 <template>
-  <p>goodsId:{{ goodsId }}</p>
-  <review-total></review-total>
-  <div id="n-review-btn" class="n-review-btn">
-    <button onclick="javascript:void(0);" class="g-btn g-btn-w-sm">
-      <span>商品レビューを書く</span>
-      <i class="g-i g-i-arrow-r" aria-hidden="true"></i>
-    </button>
+  <div id="normal-productreview">
+    <p>goodsId:{{ goodsId }}</p>
+    <h2 class="g-h-2 g-h-i p-hd">
+      <i class="g-s g-s-comment" aria-hidden="true"></i>
+      <span class="material-symbols-outlined"> sms </span>
+      <span>レビュー</span>
+    </h2>
+    <review-total></review-total>
+    <div id="n-review-btn" class="n-review-btn">
+      <button onclick="javascript:void(0);" class="g-btn g-btn-w-sm">
+        <span>商品レビューを書く</span>
+        <!-- <i class="g-i g-i-arrow-r" aria-hidden="true"></i> -->
+      </button>
+    </div>
+    <hr />
+    <review-list></review-list>
   </div>
-  <hr />
-  <review-list></review-list>
 </template>
 
 <script setup>
@@ -20,9 +27,23 @@ const route = useRoute();
 const goodsId = route.params.goodsId;
 </script>
 
-<style scoped>
+<style>
+#normal-productreview {
+  width: 721px;
+}
+
+.p-hd {
+  font-size: 2rem;
+}
+div {
+  display: block;
+}
+.n-review-btn {
+  text-align: center;
+  padding-bottom: 20px;
+}
 .n-review-btn button span {
-  padding: 5px 30px !important;
+  padding: 5px 30px;
   color: #009e96;
 }
 .g-btn {
@@ -34,5 +55,9 @@ const goodsId = route.params.goodsId;
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 </style>
