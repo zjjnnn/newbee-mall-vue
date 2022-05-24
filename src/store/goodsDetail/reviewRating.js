@@ -9,7 +9,7 @@ export default {
     //syncrous
     setReviewRating(state, payload) {
       //state.reviewRating.push(...payload);
-      //state.reviewRating = payload
+      //state.reviewRating = payload;
       state.reviewRating = payload[0];
       console.log("array push ", payload);
     },

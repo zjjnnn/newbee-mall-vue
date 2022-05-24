@@ -1,6 +1,6 @@
 <template>
   <p class="g-label-brand g-reviewList_label">ピックアップレビュー</p>
-  <div v-for="review in reviews" :key="review">
+  <div v-for="(review, index) in reviews" :key="index">
     <review-com :review="review"></review-com>
   </div>
 </template>
@@ -21,7 +21,7 @@ onMounted(() => {
 let reviews = computed(() => store.getters.getReviews);
 </script>
 
-<style scoped>
+<style>
 .g-reviewList_item p {
   word-break: break-all;
 }

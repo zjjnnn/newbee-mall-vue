@@ -11,9 +11,20 @@
       >
     </div>
     <!-- star -->
+    <div>
+      <star-rating
+        class="starAvg"
+        :star-size="20"
+        :rating="reviewTotal.ratingAvg"
+        :read-only="true"
+        :increment="0.01"
+        :show-rating="false"
+        :rounded-corners="true"
+      ></star-rating>
+    </div>
     <div class="p-reviw-graph-area-left-row p-reviw-graph-area-left-row-score">
       <div class="g-score p-reviw-graph-area-g-score">
-        <span :data-score="ratingAvg"></span>
+        <span :data-score="reviewTotal.ratingAvg"></span>
       </div>
     </div>
 
@@ -29,7 +40,11 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
+  components: {
+    StarRating,
+  },
   props: {
     reviewTotal: {
       ratingAvg: Number,
@@ -39,14 +54,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .p-reviw-graph-area {
   box-sizing: border-box;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 10px 10px 5px 10px;
   text-align: center;
   vertical-align: top;
+  width: 30%;
 }
+
 .p-reviw-graph-area-left-row {
   display: inline-block;
   margin: 0px 0;
