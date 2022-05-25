@@ -1,6 +1,6 @@
 <template>
   <div class="p-reviw-graph-area-right">
-    <template v-for="(rating, index) in ratingList.rating" :key="index">
+    <template v-for="(rating, index) in ratingList" :key="index">
       <review-total-right-com :rating2="rating"></review-total-right-com>
     </template>
   </div>

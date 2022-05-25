@@ -14,14 +14,11 @@
 <script setup>
 import ReviewTotalLeft from "./ReviewTotalLeft.vue";
 import ReviewTotalRight from "./ReviewTotalRight.vue";
-
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-
 const route = useRoute();
 const goodsId = route.params.goodsId;
-
 const store = useStore();
 onMounted(() => {
   store.dispatch("setReviewTotal", goodsId);

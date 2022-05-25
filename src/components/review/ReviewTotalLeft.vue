@@ -11,17 +11,14 @@
       >
     </div>
     <!-- star -->
-    <div>
-      <star-rating
-        class="starAvg"
-        :star-size="20"
-        :rating="reviewTotal.ratingAvg"
-        :read-only="true"
-        :increment="0.01"
-        :show-rating="false"
-        :rounded-corners="true"
-      ></star-rating>
-    </div>
+    <star-rating
+      :star-size="20"
+      :rating="reviewTotal.ratingAvg"
+      :read-only="true"
+      :increment="0.01"
+      :show-rating="false"
+      :rounded-corners="false"
+    ></star-rating>
     <div class="p-reviw-graph-area-left-row p-reviw-graph-area-left-row-score">
       <div class="g-score p-reviw-graph-area-g-score">
         <span :data-score="reviewTotal.ratingAvg"></span>
@@ -55,11 +52,16 @@ export default {
 </script>
 
 <style>
+.vue-star-rating[data-v-f675a548] {
+  display: inline-block;
+  align-items: center;
+}
 .p-reviw-graph-area {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 10px 10px 5px 10px;
   text-align: center;
   vertical-align: top;

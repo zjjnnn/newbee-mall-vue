@@ -5,7 +5,6 @@
         ><span class="g-clip">{{ rating2.rating }}</span></span
       > -->
       <star-rating
-        class="star"
         :star-size="20"
         :rating="rating2.rating"
         :read-only="true"

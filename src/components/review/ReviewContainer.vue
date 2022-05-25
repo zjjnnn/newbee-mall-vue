@@ -10,6 +10,7 @@
     <div id="n-review-btn" class="n-review-btn">
       <button onclick="javascript:void(0);" class="g-btn g-btn-w-sm">
         <span>商品レビューを書く</span>
+        <span class="material-symbols-outlined"> arrow_forward_ios </span>
         <!-- <i class="g-i g-i-arrow-r" aria-hidden="true"></i> -->
       </button>
     </div>
@@ -21,10 +22,19 @@
 <script setup>
 import ReviewList from "./ReviewList.vue";
 import ReviewTotal from "./ReviewTotal.vue";
+
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 const goodsId = route.params.goodsId;
+
+// import { computed, onMounted } from "vue";
+// import { useStore } from "vuex";
+// const store = useStore();
+// onMounted(() => {
+//   store.dispatch("setReviewTotal", goodsId);
+// });
+// let reviewTotal = computed(() => store.getters.getReviewTotal);
 </script>
 
 <style>
@@ -43,7 +53,7 @@ div {
   padding-bottom: 20px;
 }
 .n-review-btn button span {
-  padding: 5px 30px;
+  padding: 5px 15px;
   color: #009e96;
 }
 .g-btn {
@@ -55,6 +65,22 @@ div {
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+.g-btn,
+.g-lg-btn {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  font-weight: normal;
+  display: inline-flex;
+  padding: 0;
+  transition: background-color 0.2s;
+  vertical-align: middle;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .material-symbols-outlined {

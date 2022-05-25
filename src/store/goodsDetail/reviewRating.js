@@ -3,14 +3,15 @@ const headers = { Accept: "application/json" };
 
 export default {
   state: {
-    reviewRating: {},
+    reviewRating: [],
+    // rating: [],
   },
   mutations: {
     //syncrous
     setReviewRating(state, payload) {
       //state.reviewRating.push(...payload);
       //state.reviewRating = payload;
-      state.reviewRating = payload[0];
+      state.reviewRating = payload[0].rating;
       console.log("array push ", payload);
     },
   },
