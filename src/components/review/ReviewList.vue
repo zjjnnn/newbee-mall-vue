@@ -1,33 +1,36 @@
 <template>
   <p class="g-label-brand g-reviewList_label">ピックアップレビュー</p>
-
-  <div v-for="(review, index) in reviews" :key="index">
-    <review-com v-bind="review"></review-com>
-  </div>
-  <template v-if="reviews.length > 3">
-    <p class="g-align-tc">
-      <a
-        class="g-link displaymorereview"
-        href="#p-reviewMore"
-        role="button"
-        aria-expanded="false"
-        aria-controls="p-reviewMore"
-        data-label="閉じる"
-        data-accordion='{"scroll":false}'
-      >
-        <i class="g-i g-i-arrow-d"></i
-        ><span
-          >レビューをもっと見る（3/<span id="js-reviews-more">
-            {{ titleCount }}</span
-          >）</span
-        ></a
-      >
-    </p>
+  <template v-if="titleCount > 3">
+    <div v-if="!state.showTotal">
+      <div v-for="(review, index) in show" :key="index">
+        <review-com v-bind="review"></review-com>
+      </div>
+      <div class="g-link">
+        <span id="click" @click="state.showTotal = !state.showTotal">
+          {{ text }}
+        </span>
+      </div>
+    </div>
+    <div v-if="state.showTotal">
+      <div v-for="(review, index) in showMore" :key="index">
+        <review-com v-bind="review"></review-com>
+      </div>
+      <div id="click-div">
+        <span id="click" @click="state.showTotal = !state.showTotal">
+          {{ text }}
+        </span>
+      </div>
+    </div>
+  </template>
+  <template v-else>
+    <div v-for="(review, index) in reviews" :key="index">
+      <review-com v-bind="review"></review-com>
+    </div>
   </template>
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, reactive } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import ReviewCom from "./ReviewCom.vue";
@@ -39,12 +42,41 @@ const store = useStore();
 onMounted(() => {
   store.dispatch("setReviews", goodsId);
 });
-let reviews = computed(() => store.getters.getReviews);
+//初始状态：showTotal -> false -> 显示3条数据 -> レビューをもっと見る
+let show = computed(() => reviews.value.slice(0, 3));
+//按下按钮：showTotal -> true -> 显示所有数据 -> 閉じる
+let showMore = computed(() => reviews.value.slice(0, 999999));
 
+let reviews = computed(() => store.getters.getReviews);
 let titleCount = computed(() => store.getters.getReviewTotal.titleCount);
+
+const state = reactive({
+  showTotal: false, // 是否展示所有评价
+});
+
+//切换文字text
+const text = computed(() => {
+  if (!state.showTotal) {
+    return "レビューをもっと見る（3/" + titleCount.value + "）";
+  } else {
+    return "閉じる";
+  }
+});
 </script>
 
 <style>
+.g-link {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 0.35em;
+}
+
+#click {
+  cursor: pointer;
+  text-align: center;
+}
+
 .g-reviewList_item p {
   word-break: break-all;
 }

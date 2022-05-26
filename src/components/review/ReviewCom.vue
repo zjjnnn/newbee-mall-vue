@@ -4,12 +4,6 @@
       <template v-if="title != null">
         <li class="g-reviewList_item">
           <div class="g-lg-flow-sm">
-            <!-- <p class="g-score"></p> -->
-            <!-- <a-rate :value="rating" disabled allow-half /> -->
-            <!-- <span :data-score="rating"> -->
-
-            <!-- <span class="g-clip">text.product.Rating</span> -->
-            <!-- </span> -->
             <star-rating
               class="star"
               :star-size="20"
@@ -54,35 +48,17 @@
                 </template>
                 <!-- <button type="button" @click="show">Show</button> -->
               </div>
-              <!-- <div>
-                <template v-if="photo1 != null">
-                  <img class="g-fw p-review-gallery_photo" :src="photo1" />
-                </template>
-                <template v-if="photo2 != null">
-                  <img class="g-fw p-review-gallery_photo" :src="photo2" />
-                </template>
-                <template v-if="photo3 != null">
-                  <img class="g-fw p-review-gallery_photo" :src="photo3" />
-                </template>
-                <template v-if="photo4 != null">
-                  <img class="g-fw p-review-gallery_photo" :src="photo4" />
-                </template>
-                <template v-if="photo5 != null">
-                  <img class="g-fw p-review-gallery_photo" :src="photo5" />
-                </template>
-              </div> -->
             </li>
           </ul>
           <p class="g-reviewList_like">
             <a
+              @click="helped"
               class="g-link reviewLike0"
               id="js-hitLike"
               data-count="0"
-              data="626fd36d2e90a2006100013d"
-              data-clickable=""
               ><i class="g-s g-s-like-g" aria-hidden="true"></i>
               <span class="material-symbols-outlined"> thumb_up </span>
-              <span>参考になった（{{ count }}人）</span></a
+              <span>{{ helpfulText }}参考になった（{{ count }}人）</span></a
             >
           </p>
         </li>
@@ -115,6 +91,7 @@ export default {
   data() {
     return {
       images: [this.photo1, this.photo2, this.photo3, this.photo4, this.photo5],
+      code: 200,
     };
   },
   methods: {
@@ -123,6 +100,13 @@ export default {
     },
     show() {
       this.$viewer.show();
+    },
+    helped() {
+      if (this.code === 200) {
+        alert("ありがとうございます！");
+      } else {
+        alert("もう一回クリックしてください。");
+      }
     },
   },
 };
