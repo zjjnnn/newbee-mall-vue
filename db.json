@@ -605,5 +605,53 @@
         }
       ]
     }
+  ],
+  "goodsqa": [
+    {
+      "goodsId": 10195,
+      "totalCount": 5,
+      "qaList": [
+        {
+          "questionContents": "このマットレス（スモールシングルサイズ）に使用できるベッドパッドとシーツの取り扱いはありますか？",
+          "questionDate": "2021年09月06日",
+          "answerContents": "「洗えるベッド用品3点セット スモールシングル(SS)」がございます。検索欄に商品コード「5651975」を入れてご検索下さい。ご検討いただけましたら幸いです。",
+          "answerName": "Nitori-QA-004",
+          "answerDate": "2021年09月22日",
+          "count": 1
+        },
+        {
+          "questionContents": "防菌、防臭、防ダニなどの加工とかはありますか？",
+          "questionDate": "2021年08月30日",
+          "answerContents": "防菌、防臭、防ダニ加工は施しておりません。",
+          "answerName": "Nitori-QA-004",
+          "answerDate": "2021年09月08日",
+          "count": 2
+        },
+        {
+          "questionContents": "こちらの商品はパイプベットにも使用可能でしょうか？",
+          "questionDate": "2021年08月23日",
+          "answerContents": "「洗えるベッド用品3点セット スモールシングル(SS)」がございます。検索欄に商品コード「5651975」を入れてご検索下さい。ご検討いただけましたら幸いです。",
+          "answerName": "Nitori-QA-004",
+          "answerDate": "2021年08月31日",
+          "count": 3
+        },
+        {
+          "questionContents": "店舗指定で受け取りできますか？",
+          "questionDate": "2021年08月20日",
+          "answerContents": "はい、可能です。",
+          "answerName": "Nitori-QA-004",
+          "answerDate": "2021年08月25日",
+          "count": 4
+        },
+        {
+          "questionContents": "布団乾燥機は使用できますか？",
+          "questionDate": "2021年07月23日",
+          "answerContents": "はい、可能です。",
+          "answerName": "Nitori-QA-004",
+          "answerDate": "2021年08月20日",
+          "count": 5
+        }
+      ]
+    }
   ]
 }

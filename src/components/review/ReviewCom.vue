@@ -52,13 +52,13 @@
           </ul>
           <p class="g-reviewList_like">
             <a
-              @click="helped"
+              @click="helped = !helped"
               class="g-link reviewLike0"
               id="js-hitLike"
               data-count="0"
               ><i class="g-s g-s-like-g" aria-hidden="true"></i>
               <span class="material-symbols-outlined"> thumb_up </span>
-              <span>{{ helpfulText }}参考になった（{{ count }}人）</span></a
+              <span>参考になった（{{ count }}人） {{ helpfulText }} </span></a
             >
           </p>
         </li>
@@ -92,6 +92,7 @@ export default {
     return {
       images: [this.photo1, this.photo2, this.photo3, this.photo4, this.photo5],
       code: 200,
+      helped: false,
     };
   },
   methods: {
@@ -101,11 +102,15 @@ export default {
     show() {
       this.$viewer.show();
     },
-    helped() {
-      if (this.code === 200) {
-        alert("ありがとうございます！");
+  },
+  computed: {
+    helpfulText() {
+      if (this.helped && this.code === 200) {
+        return "ありがとうございます！";
+      } else if (this.helped && !this.code == 200) {
+        return "もう一回クリックしてください！";
       } else {
-        alert("もう一回クリックしてください。");
+        return null;
       }
     },
   },
@@ -117,9 +122,9 @@ export default {
   height: 100%;
 }
 .image {
-  width: 100px;
+  width: 80px;
   cursor: pointer;
-  margin: 5px;
+  margin: 3px;
   display: inline-block;
 }
 

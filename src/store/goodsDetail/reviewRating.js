@@ -17,10 +17,10 @@ export default {
   },
   actions: {
     //asyncronous
-    async setReviewRating(state, payload) {
+    async setReviewRating(context, payload) {
       const reviewRating = await fetch(url + payload, { headers });
       const j = await reviewRating.json();
-      state.commit("setReviewRating", j);
+      context.commit("setReviewRating", j);
       console.log("in setReviewRating method", j);
     },
   },

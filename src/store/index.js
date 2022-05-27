@@ -5,6 +5,7 @@ import swiper from "./home/swiper";
 import review from "./goodsDetail/review";
 import reviewTotal from "./goodsDetail/reviewTotal";
 import reviewRating from "./goodsDetail/reviewRating";
+import goodsQa from "./goodsDetail/goodsQa";
 
 export default createStore({
   modules: {
@@ -14,5 +15,6 @@ export default createStore({
     review,
     reviewTotal,
     reviewRating,
+    goodsQa,
   },
 });

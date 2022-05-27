@@ -1,6 +1,6 @@
 <template>
   <div id="normal-productreview">
-    <p>goodsId:{{ goodsId }}</p>
+    <!-- <p>goodsId:{{ goodsId }}</p> -->
     <h2 class="g-h-2 g-h-i p-hd">
       <i class="g-s g-s-comment" aria-hidden="true"></i>
       <span class="material-symbols-outlined"> sms </span>
@@ -23,24 +23,16 @@
 import ReviewList from "./ReviewList.vue";
 import ReviewTotal from "./ReviewTotal.vue";
 
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 
-const route = useRoute();
-const goodsId = route.params.goodsId;
-
-// import { computed, onMounted } from "vue";
-// import { useStore } from "vuex";
-// const store = useStore();
-// onMounted(() => {
-//   store.dispatch("setReviewTotal", goodsId);
-// });
-// let reviewTotal = computed(() => store.getters.getReviewTotal);
+// const route = useRoute();
+// const goodsId = route.params.goodsId;
 </script>
 
 <style>
-#normal-productreview {
-  width: 721px;
-}
+/* #normal-productreview {
+  width: 415px;
+} */
 
 .p-hd {
   font-size: 2rem;
