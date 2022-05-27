@@ -118,7 +118,7 @@
 
 <!-- <script setup>
 import { definedProps } from "vue";
-const props = definedProps({
+definedProps({
   questionContents: String,
   questionDate: String,
   answerContents: String,

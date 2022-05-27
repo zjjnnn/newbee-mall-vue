@@ -4,6 +4,7 @@ const headers = { Accept: "application/json" };
 export default {
   state: {
     goodsQA: [],
+    totalCount: Number,
   },
   mutations: {
     //syncrous

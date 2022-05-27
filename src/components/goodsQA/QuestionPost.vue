@@ -52,4 +52,158 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.zv-cqa-posting-rule {
+  border: 1px dotted #bdc3c7;
+  padding: 0 10px 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+#ZVCQA p.zv-cqa-posting-rule-title {
+  font-size: 1.5rem;
+}
+
+.zv-cqa-posting-rule-title {
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #eb6157;
+}
+#ZVCQA .zv-textbox {
+  font-size: 13px;
+  padding: 10px;
+  border: solid 1px #bdc3c7;
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 1px 2px rgb(0 0 0 / 20%);
+  box-shadow: inner 0 1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+}
+ul,
+ol {
+  padding: 0;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  list-style: none;
+}
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+}
+::marker {
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  text-transform: none;
+  text-indent: 0px !important;
+  text-align: start !important;
+  text-align-last: start !important;
+}
+
+#ZVAskPostArea {
+  margin-top: 10px;
+}
+
+#ZVCQAPost li {
+  list-style: disc inside;
+  list-style-position: inside;
+  list-style-image: initial;
+  list-style-type: disc;
+}
+
+p,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+dd,
+input,
+textarea,
+select,
+button {
+  margin: 0;
+}
+
+.g-link-u,
+.g-lg-link-u,
+.g-link-u-kiyaku {
+  text-decoration: underline;
+  color: #009e96;
+}
+
+input,
+textarea,
+select,
+optgroup,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+#ZVAskPostArea {
+  margin-top: 10px;
+}
+
+#ZVCQA {
+  font-size: 14px;
+  margin-bottom: 30px;
+  color: #333;
+  padding: 0;
+}
+
+#ZVCQA .zv-btn {
+  border: solid 1px #bdc3c7;
+  padding: 8px 10px;
+  font-weight: normal;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 13px;
+  background: #fff;
+  display: inline-block;
+}
+
+input,
+textarea,
+select,
+optgroup,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.zv-error-message {
+  color: red;
+  display: none;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+</style>
