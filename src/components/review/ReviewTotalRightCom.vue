@@ -27,6 +27,7 @@
       id="js-rate5"
       :data-rate="rating2.rating"
       :title="title"
+      @click="clickRating(rating2.rating)"
       >{{ rating2.ratingCount }}人</a
     >
   </div>
@@ -55,6 +56,12 @@ export default {
         "つが付いています。",
     };
   },
+  //   methods:{
+  //    async clickRating(rating){
+  //       if($store.getters.getReviewTotal.titleCount>3)
+  // await this.$store.dispatch("setReviews", goodsId);
+  //     }
+  //   }
 };
 </script>
 

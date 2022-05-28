@@ -8,8 +8,11 @@
     <div class="zv-cqa-step">
       <div class="zv-cqa-step-link">
         <span>全{{ totalCount }}件</span>
-
+        <!-- click "<" -> go back to a previous page -->
+        <span class="material-symbols-outlined"> chevron_left </span>
         <span>ページ{{ pageNo }}/{{ totalPage }}</span>
+        <!-- click ">" -> go back to a next page -->
+        <span class="material-symbols-outlined"> chevron_right </span>
       </div>
       <div class="zv-select-wrap">
         <select id="zv-cqa-select-sort" class="zv-select" name="sort">
@@ -163,5 +166,12 @@ section {
   appearance: none;
   padding: 4px 38px 4px 8px;
   font-size: 13px;
+}
+
+.material-symbols-outlined {
+  color: #009e96;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

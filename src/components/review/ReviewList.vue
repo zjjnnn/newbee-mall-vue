@@ -45,7 +45,7 @@ onMounted(() => {
 //初始状态：showTotal -> false -> 显示3条数据 -> レビューをもっと見る
 let show = computed(() => reviews.value.slice(0, 3));
 //按下按钮：showTotal -> true -> 显示所有数据 -> 閉じる
-let showMore = computed(() => reviews.value.slice(0, 999999));
+let showMore = computed(() => reviews.value.slice(0));
 
 let reviews = computed(() => store.getters.getReviews);
 let titleCount = computed(() => store.getters.getReviewTotal.titleCount);

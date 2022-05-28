@@ -20,13 +20,13 @@ export default {
       const reviews = await fetch(url + payload, { headers });
       const j = await reviews.json();
       context.commit("setReviews", j);
-      console.log("in setReviews method", j);
+      // console.log("in setReviews method", j);
     },
   },
   getters: {
     getReviews: (state) => {
-      console.log("in getReviews method", state.reviews);
-      console.log(state.reviews);
+      // console.log("in getReviews method", state.reviews);
+      // console.log(state.reviews);
       return state.reviews;
     },
   },
