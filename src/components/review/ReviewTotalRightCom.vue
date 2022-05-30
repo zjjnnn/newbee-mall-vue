@@ -35,6 +35,7 @@
 
 <script>
 import StarRating from "vue-star-rating";
+import { mapMutations } from "vuex";
 export default {
   components: {
     StarRating,
@@ -56,12 +57,17 @@ export default {
         "つが付いています。",
     };
   },
-  //   methods:{
-  //    async clickRating(rating){
-  //       if($store.getters.getReviewTotal.titleCount>3)
-  // await this.$store.dispatch("setReviews", goodsId);
-  //     }
-  //   }
+  methods: {
+    async clickRating(rating) {
+      if (this.$store.getters.getReviewTotal.titleCount > 3) {
+        await this.$store.dispatch("setReviews", {
+          goodsId: this.$route.params.goodsId,
+        });
+      }
+      this.filterReviews(rating);
+    },
+    ...mapMutations(["filterReviews"]),
+  },
 };
 </script>
 

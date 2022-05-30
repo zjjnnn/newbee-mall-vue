@@ -5,6 +5,7 @@ export default {
   state: {
     goodsQA: [],
     totalCount: Number,
+    // pageNo: 1,
   },
   mutations: {
     //syncrous
@@ -14,6 +15,9 @@ export default {
       state.goodsQA = payload[0].qaList;
       console.log("array push ", payload);
     },
+    // nextPage(state) {
+    //   state.pageNo++;
+    // },
   },
   actions: {
     //asyncronous

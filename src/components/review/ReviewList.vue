@@ -12,7 +12,7 @@
       </div>
     </div>
     <div v-if="state.showTotal">
-      <div v-for="(review, index) in showMore" :key="index">
+      <div v-for="(review, index) in reviews" :key="index">
         <review-com v-bind="review"></review-com>
       </div>
       <div id="click-div">
@@ -45,10 +45,11 @@ onMounted(() => {
 //初始状态：showTotal -> false -> 显示3条数据 -> レビューをもっと見る
 let show = computed(() => reviews.value.slice(0, 3));
 //按下按钮：showTotal -> true -> 显示所有数据 -> 閉じる
-let showMore = computed(() => reviews.value.slice(0));
-
 let reviews = computed(() => store.getters.getReviews);
-let titleCount = computed(() => store.getters.getReviewTotal.titleCount);
+//let title = computed(() => store.getters.getReviews.title);
+
+//let titleCount = computed(() => store.getters.getReviewTotal.titleCount);
+let titleCount = computed(() => reviews.value.length);
 
 const state = reactive({
   showTotal: false, // 是否展示所有评价

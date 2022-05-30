@@ -464,6 +464,38 @@
       "reviewDate": "2022-04-19"
     },
     {
+      "id": 1,
+      "rating": 5,
+      "nickName": "user1",
+      "goodsId": 10195,
+      "goodsName": "华为 HUAWEI P30 Pro",
+      "count": 3,
+      "title": "ぴったり",
+      "content": "レビューにもあったように、箱から出して袋を破った途端みるみる膨らみました。横になってみるといい感じ！腰痛がどんどん辛くなっていたので、これで、少し楽に寝れる様になれば…と期待してます",
+      "photo1": "http://localhost:8080/assets/images/goods1.jpg",
+      "photo2": "http://localhost:8080/assets/images/goods2.jpg",
+      "photo3": null,
+      "photo4": null,
+      "photo5": null,
+      "reviewDate": "2022-04-19"
+    },
+    {
+      "id": 1,
+      "rating": 5,
+      "nickName": "user1",
+      "goodsId": 10195,
+      "goodsName": "华为 HUAWEI P30 Pro",
+      "count": 3,
+      "title": "ぴったり",
+      "content": "レビューにもあったように、箱から出して袋を破った途端みるみる膨らみました。横になってみるといい感じ！腰痛がどんどん辛くなっていたので、これで、少し楽に寝れる様になれば…と期待してます",
+      "photo1": "http://localhost:8080/assets/images/goods1.jpg",
+      "photo2": "http://localhost:8080/assets/images/goods2.jpg",
+      "photo3": null,
+      "photo4": null,
+      "photo5": null,
+      "reviewDate": "2022-04-19"
+    },
+    {
       "id": 2,
       "rating": 3,
       "nickName": "user2",
@@ -564,8 +596,8 @@
     {
       "goodsId": 10195,
       "ratingAvg": 3.8,
-      "reviewCount": 5,
-      "titleCount": 4
+      "reviewCount": 7,
+      "titleCount": 6
     },
     {
       "goodsId": 10196,
@@ -580,22 +612,22 @@
       "rating": [
         {
           "rating": 5,
-          "percentage": 40,
-          "ratingCount": 2
+          "percentage": 57,
+          "ratingCount": 4
         },
         {
           "rating": 4,
-          "percentage": 20,
+          "percentage": 14,
           "ratingCount": 1
         },
         {
           "rating": 3,
-          "percentage": 20,
+          "percentage": 14,
           "ratingCount": 1
         },
         {
           "rating": 2,
-          "percentage": 20,
+          "percentage": 14,
           "ratingCount": 1
         },
         {

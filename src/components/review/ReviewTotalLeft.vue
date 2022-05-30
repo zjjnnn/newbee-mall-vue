@@ -12,7 +12,7 @@
     </div>
     <!-- star -->
     <star-rating
-      :star-size="20"
+      :star-size="16"
       :rating="reviewTotal.ratingAvg"
       :read-only="true"
       :increment="0.01"

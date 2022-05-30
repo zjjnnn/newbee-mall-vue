@@ -4,72 +4,13 @@
     <span class="material-symbols-outlined"> sms </span>
     <span>商品Q&amp;A</span>
   </h2>
-  <div id="ZVCQA">
-    <div class="zv-cqa-step">
-      <div class="zv-cqa-step-link">
-        <span>全{{ totalCount }}件</span>
-        <!-- click "<" -> go back to a previous page -->
-        <span class="material-symbols-outlined"> chevron_left </span>
-        <span>ページ{{ pageNo }}/{{ totalPage }}</span>
-        <!-- click ">" -> go back to a next page -->
-        <span class="material-symbols-outlined"> chevron_right </span>
-      </div>
-      <div class="zv-select-wrap">
-        <select id="zv-cqa-select-sort" class="zv-select" name="sort">
-          <option value="total_yes">トップ評価</option>
-          <option value="created_at" selected="">新しい順</option>
-        </select>
-      </div>
-    </div>
-    <!-- QA内容 -->
-    <qa-list></qa-list>
-    <!-- 全x件 ページa/b -->
-    <div class="zv-cqa-step">
-      <div class="zv-cqa-step-link">
-        <span>全{{ totalCount }}件</span>
-        <span>ページ{{ pageNo }}/{{ totalPage }}</span>
-      </div>
-    </div>
-    <question-post></question-post>
-  </div>
+  <qa-list></qa-list>
+  <question-post></question-post>
 </template>
 
 <script setup>
 import QaList from "./QaList.vue";
 import QuestionPost from "./QuestionPost.vue";
-
-import { computed, onMounted, reactive } from "vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-const goodsId = route.params.goodsId;
-
-const store = useStore();
-onMounted(() => {
-  store.dispatch("setGoodsQA", goodsId);
-});
-
-let totalCount = computed(() => store.getters.getGoodsQA.length);
-//console.log("TotalCount", TotalCount);
-
-const state = reactive({
-  pageNo: 1, // 初始页数为1
-  totalPage: 1,
-  start: 0,
-  finish: 0,
-  number: 3, //一页3个qa
-  sort: "新しい順",
-});
-//计算页数totalPage
-if (totalCount.value % state.number != 0) {
-  state.totalPage = totalCount.value / state.number + 1;
-} else if (totalCount.value % state.number === 0) {
-  state.totalPage = totalCount.value / state.number;
-}
-//计算每一页的开始下标和结束下标  slice(start,finish)
-state.start = (state.pageNo - 1) * state.number;
-state.finish = state.start + state.number - 1;
 </script>
 
 <style>
