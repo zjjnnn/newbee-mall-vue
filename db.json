@@ -715,5 +715,23 @@
         }
       ]
     }
+  ],
+  "goodsInfo": [
+    {
+      "goodsId": 10195,
+      "color": "グリーン",
+      "size": "幅90x奥行180cm",
+      "material": "ポリプロピレン",
+      "weight": "約550g",
+      "warranty": "1年"
+    },
+    {
+      "goodsId": 10196,
+      "color": "ホワイト",
+      "size": "幅90x奥行180cm",
+      "material": "PC",
+      "weight": "約100g",
+      "warranty": "1年"
+    }
   ]
 }

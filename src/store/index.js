@@ -6,6 +6,7 @@ import review from "./goodsDetail/review";
 import reviewTotal from "./goodsDetail/reviewTotal";
 import reviewRating from "./goodsDetail/reviewRating";
 import goodsQa from "./goodsDetail/goodsQa";
+import goodsInfo from "./goodsDetail/goodsInfo";
 
 export default createStore({
   modules: {
@@ -16,5 +17,6 @@ export default createStore({
     reviewTotal,
     reviewRating,
     goodsQa,
+    goodsInfo,
   },
 });
