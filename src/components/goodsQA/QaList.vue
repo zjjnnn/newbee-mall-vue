@@ -5,20 +5,12 @@
       <div class="zv-cqa-step-link">
         <span>全{{ totalCount }}件</span>
         <!-- click "<" -> go back to a previous page -->
-        <span
-          class="material-symbols-outlined"
-          @click="previousPage"
-          v-if="state.showLeft"
-        >
+        <span class="material-symbols-outlined" @click="previousPage">
           chevron_left
         </span>
-        <span>ページ{{ state.pageNo }}/{{ state.totalPage }}</span>
+        <span>ページ{{ pageNo }}/{{ totalPage }}</span>
         <!-- click ">" -> go back to a next page -->
-        <span
-          class="material-symbols-outlined"
-          @click="nextPage"
-          v-if="state.showRight"
-        >
+        <span class="material-symbols-outlined" @click="nextPage">
           chevron_right
         </span>
       </div>
@@ -37,7 +29,7 @@
     <div class="zv-cqa-step">
       <div class="zv-cqa-step-link">
         <span>全{{ totalCount }}件</span>
-        <span>ページ{{ state.pageNo }}/{{ state.totalPage }}</span>
+        <span>ページ{{ pageNo }}/{{ totalPage }}</span>
       </div>
     </div>
     <question-post></question-post>
@@ -46,7 +38,7 @@
 
 <script setup>
 import QaCom from "./QaCom.vue";
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
@@ -58,54 +50,44 @@ onMounted(() => {
   store.dispatch("setGoodsQA", goodsId);
 });
 
-let qaList = computed(() => store.getters.getGoodsQA);
-//let qaCount = computed(() => store.getters.getGoodsQA.getTotalCount);
+let qaList = computed(() => store.getters.getGoodsQA.qaList);
 
-onMounted(() => {
-  store.dispatch("setGoodsQA", goodsId);
-});
+const totalCount = computed(() => store.getters.getGoodsQA.totalCount);
 
-let totalCount = computed(() => store.getters.getGoodsQA.length);
-//console.log("TotalCount", TotalCount);
+//   pageNo: 1, // 初始页数为1
+//   totalPage: 1,
+//   start: 0,
+//   finish: 0,
+//   number: 3, //一页3个qa
+//   sort: "新しい順",
+//   showLeft: false, // 当pageNo=1时，隐藏跳转上一页的 < 符号
+//   showRight: true, //当pageNo=totalPage时，隐藏跳转下一页的 > 符号
 
-const state = reactive({
-  pageNo: 1, // 初始页数为1
-  totalPage: 1,
-  start: 0,
-  finish: 0,
-  number: 3, //一页3个qa
-  sort: "新しい順",
-  showLeft: false, // 当pageNo=1时，隐藏跳转上一页的 < 符号
-  showRight: true, //当pageNo=totalPage时，隐藏跳转下一页的 > 符号
-});
+//pageNo
+let pageNo = computed(() => store.getters.getPageNo);
+console.log("TotalCount", totalCount);
+function nextPage() {
+  store.commit("nextPage");
+}
+function previousPage() {
+  store.commit("previousPage");
+}
 
 //计算页数totalPage
-if (totalCount.value % state.number != 0) {
-  state.totalPage = Math.floor(totalCount.value / state.number) + 1; //Math.floor(x) 向下舍入，如Math.floor(0.60)结果均为0；
-} else if (totalCount.value % state.number === 0) {
-  state.totalPage = totalCount.value / state.number;
-}
+// const totalPage = computed(() => {
+//   if (totalCount.value % 3 != 0) {
+//     return Math.floor(totalCount.value / 3) + 1; //Math.floor(x) 向下舍入，如Math.floor(0.60)结果为0；
+//   } else {
+//     return totalCount.value / 3;
+//   }
+// });
+
+const totalPage = computed(() => {
+  return Math.ceil(totalCount.value / 3); //Math.ceil(x) 向上舍入，如Math.floor(0.60)结果为1；
+});
 //计算每一页的开始下标和结束下标  slice(start,finish)
-state.start = (state.pageNo - 1) * state.number;
-state.finish = state.start + state.number - 1;
-
-const nextPage = () => {
-  state.pageNo++;
-};
-
-const previousPage = () => {
-  state.pageNo--;
-};
-
-// if (state.pageNo === 1) {
-//   store.showLeft = false;
-// } else {
-//   store.showLeft = true;
-// }
-
-// if (state.pageNo === state.totalPage) {
-//   store.showLeft = false;
-// }
+// state.start = (pageNo.value - 1) * state.number;
+// state.finish = state.start + state.number - 1;
 </script>
 
 <style>
@@ -150,5 +132,9 @@ p {
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+}
+
+.material-symbols-outlined {
+  cursor: pointer;
 }
 </style>

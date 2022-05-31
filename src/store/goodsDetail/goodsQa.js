@@ -3,22 +3,36 @@ const headers = { Accept: "application/json" };
 
 export default {
   state: {
-    goodsQA: [],
+    goodsQA: {},
+    qaList: [],
     totalCount: Number,
-    // pageNo: 1,
+    pageNo: 1,
+    totalPage: Number,
+    showLeft: false,
   },
   mutations: {
     //syncrous
     setGoodsQA(state, payload) {
-      //state.goodsQA.push(...payload);
-      //state.goodsQA = payload;
-      state.goodsQA = payload[0].qaList;
+      state.goodsQA = payload[0];
       console.log("array push ", payload);
     },
-    // nextPage(state) {
-    //   state.pageNo++;
-    // },
+    setQaList(state, payload) {
+      state.qaList = payload[0].qaList;
+    },
+    setTotalCount(state, payload) {
+      state.totalCount = payload[0].totalCount;
+    },
+    nextPage(state) {
+      state.pageNo++;
+    },
+    previousPage(state) {
+      state.pageNo--;
+    },
+    changeShowLeft(state, changeShowLeft) {
+      state.showLeft = changeShowLeft;
+    },
   },
+
   actions: {
     //asyncronous
     async setGoodsQA(context, payload) {
@@ -30,9 +44,22 @@ export default {
   },
   getters: {
     getGoodsQA: (state) => {
-      // console.log("in getGoodsQA method", state.goodsQA);
-      // console.log(state.goodsQA);
       return state.goodsQA;
+    },
+    getQaList: (state) => {
+      return state.qaList;
+    },
+    getTotalCount: (state) => {
+      return state.totalCount;
+    },
+    getPageNo: (state) => {
+      return state.pageNo;
+    },
+    getTotalPage: (state) => {
+      return state.totalPage;
+    },
+    getShowLeft: (state) => {
+      return state.showLeft;
     },
   },
 };
