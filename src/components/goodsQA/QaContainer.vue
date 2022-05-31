@@ -78,41 +78,4 @@ section {
   display: inline-block;
   padding-bottom: 5px;
 }
-
-#ZVCQA .zv-select-wrap {
-  overflow: hidden;
-  position: relative;
-  border: 1px solid #bdc3c7;
-  border-radius: 3px;
-  background: #ffffff;
-  width: auto;
-  display: inline-block;
-  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
-  -webkit-box-shadow: inset 0 1px 2px rgb(0 0 0 / 20%);
-  box-shadow: inner 0 1px 2px rgba(0, 0, 0, 0.2);
-  vertical-align: middle;
-}
-
-#ZVCQA .zv-select {
-  padding-right: 1em;
-  cursor: pointer;
-  text-indent: 0.01px;
-  text-overflow: ellipsis;
-  border: none;
-  outline: none;
-  background: transparent;
-  background-image: none;
-  box-shadow: none;
-  -webkit-appearance: none;
-  appearance: none;
-  padding: 4px 38px 4px 8px;
-  font-size: 13px;
-}
-
-.material-symbols-outlined {
-  color: #009e96;
-  flex-shrink: 0;
-  display: inline-block;
-  vertical-align: middle;
-}
 </style>

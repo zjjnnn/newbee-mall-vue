@@ -3,12 +3,9 @@ const headers = { Accept: "application/json" };
 
 export default {
   state: {
-    goodsQA: {},
-    qaList: [],
-    totalCount: Number,
+    goodsQA: { qaList: [] },
     pageNo: 1,
     totalPage: Number,
-    showLeft: false,
   },
   mutations: {
     //syncrous
@@ -16,23 +13,30 @@ export default {
       state.goodsQA = payload[0];
       console.log("array push ", payload);
     },
-    setQaList(state, payload) {
-      state.qaList = payload[0].qaList;
-    },
-    setTotalCount(state, payload) {
-      state.totalCount = payload[0].totalCount;
-    },
     nextPage(state) {
       state.pageNo++;
     },
     previousPage(state) {
       state.pageNo--;
     },
-    changeShowLeft(state, changeShowLeft) {
-      state.showLeft = changeShowLeft;
+    sortList(state, value) {
+      if (value === "total_yes") {
+        state.goodsQA.qaList.sort((a, b) => b.count - a.count);
+      } else {
+        state.goodsQA.qaList.sort(
+          (a, b) => new Date(b.answerDate) - new Date(a.answerDate)
+        );
+      }
     },
   },
-
+  // if (state.totalYesList.length == 0) {
+  //   state.totalYesList = state.goodsQA.qaList;
+  // }
+  // const arr = state.totalYesList.sort((a, b) => b.count - a.count);
+  // if (selected === "total_yes") {
+  //   state.goodsQA.qaList = arr;
+  //   //console.log("state.totalYesList", arr);
+  // }
   actions: {
     //asyncronous
     async setGoodsQA(context, payload) {
@@ -46,20 +50,11 @@ export default {
     getGoodsQA: (state) => {
       return state.goodsQA;
     },
-    getQaList: (state) => {
-      return state.qaList;
-    },
-    getTotalCount: (state) => {
-      return state.totalCount;
-    },
     getPageNo: (state) => {
       return state.pageNo;
     },
-    getTotalPage: (state) => {
-      return state.totalPage;
-    },
-    getShowLeft: (state) => {
-      return state.showLeft;
+    getSelected: (state) => {
+      return state.selected;
     },
   },
 };

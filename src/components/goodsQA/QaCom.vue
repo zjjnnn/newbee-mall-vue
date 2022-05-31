@@ -5,7 +5,7 @@
       <span class="zv-cqa-q-text">{{ questionContents }}</span>
     </div>
     <div class="zv-cqa-q-info">
-      <span class="zv-cqa-q-reviewer">投稿者&nbsp; </span>
+      <!-- <span class="zv-cqa-q-reviewer">投稿者&nbsp; </span> -->
       <span class="zv-cqa-q-created-at">投稿日&nbsp;{{ questionDate }}</span>
     </div>
     <div class="zv-cqa-answers">
