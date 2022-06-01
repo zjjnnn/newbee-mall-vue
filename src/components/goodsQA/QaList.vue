@@ -94,7 +94,7 @@ function previousPage() {
 const totalPage = computed(() => {
   return Math.ceil(totalCount.value / 3); //Math.ceil(x) 向上舍入，如Math.floor(0.60)结果为1；
 });
-
+//@change事件，选择sort方式  e=event
 const sortList = (e) => store.commit("sortList", e.target.value);
 </script>
 

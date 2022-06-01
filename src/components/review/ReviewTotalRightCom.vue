@@ -147,7 +147,7 @@ export default {
 
 .g-flow-sm,
 .g-lg-flow-sm {
-  margin-bottom: -10px;
+  margin-bottom: -5px;
   margin-left: -10px;
 }
 

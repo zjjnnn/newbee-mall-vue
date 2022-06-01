@@ -7,6 +7,9 @@
       </div>
       <div class="g-link">
         <span id="click" @click="state.showTotal = !state.showTotal">
+          <span class="material-symbols-outlined">
+            {{ icon }}
+          </span>
           {{ text }}
         </span>
       </div>
@@ -17,6 +20,9 @@
       </div>
       <div id="click-div">
         <span id="click" @click="state.showTotal = !state.showTotal">
+          <span class="material-symbols-outlined">
+            {{ icon }}
+          </span>
           {{ text }}
         </span>
       </div>
@@ -61,6 +67,13 @@ const text = computed(() => {
     return "レビューをもっと見る（3/" + titleCount.value + "）";
   } else {
     return "閉じる";
+  }
+});
+const icon = computed(() => {
+  if (!state.showTotal) {
+    return "expand_more";
+  } else {
+    return "expand_less";
   }
 });
 </script>

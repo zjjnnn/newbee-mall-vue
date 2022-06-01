@@ -2,7 +2,7 @@
   <div id="normal-productreview">
     <!-- <p>goodsId:{{ goodsId }}</p> -->
     <h2 class="g-h-2 g-h-i p-hd">
-      <i class="g-s g-s-comment" aria-hidden="true"></i>
+      <!-- <i class="g-s g-s-comment" aria-hidden="true"></i> -->
       <span class="material-symbols-outlined"> sms </span>
       <span>レビュー</span>
     </h2>
@@ -76,6 +76,6 @@ div {
 }
 
 .material-symbols-outlined {
-  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  cursor: default;
 }
 </style>

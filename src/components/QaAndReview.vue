@@ -18,4 +18,7 @@ import ReviewContainer from "./review/ReviewContainer.vue";
 section {
   width: 500px;
 }
+div {
+  margin-bottom: 20px;
+}
 </style>

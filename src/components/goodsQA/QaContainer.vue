@@ -78,4 +78,7 @@ section {
   display: inline-block;
   padding-bottom: 5px;
 }
+.material-symbols-outlined {
+  cursor: default;
+}
 </style>

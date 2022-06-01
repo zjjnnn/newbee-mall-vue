@@ -1,8 +1,9 @@
 <template>
   <section class="g-block-sm p-spec" id="js-product-spec">
     <h2 class="g-h-2 g-h-i p-hd">
-      <span class="g-s g-s-size" aria-hidden="true"></span
-      ><span>仕様・サイズ</span>
+      <span class="material-symbols-outlined"> straighten </span>
+      <!-- <span class="g-s g-s-size" aria-hidden="true"></span> -->
+      <span>仕様・サイズ</span>
     </h2>
     <div id="p-specMore" aria-hidden="false" data-accordion-more="">
       <ul
@@ -80,6 +81,7 @@ const warranty = computed(() => store.getters.getInfomations.warranty);
 <style scoped>
 section {
   width: 500px;
+  margin-bottom: 20px;
 }
 .g-h-i .g-i:first-child,
 .g-h-i .g-s:first-child,
@@ -157,5 +159,8 @@ th {
   width: 100%;
   border-spacing: 0;
   border-top: 1px solid #dbdbdb;
+}
+.material-symbols-outlined {
+  cursor: default;
 }
 </style>
