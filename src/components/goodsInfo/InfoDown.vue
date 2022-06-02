@@ -58,7 +58,7 @@
   </section>
 </template>
 
-<script setup>
+<!-- <script setup>
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
@@ -68,15 +68,23 @@ const goodsId = route.params.goodsId;
 
 const store = useStore();
 onMounted(() => {
-  store.dispatch("setInfomations", goodsId);
+  store.dispatch("setInfo", goodsId);
 });
 
-const color = computed(() => store.getters.getInfomations.color);
-const size = computed(() => store.getters.getInfomations.size);
-const material = computed(() => store.getters.getInfomations.material);
-const weight = computed(() => store.getters.getInfomations.weight);
-const warranty = computed(() => store.getters.getInfomations.warranty);
-</script>
+const color = computed(
+  () => store.getters.getInfo.sizeList[0].infoList[0].color
+);
+const size = computed(() => store.getters.getInfo.sizeList[0].infoList[0].size);
+const material = computed(
+  () => store.getters.getInfo.sizeList[0].infoList[0].material
+);
+const weight = computed(
+  () => store.getters.getInfo.sizeList[0].infoList[0].weight
+);
+const warranty = computed(
+  () => store.getters.getInfo.sizeList[0].infoList[0].warranty
+);
+</script> -->
 
 <style scoped>
 section {

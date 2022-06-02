@@ -1,20 +1,21 @@
-<template>
-  <option
-    value="7565681"
-    data-code="05700010014"
-    data-label="シングル"
-    data-parent=""
-  >
-    シングル
-  </option>
+<!-- <template>
+ 
 </template>
 
-<script>
-export default {
-  data() {
-    return {};
-  },
-};
+<script setup>
+import { computed, onMounted, reactive } from "vue";
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const goodsId = route.params.goodsId;
+
+const store = useStore();
+onMounted(() => {
+  store.dispatch("setInfo", goodsId);
+});
+
+
 </script>
 
-<style scoped></style>
+<style scoped></style> -->
