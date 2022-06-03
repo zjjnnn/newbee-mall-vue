@@ -12,7 +12,8 @@ export default {
   mutations: {
     //synchronous 同期
     setReviews(state, payload) {
-      state.reviews.push(...payload);
+      state.reviews = payload;
+      //state.reviews.push(...payload);
       console.log("array push ", payload);
     },
     changeShowed(state, changeShowed) {

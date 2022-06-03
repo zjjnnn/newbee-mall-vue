@@ -733,21 +733,15 @@
           "weight": "約1.25kg",
           "warranty": "1年",
           "photo": [
-            {
-              "imgSrc1": "http://localhost:8080/assets/images/goodsphoto1.jpg"
-            },
-            {
-              "imgSrc1": "http://localhost:8080/assets/images/goodsphoto2.jpg"
-            },
-            {
-              "imgSrc1": "http://localhost:8080/assets/images/goodsphoto3.jpg"
-            },
-            {
-              "imgSrc1": "http://localhost:8080/assets/images/goodsphoto4.jpg"
-            },
-            {
-              "imgSrc1": "http://localhost:8080/assets/images/goodsphoto5.jpg"
-            }
+            "http://localhost:8080/assets/images/goodsphoto1.jpg",
+            "http://localhost:8080/assets/images/goodsphoto2.jpg",
+            "http://localhost:8080/assets/images/goodsphoto3.jpg",
+            "http://localhost:8080/assets/images/goodsphoto4.jpg",
+            "http://localhost:8080/assets/images/goodsphoto5.jpg",
+            "http://localhost:8080/assets/images/goodsphoto6.jpg",
+            "http://localhost:8080/assets/images/goodsphoto7.jpg",
+            "http://localhost:8080/assets/images/goodsphoto8.jpg",
+            "http://localhost:8080/assets/images/goodsphoto9.jpg"
           ],
           "price": 3990,
           "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s WH SD)"
@@ -801,39 +795,14 @@
           "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s DBL D)"
         }
       ],
-      "sizeList": ["シングル", "セミダブル"],
-      "colorList": [
+      "variants": [
         {
-          "sizeType1": [
-            {
-              "color": "ホワイト",
-              "colorValue": "00100190094",
-              "colorDataParent": "05700010014",
-              "colorSrc": "https://www.nitori-net.jp/ecstatic/image/sys-master/images/8966164348958/BasicColor_WH.jpg"
-            },
-            {
-              "color": "グレー",
-              "colorValue": "00100070019",
-              "colorDataParent": "05700010014",
-              "colorSrc": "https://www.nitori-net.jp/ecstatic/image/sys-master/images/8965479792670/BasicColor_GRY.jpg"
-            }
-          ]
+          "size": "シングル",
+          "color": ["ホワイト", "グレー"]
         },
         {
-          "sizeType2": [
-            {
-              "color": "ホワイト",
-              "colorValue": "00100190094",
-              "colorDataParent": "05700010017",
-              "colorSrc": "https://www.nitori-net.jp/ecstatic/image/sys-master/images/8966164348958/BasicColor_WH.jpg"
-            },
-            {
-              "color": "ダークブルー",
-              "colorValue": "00100170025",
-              "colorDataParent": "05700010017",
-              "colorSrc": "https://www.nitori-net.jp/ecstatic/image/sys-master/images/8796331900958/BasicColor_DBL.jpg"
-            }
-          ]
+          "size": "セミダブル",
+          "color": ["ホワイト", "ダークブルー"]
         }
       ]
     }

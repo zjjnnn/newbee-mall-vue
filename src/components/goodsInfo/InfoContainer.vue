@@ -2,13 +2,28 @@
   <div class="g-grid_item js-sku-details" id="p-specGridItem">
     <info-up></info-up>
     <div class="g-block-sm js-sku-cutlock"></div>
-    <info-down></info-down>
+    <!-- <div v-for="(info, index) in infoList" :key="index">
+      <info-down v-bind="info"></info-down>
+    </div> -->
   </div>
 </template>
 
 <script setup>
 import InfoUp from "./InfoUp.vue";
-import InfoDown from "./InfoDown.vue";
+// import InfoDown from "./InfoDown.vue";
+// import { computed, onMounted } from "vue";
+// import { useStore } from "vuex";
+// import { useRoute } from "vue-router";
+
+// const route = useRoute();
+// const goodsId = route.params.goodsId;
+
+// const store = useStore();
+// onMounted(() => {
+//   store.dispatch("setInfos", { goodsId });
+// });
+
+// const infoList = computed(() => store.getters.getInfoList);
 </script>
 
 <style scoped></style>

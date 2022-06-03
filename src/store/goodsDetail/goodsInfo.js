@@ -3,39 +3,98 @@ const headers = { Accept: "application/json" };
 
 export default {
   state: {
-    info: {},
-    sizeType1: [],
+    infos: {},
+    infoList: [],
+    variants: [],
+    imgList: [],
+    newList: [],
+    size: "",
+    color: "",
   },
   mutations: {
     //synchronous 同期
-    setInfo(state, payload) {
-      state.info = payload[0];
-      state.infoList = payload[0].infoList;
-      state.sizeType1 = payload[0].colorList[0];
-      //console.log("array push ", payload);
+    setInfos(state, payload) {
+      state.infos = payload;
+      console.log("array push infos", payload);
     },
+    setInfoList(state, payload) {
+      // state.infoList.push(...payload);
+      state.infoList = payload;
+      console.log("array push infoList", payload);
+    },
+    setVariants(state, payload) {
+      //state.variants.push(...payload);
+      state.variants = payload;
+      console.log("array push variants", payload);
+    },
+    setImgList(state, { size, color }) {
+      let imgs = state.infoList.filter(
+        (info) => info.sizeType === size && info.color === color
+      )[0].photo;
 
-    filterSize(state, size) {
-      state.info.sizeList.filter((info) => info.size === size);
+      //每8张照片放进一组，放入一个list
+      const limit = 8;
+      let count = Math.ceil(imgs.length / limit);
+      let index = 0;
+      state.imgList = []; //清空
+      while (index < count) {
+        state.imgList.push(imgs.slice(index * limit, index * limit + limit));
+        index++;
+      }
     },
-    filterColor(state, color) {
-      state.info.sizeList.infoList.filter((info) => info.color === color);
+    setNewInfoList(state, { size, color }) {
+      state.infoList.filter(
+        (info) => info.sizeType === size && info.color === color
+      );
+    },
+    setSize(state, payload) {
+      state.size = payload;
+    },
+    setColor(state, payload) {
+      state.color = payload;
     },
   },
   actions: {
     //asyncronous 非同期
-    async setInfo(context, payload) {
-      const info = await fetch(url + payload, { headers });
-      const j = await info.json();
-      context.commit("setInfo", j);
+    async setInfos(context, payload) {
+      const infos = await fetch(url + payload, { headers });
+      const j = await infos.json();
+      context.commit("setInfos", j[0]);
+      context.commit("setInfoList", j[0].infoList);
+      context.commit("setVariants", j[0].variants);
+      const size = j[0].variants[0].size;
+      const color = j[0].variants[0].color[0];
+
+      context.commit("setSize", size);
+      context.commit("setColor", color);
+      context.commit("setImgList", { size, color });
+      context.commit("setNewInfoList", { size, color });
     },
   },
   getters: {
-    getInfo: (state) => {
-      return state.info;
+    getInfos: (state) => {
+      return state.infos;
     },
-    getSizeType1: (state) => {
-      return state.sizeType1;
+    getInfoList: (state) => {
+      console.log("bbbbbbbbb", state.infoList);
+      return state.infoList;
+    },
+    getVariants: (state) => {
+      console.log("aaaaaaaaaaaaaaaa", state.variants);
+      return state.variants;
+    },
+    getImgList: (state) => {
+      return state.imgList;
+    },
+    getSize: (state) => {
+      return state.size;
+    },
+    getColor: (state) => {
+      return state.color;
+    },
+    getNewInfoList: (state) => {
+      console.log("qqqqqq", state.newInfoList);
+      return state.newInfoList;
     },
   },
 };

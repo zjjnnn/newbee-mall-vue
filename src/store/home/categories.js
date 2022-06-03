@@ -8,8 +8,8 @@ export default {
   mutations: {
     //syncrous
     setCategories(state, payload) {
-      state.categories.push(...payload);
-      //state.categories = payload
+      // state.categories.push(...payload);
+      state.categories = payload;
       console.log("array push ", payload);
     },
   },

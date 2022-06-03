@@ -1,51 +1,28 @@
 <template>
   <div class="g-units-lg">
-    <dl class="p-customize js-sku-variations" data-index="0">
+    <dl class="p-customize js-sku-variations">
       <!-- select size -->
       <dt>
-        サイズ：<b id="p-customize0サイズ">{{ state.val }}</b>
+        <!-- サイズ：<b>{{ state.val }}</b> -->
       </dt>
       <dd>
-        <div class="g-select g-select-sm js-sku-variations-dropdown">
-          <i class="g-i g-i-dropdown" aria-hidden="true"></i>
-          <select
-            name=""
-            required=""
-            aria-required="true"
-            aria-label="サイズの選択"
-            data-control="#p-eo-label-"
-            @change="changeSize"
-          >
-            <template v-for="size in sizeList" :key="size">
-              <option :data-label="size" data-parent="">
-                {{ size }}
-              </option>
-            </template>
-          </select>
-        </div>
+        <select
+          v-model="size"
+          @change="store.commit('setImgList', { size, color })"
+        >
+          <option v-for="(v, index) in variants" :key="index">
+            {{ v.size }}
+          </option>
+        </select>
       </dd>
       <!-- select color -->
-      <dt>カラー：<b id="p-customize1カラー">ダークブルー</b></dt>
+      <dt>カラー：<b>ダークブルー</b></dt>
       <dd>
-        <ul class="g-flow-sm">
-          <li v-for="(color, index) in colorList1" :key="index">
-            <label class="g-checkable g-checkable-circle">
-              <input
-                type="radio"
-                name="1カラー"
-                :value="color.color"
-                :data-parent="color.colorDataParent"
-                :data-index="index"
-                :data-label="color.color"
-                data-control="#p-customize1カラー"
-              />
-              <span
-                ><span class="g-checkable_checked"></span
-                ><img :src="colorSrc" :alt="color"
-              /></span>
-            </label>
-          </li>
-        </ul>
+        <select v-model="color" @change="changeColor">
+          <option v-for="c in defaultColor" :key="c">
+            {{ c }}
+          </option>
+        </select>
       </dd>
     </dl>
     <!-- 商品描述 -->
@@ -83,7 +60,7 @@
 
 <script setup>
 // import InfoSize from "./InfoSize.vue";
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
@@ -92,23 +69,55 @@ const goodsId = route.params.goodsId;
 
 const store = useStore();
 onMounted(() => {
-  store.dispatch("setInfo", goodsId);
+  store.dispatch("setInfos", goodsId);
 });
-const state = reactive({
-  val: "シングル",
+// const state = reactive({
+//   val: "シングル",
+// });
+
+const variants = computed(() => store.getters.getVariants);
+console.log("variantsaaaaaaa", variants);
+const defaultColor = computed(() => {
+  if (store.getters.getVariants[0]) {
+    return store.getters.getVariants[0].color;
+  } else {
+    return [];
+  }
 });
-
-const sizeList = computed(() => store.getters.getInfo.sizeList);
-const colorList1 = computed(() => store.getters.getSizeType1.color);
-
-//const infoList =
-function changeSize(e) {
-  state.val = e.target.value;
-}
-const goodsDescribe = computed(() => store.getters.getInfo.goodsDescribe);
+let size = computed(() => store.getters.getSize);
+let color = computed(() => store.getters.getColor);
+const changeColor = (e) => {
+  store.commit("setImgList", { size: size.value, color: e.target.value });
+};
+const goodsDescribe = computed(() => store.getters.getInfos.goodsDescribe);
 </script>
 
 <style scoped>
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+dl {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+b {
+  font-weight: bold;
+}
+body {
+  font-size: 1.4rem;
+  line-height: 1.42857;
+}
+dd {
+  display: block;
+  margin-inline-start: 40px;
+  margin-left: 0;
+  margin-bottom: 10px;
+}
 .g-select {
   position: relative;
   display: inline-block;
@@ -117,48 +126,24 @@ const goodsDescribe = computed(() => store.getters.getInfo.goodsDescribe);
   border-radius: 4px;
   background-color: #fff;
 }
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 .g-select-sm .g-i {
   right: 7px;
 }
-b {
-  font-weight: bold;
+.g-select option {
+  color: #333;
 }
-.p-customize dt {
-  margin-bottom: 7px;
-}
-
-.g-select-sm select {
-  height: 34px;
-  padding-right: 33px;
-}
-input,
-textarea,
-select,
-optgroup,
-button {
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: inherit;
-  line-height: inherit;
-  color: inherit;
-}
-
-.p-customize dd + dt {
-  margin-top: 15px;
+option {
+  font-weight: normal;
+  display: block;
+  white-space: nowrap;
+  min-height: 1.2em;
+  padding: 0px 2px 1px;
 }
 .g-flow-sm,
 .g-lg-flow-sm {
   margin-bottom: -10px;
   margin-left: -10px;
 }
-
 .g-flow,
 .g-lg-flow,
 .g-flow-0,
@@ -174,10 +159,24 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
 .g-flow-sm > *,
 .g-lg-flow-sm > * {
   margin-bottom: 10px;
   margin-left: 10px;
+}
+li {
+  display: list-item;
+  text-align: -webkit-match-parent;
+}
+ul,
+ol {
+  padding: 0;
+  list-style: none;
 }
 .g-checkable-circle,
 .g-checkable-square,
@@ -189,6 +188,32 @@ button {
 .g-checkable-circle,
 .g-lg-checkable-circle {
   border-radius: 50%;
+}
+.g-checkable-circle,
+.g-checkable-square,
+.g-lg-checkable-circle,
+.g-lg-checkable-square {
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+}
+.g-checkable-img,
+.g-checkable-circle,
+.g-checkable-square,
+.g-lg-checkable-img,
+.g-lg-checkable-circle,
+.g-lg-checkable-square {
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 0 0 1px #dbdbdb inset;
+}
+
+.g-checkable,
+.g-lg-checkable {
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
 }
 .g-checkable input[type="radio"],
 .g-checkable input[type="checkbox"],
@@ -206,33 +231,6 @@ button {
   -moz-appearance: none;
   appearance: none;
 }
-input[type="checkbox"] {
-  cursor: pointer;
-}
-.g-checkable input:checked + span .g-checkable_off,
-.g-checkable input:not(:checked) + span .g-checkable_on,
-.g-checkable input:not(:checked) + span .g-checkable_checked,
-.g-checkable
-  input[type="checkbox"][aria-invalid="true"]
-  + span
-  .g-checkable_off,
-.g-checkable
-  input[type="checkbox"]:not([aria-invalid="true"])
-  + span
-  .g-checkable_invalid,
-.g-lg-checkable input:checked + span .g-checkable_off,
-.g-lg-checkable input:not(:checked) + span .g-checkable_on,
-.g-lg-checkable input:not(:checked) + span .g-checkable_checked,
-.g-lg-checkable
-  input[type="checkbox"][aria-invalid="true"]
-  + span
-  .g-checkable_off,
-.g-lg-checkable
-  input[type="checkbox"]:not([aria-invalid="true"])
-  + span
-  .g-checkable_invalid {
-  display: none;
-}
 .g-checkable-circle .g-checkable_checked,
 .g-lg-checkable-circle .g-checkable_checked {
   border-radius: 50%;
@@ -246,16 +244,20 @@ input[type="checkbox"] {
   left: 0;
   box-shadow: 0 0 0 2px #009e96 inset;
 }
-.g-checkable-circle img,
-.g-lg-checkable-circle img {
-  overflow: hidden;
-  border-radius: 50%;
+.g-checkable-img,
+.g-checkable-circle,
+.g-checkable-square,
+.g-lg-checkable-img,
+.g-lg-checkable-circle,
+.g-lg-checkable-square {
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 0 0 1px #dbdbdb inset;
 }
 .g-checkable-circle img,
-.g-checkable-square img,
-.g-lg-checkable-circle img,
-.g-lg-checkable-square img {
-  max-height: 100%;
+.g-sm-checkable-circle img {
+  overflow: hidden;
+  border-radius: 50%;
 }
 img {
   max-width: 100%;
@@ -263,13 +265,24 @@ img {
   border: 0;
   height: auto;
 }
-
 .g-units-lg > *:nth-child(n + 2):not(.g-units_ignore),
 .g-lg-units-lg > *:nth-child(n + 2):not(.g-units_ignore) {
   margin-top: 20px;
 }
-dd.price-size-up {
-  font-size: 2.5rem;
+.g-flow-0 {
+  margin-bottom: 0;
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.p-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.g-price-lg,
+.g-lg-price-lg {
+  font-size: 2.6rem;
 }
 .g-price,
 .g-lg-price {
@@ -277,9 +290,6 @@ dd.price-size-up {
   font-size: 1.8rem;
   font-weight: bold;
   color: #000;
-}
-dd.price-size-up > span {
-  font-size: 1.2rem;
 }
 .g-price span,
 .g-lg-price span {
@@ -290,16 +300,8 @@ dd.price-size-up > span {
   -webkit-font-feature-settings: "palt";
   font-feature-settings: "palt";
 }
-.g-units-xs > *:nth-child(n + 2):not(.g-units_ignore),
-.g-lg-units-xs > *:nth-child(n + 2):not(.g-units_ignore) {
-  margin-top: 5px;
-}
-.g-butterfly,
-.g-lg-butterfly {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+dd.price-size-up > span {
+  font-size: 1.6rem;
 }
 .p-point .g-digit {
   font-size: larger;
@@ -310,19 +312,34 @@ dd.price-size-up > span {
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-weight: bold;
 }
-.g-link,
-.g-lg-link {
-  display: inline-flex;
+.g-butterfly,
+.g-lg-butterfly {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
-a {
-  text-decoration: none;
-  color: #333;
+.js-sku-price .p-point-link,
+.bundle-js-price .p-point-link {
+  width: auto;
 }
-
-.g-i-info,
-.g-i-blank,
-.g-i-plus {
-  color: #009e96;
+.js-sku-price .p-point-link,
+.bundle-js-price .p-point-link {
+  text-align: right;
+  flex-grow: 1;
 }
+.g-font-sm,
+.g-lg-font-sm {
+  font-size: 1.2rem !important;
+  line-height: 1.5 !important;
+}
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+}
+.js-sku-price .p-point-link,
+.bundle-js-price .p-point-link {
+  text-align: right;
+  flex-grow: 1;
+} */
 </style>

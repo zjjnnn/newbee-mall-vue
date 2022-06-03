@@ -4,12 +4,12 @@ const headers = { Accept: "application/json" };
 export default {
   state: {
     newGoodses: [],
-    day: { years: [], year: new Date().getFullYear(), month: 0, day: 1 },
   },
   mutations: {
     //syncrous
     setNewGoods(state, payload) {
-      state.newGoodses.push(...payload);
+      //state.newGoodses.push(...payload);
+      state.newGoodses = payload;
       console.log("array push ", payload);
     },
 

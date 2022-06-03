@@ -13,7 +13,7 @@
         <tbody>
           <tr>
             <th>商品コード</th>
-            <td>{{ goodsId }}</td>
+            <td>{{ sku }}</td>
           </tr>
           <tr>
             <th>カラー</th>
@@ -58,33 +58,29 @@
   </section>
 </template>
 
-<!-- <script setup>
-import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
-import { useRoute } from "vue-router";
+<script setup>
+// import { computed, onMounted } from "vue";
+// import { useStore } from "vuex";
+// import { useRoute } from "vue-router";
 
-const route = useRoute();
-const goodsId = route.params.goodsId;
+// const route = useRoute();
+// const goodsId = route.params.goodsId;
 
-const store = useStore();
-onMounted(() => {
-  store.dispatch("setInfo", goodsId);
+// const store = useStore();
+// onMounted(() => {
+//   store.dispatch("setInfo", goodsId);
+// });
+import { defineProps, toRefs } from "vue";
+const props = defineProps({
+  sku: String,
+  color: String,
+  size: String,
+  material: String,
+  weight: String,
+  warranty: String,
 });
-
-const color = computed(
-  () => store.getters.getInfo.sizeList[0].infoList[0].color
-);
-const size = computed(() => store.getters.getInfo.sizeList[0].infoList[0].size);
-const material = computed(
-  () => store.getters.getInfo.sizeList[0].infoList[0].material
-);
-const weight = computed(
-  () => store.getters.getInfo.sizeList[0].infoList[0].weight
-);
-const warranty = computed(
-  () => store.getters.getInfo.sizeList[0].infoList[0].warranty
-);
-</script> -->
+const { sku, color, size, material, weight, warranty } = toRefs(props);
+</script>
 
 <style scoped>
 section {

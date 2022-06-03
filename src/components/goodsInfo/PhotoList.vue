@@ -470,7 +470,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .swiper-wrapper {
   position: relative;
   width: 100%;
