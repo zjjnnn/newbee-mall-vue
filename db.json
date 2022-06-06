@@ -756,7 +756,13 @@
           "material": "ナイロン／ＰＥ／ＰＡ／ＰＵ",
           "weight": "約1.25kg",
           "warranty": "1年",
-          "photo": "image.jpg",
+          "photo": [
+            "http://localhost:8080/assets/images/goods1.jpg",
+            "http://localhost:8080/assets/images/goods2.jpg",
+            "http://localhost:8080/assets/images/goods3.jpg",
+            "http://localhost:8080/assets/images/goods4.jpg",
+            "http://localhost:8080/assets/images/goods1.jpg"
+          ],
           "price": 3990,
           "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s GY S)"
         },

@@ -7,7 +7,7 @@ export default {
     infoList: [],
     variants: [],
     imgList: [],
-    newList: [],
+    newInfoList: {},
     size: "",
     color: "",
   },
@@ -27,7 +27,10 @@ export default {
       state.variants = payload;
       console.log("array push variants", payload);
     },
-    setImgList(state, { size, color }) {
+    setNewList(state, { size, color }) {
+      state.newInfoList = state.infoList.filter(
+        (info) => info.sizeType === size && info.color === color
+      );
       let imgs = state.infoList.filter(
         (info) => info.sizeType === size && info.color === color
       )[0].photo;
@@ -41,15 +44,19 @@ export default {
         state.imgList.push(imgs.slice(index * limit, index * limit + limit));
         index++;
       }
+
+      state.size = size;
+      state.color = color;
     },
-    setNewInfoList(state, { size, color }) {
-      state.infoList.filter(
-        (info) => info.sizeType === size && info.color === color
-      );
-    },
+    // setNewInfoList(state, { size, color }) {
+    //   state.newInfoList=state.infoList.filter(
+    //     (info) => info.sizeType === size && info.color === color
+    //   );
+    // },
     setSize(state, payload) {
       state.size = payload;
     },
+
     setColor(state, payload) {
       state.color = payload;
     },
@@ -67,8 +74,8 @@ export default {
 
       context.commit("setSize", size);
       context.commit("setColor", color);
-      context.commit("setImgList", { size, color });
-      context.commit("setNewInfoList", { size, color });
+      context.commit("setNewList", { size, color });
+      //context.commit("setNewInfoList", { size, color });
     },
   },
   getters: {
@@ -76,11 +83,11 @@ export default {
       return state.infos;
     },
     getInfoList: (state) => {
-      console.log("bbbbbbbbb", state.infoList);
+      //console.log("bbbbbbbbb", state.infoList);
       return state.infoList;
     },
     getVariants: (state) => {
-      console.log("aaaaaaaaaaaaaaaa", state.variants);
+      //console.log("aaaaaaaaaaaaaaaa", state.variants);
       return state.variants;
     },
     getImgList: (state) => {

@@ -3,20 +3,19 @@
     <dl class="p-customize js-sku-variations">
       <!-- select size -->
       <dt>
-        <!-- サイズ：<b>{{ state.val }}</b> -->
+        サイズ：<b>{{ size }}</b>
       </dt>
       <dd>
-        <select
-          v-model="size"
-          @change="store.commit('setImgList', { size, color })"
-        >
+        <select v-model="size" @change="change">
           <option v-for="(v, index) in variants" :key="index">
             {{ v.size }}
           </option>
         </select>
       </dd>
       <!-- select color -->
-      <dt>カラー：<b>ダークブルー</b></dt>
+      <dt>
+        カラー：<b>{{ color }}</b>
+      </dt>
       <dd>
         <select v-model="color" @change="changeColor">
           <option v-for="c in defaultColor" :key="c">
@@ -35,23 +34,10 @@
         <div class="g-flow-0 g-align-fbl">
           <dl class="p-price">
             <dd class="g-price g-price-lg price-size-up">
-              {{ price }} 5,990<span>円</span>
+              {{ price }}
             </dd>
           </dl>
         </div>
-      </div>
-
-      <div class="g-butterfly">
-        <p class="p-point">
-          <!-- point = Math.round(price/1.1/100) -->
-          獲得ポイント<span class="g-digit">54 pt {{ point }}</span> 付与
-        </p>
-        <p class="g-font-sm p-point-link">
-          <a class="g-link" href="/ec/userguide/memberscardpoint/">
-            <span>ポイントについて</span>
-            <i class="g-i g-i-info" aria-hidden="true"></i>
-          </a>
-        </p>
       </div>
     </div>
     <p class="js-sku-delivery"></p>
@@ -71,12 +57,8 @@ const store = useStore();
 onMounted(() => {
   store.dispatch("setInfos", goodsId);
 });
-// const state = reactive({
-//   val: "シングル",
-// });
-
 const variants = computed(() => store.getters.getVariants);
-console.log("variantsaaaaaaa", variants);
+//console.log("variantsaaaaaaa", variants);
 const defaultColor = computed(() => {
   if (store.getters.getVariants[0]) {
     return store.getters.getVariants[0].color;
@@ -86,10 +68,17 @@ const defaultColor = computed(() => {
 });
 let size = computed(() => store.getters.getSize);
 let color = computed(() => store.getters.getColor);
+// const change = (e) => {
+//   size.value = e.target.value;
+// };
 const changeColor = (e) => {
-  store.commit("setImgList", { size: size.value, color: e.target.value });
+  store.commit("setNewList", { size: size.value, color: e.target.value });
+};
+const change = (e) => {
+  store.commit("setNewList", { size: e.target.value, color });
 };
 const goodsDescribe = computed(() => store.getters.getInfos.goodsDescribe);
+const price = computed(() => store.getters.getNewInfoList.price);
 </script>
 
 <style scoped>

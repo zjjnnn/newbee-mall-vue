@@ -1,4 +1,28 @@
 <template>
+  <div class="g-units-xs js-sku-price">
+    <div>
+      <div class="g-flow-0 g-align-fbl">
+        <dl class="p-price">
+          <dd class="g-price g-price-lg price-size-up">
+            {{ price }}<span>円</span>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="g-butterfly">
+      <p class="p-point">
+        <!-- point = Math.round(price/1.1/100) -->
+        獲得ポイント<span class="g-digit">{{ point }}pt</span> 付与
+      </p>
+      <p class="g-font-sm p-point-link">
+        <a class="g-link" href="/ec/userguide/memberscardpoint/">
+          <span>ポイントについて</span>
+          <i class="g-i g-i-info" aria-hidden="true"></i>
+        </a>
+      </p>
+    </div>
+  </div>
   <section class="g-block-sm p-spec" id="js-product-spec">
     <h2 class="g-h-2 g-h-i p-hd">
       <span class="material-symbols-outlined"> straighten </span>
@@ -78,8 +102,10 @@ const props = defineProps({
   material: String,
   weight: String,
   warranty: String,
+  price: Number,
 });
 const { sku, color, size, material, weight, warranty } = toRefs(props);
+let point = Math.round(props.price / 1.1 / 100);
 </script>
 
 <style scoped>
@@ -166,5 +192,72 @@ th {
 }
 .material-symbols-outlined {
   cursor: default;
+}
+.p-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.g-price-lg,
+.g-lg-price-lg {
+  font-size: 2.6rem;
+}
+.g-price,
+.g-lg-price {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #000;
+}
+.g-price span,
+.g-lg-price span {
+  font-size: 1.1rem;
+  font-weight: normal;
+  margin-right: 0.2em;
+  margin-left: 0.2em;
+  -webkit-font-feature-settings: "palt";
+  font-feature-settings: "palt";
+}
+dd.price-size-up > span {
+  font-size: 1.6rem;
+}
+.p-point .g-digit {
+  font-size: larger;
+  margin: 0 5px 0 1em;
+  color: #eb6157;
+}
+.g-digit {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-weight: bold;
+}
+.g-butterfly,
+.g-lg-butterfly {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.js-sku-price .p-point-link,
+.bundle-js-price .p-point-link {
+  width: auto;
+}
+.js-sku-price .p-point-link,
+.bundle-js-price .p-point-link {
+  text-align: right;
+  flex-grow: 1;
+}
+.g-font-sm,
+.g-lg-font-sm {
+  font-size: 1.2rem !important;
+  line-height: 1.5 !important;
+}
+a:-webkit-any-link {
+  color: -webkit-link;
+  cursor: pointer;
+}
+.js-sku-price .p-point-link,
+.bundle-js-price .p-point-link {
+  text-align: right;
+  flex-grow: 1;
 }
 </style>

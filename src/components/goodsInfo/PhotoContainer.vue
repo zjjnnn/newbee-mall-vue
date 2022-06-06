@@ -30,11 +30,16 @@ let imgList = computed(() => store.getters.getImgList);
 
 <style scoped>
 .swiper-slide {
-  width: 395px;
-}
-.silde-image-div {
   width: 350px;
   height: 350px;
+  display: flex;
+  justify-content: flex-start;
+}
+.silde-image-div {
+  width: 80px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 /* .g-layout-detail .g-layout_body {
   -ms-grid-row: 3;
