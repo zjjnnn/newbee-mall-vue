@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CateSubitem from "./CateSubitem.vue";
 import { onMounted, computed } from "vue";
 // import { mapActions, mapGetters } from "vuex";
@@ -38,15 +38,21 @@ let categories = computed(() => store.getters.getCategories);
 //let { displayOrNot } = toRefs(state);
 
 //鼠标放上去(mouseOver),显示第二三级别(display = "block")，
-const mouseOverFun = (event) => {
+const mouseOverFun = (event: MouseEvent) => {
   // console.log("event", event.target);
-  let style = "top:" + event.target.offsetTop + "px; display:block";
-  event.target.querySelector(".item-list").style = style;
+  let style =
+    "top:" + (event.target as HTMLElement)!.offsetTop + "px; display:block";
+  (event.target as HTMLElement)
+    .querySelector(".item-list")!
+    .setAttribute("style", style);
 };
 //鼠标拿开(mouseLeave),消失(display = "none")
-const mouseLeaveFun = (event) => {
-  console.log("event", event);
-  event.target.querySelector(".item-list").style.display = "none";
+const mouseLeaveFun = (event: MouseEvent) => {
+  //console.log("event", event);
+  let style = "display:none";
+  (event.target as HTMLElement)
+    .querySelector(".item-list")!
+    .setAttribute("style", style);
 };
 </script>
 
