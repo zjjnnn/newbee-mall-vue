@@ -23,8 +23,8 @@
 import CateSubitem from "./CateSubitem.vue";
 import { onMounted, computed } from "vue";
 // import { mapActions, mapGetters } from "vuex";
-import { useStore } from "vuex";
-
+//import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 const store = useStore();
 onMounted(() => {
   store.dispatch("setCategories");

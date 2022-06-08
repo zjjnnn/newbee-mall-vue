@@ -44,12 +44,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {};
-  },
-};
+<script lang="ts">
+export default {};
 </script>
 
 <style>

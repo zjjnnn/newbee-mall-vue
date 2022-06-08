@@ -4,26 +4,31 @@ const headers = { Accept: "application/json" };
 type GoodsInfoState = {
   infos: {};
   infoList: [];
-  variants: [];
+  variants: V[];
   imgList: string[][];
   newInfoList: {};
   size: string;
   color: string;
+  colors: string[];
 };
 
 type InfoList = {
-  sizeType: string;
+  size: string;
   sizeValue: string;
   sizeDataCode: string;
   sku: string;
   color: string;
-  size: string;
+  sizeDetail: string;
   material: string;
   weight: string;
   warranty: string;
   photo: string[];
   price: number;
   title: string;
+};
+type V = {
+  size: string;
+  color: string[];
 };
 
 export default {
@@ -35,6 +40,7 @@ export default {
     newInfoList: {},
     size: "",
     color: "",
+    colors: [],
   },
   mutations: {
     //synchronous 同期
@@ -52,17 +58,18 @@ export default {
       state.variants = payload;
       console.log("array push variants", payload);
     },
+
     setNewList(
       state: GoodsInfoState,
       { size, color }: { size: string; color: string }
     ) {
       let imgs: string[] = [];
       state.newInfoList = state.infoList.filter(
-        (info: InfoList) => info.sizeType === size && info.color === color
+        (info: InfoList) => info.size === size && info.color === color
       );
 
       imgs = state.infoList.filter(
-        (info: InfoList) => info.sizeType === size && info.color === color
+        (info: InfoList) => info.size === size && info.color === color
       )[0]["photo"];
 
       //每8张照片放进一组，放入一个list

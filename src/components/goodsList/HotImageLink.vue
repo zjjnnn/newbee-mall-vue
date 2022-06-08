@@ -2,7 +2,7 @@
   <router-link :to="link"> <img :src="imgSrc" :alt="name" /></router-link>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     link: String,

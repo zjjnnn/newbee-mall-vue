@@ -69,8 +69,9 @@
 
 <script>
 import StarRating from "vue-star-rating";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   components: {
     StarRating,
   },
@@ -107,14 +108,14 @@ export default {
     helpfulText() {
       if (this.helped && this.code === 200) {
         return "ありがとうございます！";
-      } else if (this.helped && !this.code == 200) {
+      } else if (this.helped && this.code !== 200) {
         return "もう一回クリックしてください！";
       } else {
         return null;
       }
     },
   },
-};
+});
 </script>
 
 <style>

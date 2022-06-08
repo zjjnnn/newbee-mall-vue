@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import store from "./store";
+import { store, key } from "./store";
+//import store from "./store";
 import router from "./router/router";
 import "viewerjs/dist/viewer.css";
 import VueViewer from "v-viewer";
@@ -10,6 +11,6 @@ import VueViewer from "v-viewer";
 const app = createApp(App);
 // app.use(Antd);
 app.use(VueViewer);
-app.use(store);
+app.use(store, key);
 app.use(router);
 app.mount("#app");

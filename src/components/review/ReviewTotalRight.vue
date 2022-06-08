@@ -8,7 +8,8 @@
 
 <script setup>
 import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 import ReviewTotalRightCom from "./ReviewTotalRightCom.vue";
 // export default {

@@ -8,11 +8,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import InfoUp from "./InfoUp.vue";
 import InfoDown from "./InfoDown.vue";
 import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

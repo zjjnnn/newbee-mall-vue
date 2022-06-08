@@ -6,11 +6,12 @@
   </ul>
 </template>
 
-<script>
+<script lang="ts">
 import GoodsLi from "./GoodsLi.vue";
+import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 
-export default {
+export default defineComponent({
   components: {
     GoodsLi,
   },
@@ -23,7 +24,7 @@ export default {
   mounted() {
     this.fetchNewGoodses();
   },
-};
+});
 </script>
 <style>
 .flex-ul {

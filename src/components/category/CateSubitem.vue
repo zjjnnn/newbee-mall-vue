@@ -7,7 +7,7 @@
   </dl>
 </template>
 
-<script>
+<script lang="ts">
 import CateLink from "./CateLink.vue";
 export default {
   components: { CateLink },

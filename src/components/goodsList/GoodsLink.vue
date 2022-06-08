@@ -19,8 +19,9 @@
   </router-link>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+export default defineComponent({
   data() {
     return {
       showComment: false,
@@ -43,7 +44,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style scoped>

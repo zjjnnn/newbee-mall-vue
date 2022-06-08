@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import HotImage from "./HotImage.vue";
 import { reactive, onMounted } from "vue";
 // export default {
@@ -23,7 +23,7 @@ onMounted(async () => {
   const headers = { Accept: "application/json" };
   const goodses = await fetch(url, { headers });
   const j = await goodses.json();
-  state.hotGoods = [...j];
+  state.hotGoods = j;
   //       const newArr = j.map((goods) => {
   //         const { link, imgSrc, name } = goods;
   //         return { link, imgSrc, name };

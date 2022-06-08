@@ -128,7 +128,7 @@ definedProps({
 });
 </script> -->
 
-<script>
+<script lang="ts">
 export default {
   props: {
     questionContents: String,

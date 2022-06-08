@@ -3,7 +3,7 @@
     <dl class="p-customize js-sku-variations">
       <!-- select size -->
       <dt>
-        サイズ：<b>{{ size }}</b>
+        <!-- サイズ：<b>{{ size }}</b> -->
       </dt>
       <dd>
         <select v-model="size" @change="change">
@@ -44,10 +44,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // import InfoSize from "./InfoSize.vue";
 import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -58,7 +59,7 @@ onMounted(() => {
   store.dispatch("setInfos", goodsId);
 });
 const variants = computed(() => store.getters.getVariants);
-//console.log("variantsaaaaaaa", variants);
+console.log("variantsaaaaaaa", variants);
 const defaultColor = computed(() => {
   if (store.getters.getVariants[0]) {
     return store.getters.getVariants[0].color;
@@ -71,12 +72,18 @@ let color = computed(() => store.getters.getColor);
 // const change = (e) => {
 //   size.value = e.target.value;
 // };
-const changeColor = (e) => {
-  store.commit("setNewList", { size: size.value, color: e.target.value });
+const changeColor = (e: Event) => {
+  if (e.target instanceof HTMLSelectElement) {
+    store.commit("setNewList", { size: size.value, color: e.target.value });
+  }
 };
-const change = (e) => {
-  store.commit("setNewList", { size: e.target.value, color });
+const change = (e: Event) => {
+  if (e.target instanceof HTMLSelectElement) {
+    size.value = e.target.value;
+    store.commit("setNewList", { size: e.target.value, color });
+  }
 };
+console.log("size", size.value);
 const goodsDescribe = computed(() => store.getters.getInfos.goodsDescribe);
 const price = computed(() => store.getters.getNewInfoList.price);
 </script>

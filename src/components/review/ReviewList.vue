@@ -37,7 +37,8 @@
 
 <script setup>
 import { computed, onMounted, reactive } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 import ReviewCom from "./ReviewCom.vue";
 

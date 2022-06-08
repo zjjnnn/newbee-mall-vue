@@ -8,7 +8,14 @@
   </dd>
 </template>
 
-<script>
+<!-- <script>
+export default {
+  props: {
+    categories3: { link: String, categoryName: String },
+  },
+};
+</script> -->
+<script lang="ts">
 export default {
   props: {
     categories3: { link: String, categoryName: String },

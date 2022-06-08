@@ -39,8 +39,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { onMounted, computed } from "vue";
-import { useStore } from "vuex";
-
+// import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 // Import Swiper styles
 export default {
   components: {

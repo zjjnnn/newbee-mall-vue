@@ -8,7 +8,7 @@
   <question-post></question-post>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import QaList from "./QaList.vue";
 import QuestionPost from "./QuestionPost.vue";
 </script>

@@ -1,4 +1,6 @@
-import { createStore } from "vuex";
+import { InjectionKey } from "vue";
+import { createStore, Store, useStore as baseUseStore } from "vuex";
+//import { createStore } from "vuex";
 import category from "./home/categories";
 import newgoods from "./home/newgoods";
 import swiper from "./home/swiper";
@@ -7,8 +9,9 @@ import reviewTotal from "./goodsDetail/reviewTotal";
 import reviewRating from "./goodsDetail/reviewRating";
 import goodsQa from "./goodsDetail/goodsQa";
 import goodsInfo from "./goodsDetail/goodsInfo";
-
-export default createStore({
+type State = {};
+export const key: InjectionKey<Store<State>> = Symbol();
+export const store = createStore<State>({
   modules: {
     category,
     newgoods,
@@ -20,3 +23,7 @@ export default createStore({
     goodsInfo,
   },
 });
+
+export const useStore = () => {
+  return baseUseStore(key);
+};

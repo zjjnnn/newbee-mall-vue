@@ -27,8 +27,8 @@
           name="sort"
           @change="sortList"
         >
+          <option value="created_at">新しい順</option>
           <option value="total_yes">トップ評価</option>
-          <option value="created_at" selected="">新しい順</option>
         </select>
       </div>
     </div>
@@ -47,10 +47,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import QaCom from "./QaCom.vue";
 import { computed, onMounted } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
+import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -95,7 +96,11 @@ const totalPage = computed(() => {
   return Math.ceil(totalCount.value / 3); //Math.ceil(x) 向上舍入，如Math.floor(0.60)结果为1；
 });
 //@change事件，选择sort方式  e=event
-const sortList = (e) => store.commit("sortList", e.target.value);
+const sortList = (e: Event): void => {
+  if (e.target instanceof HTMLSelectElement) {
+    store.commit("sortList", e.target.value);
+  }
+};
 </script>
 
 <style>

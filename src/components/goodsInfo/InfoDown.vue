@@ -45,7 +45,7 @@
           </tr>
           <tr>
             <th>サイズ</th>
-            <td>{{ size }}</td>
+            <td>{{ sizeDetail }}</td>
           </tr>
           <tr>
             <th>素材</th>
@@ -82,7 +82,7 @@
   </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // import { computed, onMounted } from "vue";
 // import { useStore } from "vuex";
 // import { useRoute } from "vue-router";
@@ -98,14 +98,15 @@ import { defineProps, toRefs } from "vue";
 const props = defineProps({
   sku: String,
   color: String,
-  size: String,
+  sizeDetail: String,
   material: String,
   weight: String,
   warranty: String,
   price: Number,
 });
-const { sku, color, size, material, weight, warranty } = toRefs(props);
-let point = Math.round(props.price / 1.1 / 100);
+const { sku, color, sizeDetail, material, weight, warranty, price } =
+  toRefs(props);
+let point = Math.round(props.price! / 1.1 / 100);
 </script>
 
 <style scoped>
