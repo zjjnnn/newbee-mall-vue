@@ -28,12 +28,7 @@
             <li>
               <div>
                 <template v-if="photo1 != null">
-                  <viewer
-                    :images="images"
-                    @inited="inited"
-                    class="viewer"
-                    ref="viewer"
-                  >
+                  <viewer :images="images" class="viewer" ref="viewer">
                     <template #default="scope">
                       <img
                         v-for="src in scope.images"
@@ -67,7 +62,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import StarRating from "vue-star-rating";
 import { defineComponent } from "vue";
 
@@ -96,14 +91,14 @@ export default defineComponent({
       helped: false,
     };
   },
-  methods: {
-    inited(viewer) {
-      this.$viewer = viewer;
-    },
-    show() {
-      this.$viewer.show();
-    },
-  },
+  // methods: {
+  //   inited(viewer) {
+  //     this.$viewer = viewer;
+  //   },
+  //   show() {
+  //     this.$viewer.show();
+  //   },
+  // },
   computed: {
     helpfulText() {
       if (this.helped && this.code === 200) {

@@ -66,8 +66,11 @@ onMounted(() => {
 let start = computed(() => (pageNo.value - 1) * 3);
 let end = computed(() => start.value + 3);
 
-let qaList = computed(() => store.getters.getGoodsQA.qaList);
-let qaPerPage = computed(() => qaList.value.slice(start.value, end.value));
+// let qaList = computed(() => store.getters.getGoodsQA.qaList);
+// let qaPerPage = computed(() => qaList.value.slice(start.value, end.value));
+let qaPerPage = computed(() =>
+  store.getters.getGoodsQA.qaList.slice(start.value, end.value)
+);
 // console.log("qaPerPage", qaPerPage);
 
 //全xx件

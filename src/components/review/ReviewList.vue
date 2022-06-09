@@ -35,7 +35,7 @@
   </template>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, reactive } from "vue";
 // import { useStore } from "vuex";
 import { useStore } from "../../store/index";

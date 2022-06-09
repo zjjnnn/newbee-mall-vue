@@ -1,12 +1,12 @@
 <template>
   <div class="p-reviw-graph-area-right">
     <template v-for="(rating, index) in ratingList" :key="index">
-      <review-total-right-com :rating2="rating"></review-total-right-com>
+      <review-total-right-com v-bind="rating"></review-total-right-com>
     </template>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted } from "vue";
 // import { useStore } from "vuex";
 import { useStore } from "../../store/index";

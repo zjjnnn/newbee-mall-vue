@@ -2,7 +2,7 @@ const url = "http://localhost:3000/goods/detail/review/rating/";
 const headers = { Accept: "application/json" };
 
 type reviewRatingState = {
-  reviewRating: [];
+  reviewRating: reviewRating[];
 };
 type reviewRating = {
   goodsId: number;
@@ -11,13 +11,10 @@ type reviewRating = {
 export default {
   state: {
     reviewRating: [],
-    // rating: [],
   },
   mutations: {
     //syncrous
     setReviewRating(state: reviewRatingState, payload: []) {
-      //state.reviewRating.push(...payload);
-      //state.reviewRating = payload;
       state.reviewRating = payload;
       console.log("array push ", payload);
     },

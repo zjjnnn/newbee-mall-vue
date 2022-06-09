@@ -1,15 +1,18 @@
+import { State } from "vue";
+
 const url = "http://localhost:3000/goods/info/";
 const headers = { Accept: "application/json" };
 
 type GoodsInfoState = {
   infos: {};
-  infoList: [];
+  infoList: InfoList[];
   variants: V[];
   imgList: string[][];
   newInfoList: {};
   size: string;
   color: string;
-  colors: string[];
+  colorList: string[];
+  // colors: string[];
 };
 
 type InfoList = {
@@ -40,7 +43,8 @@ export default {
     newInfoList: {},
     size: "",
     color: "",
-    colors: [],
+    colorList: [],
+    // colors: [],
   },
   mutations: {
     //synchronous 同期
@@ -58,22 +62,27 @@ export default {
       state.variants = payload;
       console.log("array push variants", payload);
     },
-
+    setColorList(state: GoodsInfoState, size: string) {
+      state.colorList = state.variants[0].color;
+      state.colorList = state.variants.filter((v: V) => v.size === size)[0][
+        "color"
+      ];
+    },
     setNewList(
       state: GoodsInfoState,
       { size, color }: { size: string; color: string }
     ) {
       let imgs: string[] = [];
-      state.newInfoList = state.infoList.filter(
+      const filteredList = state.infoList.filter(
         (info: InfoList) => info.size === size && info.color === color
       );
-
-      imgs = state.infoList.filter(
-        (info: InfoList) => info.size === size && info.color === color
-      )[0]["photo"];
+      if (filteredList.length > 0) {
+        imgs = filteredList[0]["photo"];
+        state.newInfoList = filteredList[0];
+      }
 
       //每8张照片放进一组，放入一个list
-      const limit = 8;
+      const limit = 4;
       const count = Math.ceil(imgs.length / limit);
       let index = 0;
       state.imgList = []; //清空
@@ -85,11 +94,6 @@ export default {
       state.size = size;
       state.color = color;
     },
-    // setNewInfoList(state, { size, color }) {
-    //   state.newInfoList=state.infoList.filter(
-    //     (info) => info.sizeType === size && info.color === color
-    //   );
-    // },
     setSize(state: GoodsInfoState, payload: string) {
       state.size = payload;
     },
@@ -112,6 +116,7 @@ export default {
       commit("setSize", size);
       commit("setColor", color);
       commit("setNewList", { size, color });
+      commit("setColorList", size);
       //context.commit("setNewInfoList", { size, color });
     },
   },
@@ -137,8 +142,12 @@ export default {
       return state.color;
     },
     getNewInfoList: (state: GoodsInfoState) => {
-      console.log("qqqqqq", state.newInfoList);
+      //console.log("qqqqqq", state.newInfoList);
       return state.newInfoList;
+    },
+    getColorList: (state: GoodsInfoState) => {
+      console.log("colors", state.colorList);
+      return state.colorList;
     },
   },
 };

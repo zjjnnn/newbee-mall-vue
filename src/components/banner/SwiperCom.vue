@@ -8,7 +8,7 @@
     :pagination="{ clickable: true }"
     @swiper="onSwiper"
     @slideChange="onSlideChange"
-    :autoplay="{ autoplay: true }"
+    :autoplay="true"
     loop
   >
     <swiper-slide class="slide" v-for="slide in slides" :key="slide">
@@ -17,7 +17,7 @@
   </swiper>
 </template>
 
-<script>
+<script lang="ts">
 // import Swiper core and required modules
 //import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 
@@ -54,9 +54,9 @@ export default {
     });
     let slides = computed(() => store.getters.getImages);
 
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
+    // const onSwiper = (swiper) => {
+    //   console.log(swiper);
+    // };
     const onSlideChange = () => {
       console.log("slide change");
     };
@@ -66,7 +66,6 @@ export default {
     };
     return {
       slides,
-      onSwiper,
       onSlideChange,
       modules: [Navigation, Pagination, Scrollbar, A11y],
       swiperOption,

@@ -6,54 +6,47 @@
       > -->
       <star-rating
         :star-size="20"
-        :rating="rating2.rating"
+        :rating="rating"
         :read-only="true"
         :increment="0.01"
         :show-rating="false"
       ></star-rating>
     </div>
-    <div
-      class="a-meter g-mater-visble"
-      id="js-mater5"
-      :data-rate="rating2.rating"
-    >
-      <div
-        class="a-meter-bar"
-        :style="{ width: rating2.percentage + '%' }"
-      ></div>
+    <div class="a-meter g-mater-visble" id="js-mater5" :data-rate="rating">
+      <div class="a-meter-bar" :style="{ width: percentage + '%' }"></div>
     </div>
     <a
       class="g-link g-link-visble"
       id="js-rate5"
-      :data-rate="rating2.rating"
+      :data-rate="rating"
       :title="title"
-      @click="clickRating(rating2.rating)"
-      >{{ rating2.ratingCount }}人</a
+      @click="clickRating(rating)"
+      >{{ ratingCount }}人</a
     >
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import StarRating from "vue-star-rating";
 import { mapMutations } from "vuex";
-export default {
+import { defineComponent } from "vue";
+//const StarRating = require("vue-star-rating");
+export default defineComponent({
   components: {
     StarRating,
   },
   props: {
-    rating2: {
-      rating: Number,
-      percentage: Number,
-      ratingCount: Number,
-    },
+    rating: Number,
+    percentage: Number,
+    ratingCount: Number,
   },
   data() {
     return {
       title:
         "レビューの" +
-        this.rating2.percentage +
+        this.percentage +
         "%に星" +
-        this.rating2.rating +
+        this.rating +
         "つが付いています。",
     };
   },
@@ -68,7 +61,7 @@ export default {
     },
     ...mapMutations(["filterReviews"]),
   },
-};
+});
 </script>
 
 <style scoped>

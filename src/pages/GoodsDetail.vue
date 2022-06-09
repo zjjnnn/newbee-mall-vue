@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import QaAndReview from "../components/QaAndReview.vue";
 import { useRoute } from "vue-router";
 //import GoodsInfo from "../components/GoodsInfo.vue";

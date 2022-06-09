@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import UlContainer from "../components/goodsList/UlContainer.vue";
 import SubBanner from "../components/goodsList/SubBanner.vue";
 import BannerCom from "../components/banner/BannerCom.vue";

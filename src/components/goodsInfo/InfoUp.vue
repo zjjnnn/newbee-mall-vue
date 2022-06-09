@@ -3,11 +3,11 @@
     <dl class="p-customize js-sku-variations">
       <!-- select size -->
       <dt>
-        <!-- サイズ：<b>{{ size }}</b> -->
+        サイズ：<b>{{ size }}</b>
       </dt>
       <dd>
         <select v-model="size" @change="change">
-          <option v-for="(v, index) in variants" :key="index">
+          <option v-for="(v, index) in variants" :key="index" :value="v.size">
             {{ v.size }}
           </option>
         </select>
@@ -18,7 +18,7 @@
       </dt>
       <dd>
         <select v-model="color" @change="changeColor">
-          <option v-for="c in defaultColor" :key="c">
+          <option v-for="c in colorList" :key="c">
             {{ c }}
           </option>
         </select>
@@ -27,18 +27,6 @@
     <!-- 商品描述 -->
     <div class="js-catch-copy">
       {{ goodsDescribe }}
-    </div>
-
-    <div class="g-units-xs js-sku-price">
-      <div>
-        <div class="g-flow-0 g-align-fbl">
-          <dl class="p-price">
-            <dd class="g-price g-price-lg price-size-up">
-              {{ price }}
-            </dd>
-          </dl>
-        </div>
-      </div>
     </div>
     <p class="js-sku-delivery"></p>
   </div>
@@ -59,16 +47,28 @@ onMounted(() => {
   store.dispatch("setInfos", goodsId);
 });
 const variants = computed(() => store.getters.getVariants);
-console.log("variantsaaaaaaa", variants);
-const defaultColor = computed(() => {
-  if (store.getters.getVariants[0]) {
-    return store.getters.getVariants[0].color;
-  } else {
-    return [];
-  }
-});
+//console.log("variantsaaaaaaa", variants);
+// const defaultColor = computed(() => {
+//   if (store.getters.getVariants[0]) {
+//     return store.getters.getVariants[0].color;
+//   } else {
+//     return [];
+//   }
+// });
+// const colors = computed(() => {
+//   if (size.value === "セミダブル") {
+//     return store.getters.getVariants[1].color;
+//   } else if (size.value === "シングル") {
+//     return defaultColor.value;
+//   } else {
+//     return defaultColor.value;
+//   }
+// });
+
 let size = computed(() => store.getters.getSize);
 let color = computed(() => store.getters.getColor);
+let colorList = computed(() => store.getters.getColorList);
+
 // const change = (e) => {
 //   size.value = e.target.value;
 // };
@@ -79,13 +79,11 @@ const changeColor = (e: Event) => {
 };
 const change = (e: Event) => {
   if (e.target instanceof HTMLSelectElement) {
-    size.value = e.target.value;
-    store.commit("setNewList", { size: e.target.value, color });
+    store.commit("setNewList", { size: e.target.value, color: color.value });
   }
 };
 console.log("size", size.value);
 const goodsDescribe = computed(() => store.getters.getInfos.goodsDescribe);
-const price = computed(() => store.getters.getNewInfoList.price);
 </script>
 
 <style scoped>

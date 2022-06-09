@@ -11,7 +11,7 @@
   </p>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import ReviewTotalLeft from "./ReviewTotalLeft.vue";
 import ReviewTotalRight from "./ReviewTotalRight.vue";
 import { computed, onMounted } from "vue";
