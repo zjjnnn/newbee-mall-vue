@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="p-grid_gallery g-grid_item g-sm-full">
     <div
       class="p-gallery p-gallery-static"
@@ -530,4 +530,4 @@ gallery_thumbs .swiper-slide {
   background-repeat: no-repeat;
   background-size: contain;
 }
-</style>
+</style> -->

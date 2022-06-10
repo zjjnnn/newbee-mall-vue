@@ -790,6 +790,29 @@
           "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s DBL SD)"
         },
         {
+          "size": "シングル",
+          "sizeValue": "7565682",
+          "sizeDataCode": "05700010017",
+          "sku": "10195s_blue",
+          "color": "ダークブルー",
+          "colorValue": "00100170025",
+          "colorDataParent": "05700010017",
+          "colorSrc": "https://www.nitori-net.jp/ecstatic/image/sys-master/images/8796331900958/BasicColor_DBL.jpg",
+          "sizeDetail": "幅120x奥行200cm",
+          "material": "ナイロン／ＰＥ／ＰＡ／ＰＵ",
+          "weight": "約1.5kg",
+          "warranty": "1年",
+          "photo": [
+            "http://localhost:8080/assets/images/goods1.jpg",
+            "http://localhost:8080/assets/images/goods2.jpg",
+            "http://localhost:8080/assets/images/goods3.jpg",
+            "http://localhost:8080/assets/images/goods4.jpg",
+            "http://localhost:8080/assets/images/goods1.jpg"
+          ],
+          "price": 3990,
+          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s DBL D)"
+        },
+        {
           "size": "セミダブル",
           "sizeValue": "7565682",
           "sizeDataCode": "05700010017",
@@ -816,7 +839,7 @@
       "variants": [
         {
           "size": "シングル",
-          "color": ["ホワイト", "グレー"]
+          "color": ["ホワイト", "グレー", "ダークブルー"]
         },
         {
           "size": "セミダブル",

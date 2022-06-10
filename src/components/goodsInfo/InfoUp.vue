@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-// import InfoSize from "./InfoSize.vue";
 import { computed, onMounted } from "vue";
 // import { useStore } from "vuex";
 import { useStore } from "../../store/index";
@@ -47,31 +46,10 @@ onMounted(() => {
   store.dispatch("setInfos", goodsId);
 });
 const variants = computed(() => store.getters.getVariants);
-//console.log("variantsaaaaaaa", variants);
-// const defaultColor = computed(() => {
-//   if (store.getters.getVariants[0]) {
-//     return store.getters.getVariants[0].color;
-//   } else {
-//     return [];
-//   }
-// });
-// const colors = computed(() => {
-//   if (size.value === "セミダブル") {
-//     return store.getters.getVariants[1].color;
-//   } else if (size.value === "シングル") {
-//     return defaultColor.value;
-//   } else {
-//     return defaultColor.value;
-//   }
-// });
-
 let size = computed(() => store.getters.getSize);
 let color = computed(() => store.getters.getColor);
 let colorList = computed(() => store.getters.getColorList);
 
-// const change = (e) => {
-//   size.value = e.target.value;
-// };
 const changeColor = (e: Event) => {
   if (e.target instanceof HTMLSelectElement) {
     store.commit("setNewList", { size: size.value, color: e.target.value });
@@ -79,7 +57,10 @@ const changeColor = (e: Event) => {
 };
 const change = (e: Event) => {
   if (e.target instanceof HTMLSelectElement) {
-    store.commit("setNewList", { size: e.target.value, color: color.value });
+    store.dispatch("setNewListAndColor", {
+      size: e.target.value,
+      color: color.value,
+    });
   }
 };
 console.log("size", size.value);

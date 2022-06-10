@@ -19,87 +19,31 @@
             class="swiper-container p-gallery_photo_el swiper-container-fade swiper-container-horizontal"
           >
             <div class="swiper-wrapper js-gallery-images">
+              <!-- <template v-for="(image, index) in imageList" :key="index"> -->
               <div
-                class="swiper-slide p-gallery_item swiper-slide-active"
+                class="swiper-slide p-gallery_item"
                 data-caption=""
                 style="
-                  width: 325px;
+                  width: 395px;
                   opacity: 1;
                   transform: translate3d(0px, 0px, 0px);
                 "
               >
                 <img
                   class="swiper-lazy swiper-lazy-loaded"
-                  src="../../../public/assets/images/goodsphoto1.jpg"
-                  alt=""
-                  imgcount="0"
+                  :src="imgSrc"
+                  :style="{
+                    width: '395px',
+                    height: '395px',
+                  }"
                 />
               </div>
-              <div
-                class="swiper-slide p-gallery_item swiper-slide-next"
-                data-caption=""
-                style="
-                  width: 325px;
-                  opacity: 0;
-                  transform: translate3d(-325px, 0px, 0px);
-                "
-              >
-                <img
-                  class="swiper-lazy swiper-lazy-loaded"
-                  alt=""
-                  imgcount="1"
-                  src="../../../public/assets/images/goodsphoto2.jpg"
-                />
-              </div>
-              <template v-for="(image, index) in imageList" :key="index">
-                <div
-                  class="swiper-slide p-gallery_item"
-                  data-caption=""
-                  style="
-                    width: 325px;
-                    opacity: 0;
-                    transform: translate3d(-650px, 0px, 0px);
-                  "
-                >
-                  <img
-                    class="swiper-lazy swiper-lazy-loaded"
-                    alt=""
-                    :imgcount="index"
-                    :src="image.imgSrc"
-                  />
-                </div>
-              </template>
+              <!-- </template> -->
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="p-gallery_fraction js-images-count" data-total="15">1 / 15</div> -->
 
-      <div class="captionArea-static" style="height: 0px">
-        <div
-          class="p-gallery_caption captionText-static"
-          short=""
-          show="long"
-          long=""
-          rowcount="0"
-          index="0"
-        ></div>
-        <div id="p-galleryCaptionMore-static" aria-hidden="true"></div>
-        <div class="" id="js-caption-more-static" aria-hidden="false">
-          <p class="g-align-tc">
-            <a
-              class="g-link displayMoreGalleryCaption"
-              captiontype="static"
-              aria-expanded="false"
-              data-label="閉じる"
-              style="display: none"
-            >
-              <i class="g-i g-i-arrow-d"></i><span>もっと見る</span>
-            </a>
-          </p>
-        </div>
-      </div>
-      <!-- small -->
       <div class="p-gallery_thumbs">
         <div class="swiper-container">
           <div class="swiper-wrapper js-gallery-thumbnails">
@@ -110,17 +54,24 @@
               :key="index"
             >
               <div
-                class="p-gallery_thumbs_item p-gallery_thumbs_item-active"
+                class="p-gallery_thumbs_item"
+                @click="changeUrl"
                 v-for="(img, idx2) in imgs"
                 :key="idx2"
                 :style="{
-                  backgroundImage: 'url(' + img + ')',
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  width: '80px',
-                  height: '80px',
+                  width: '91.25px',
+                  height: '91.25px',
                 }"
-              ></div>
+              >
+                <img
+                  class="image_item"
+                  :src="img"
+                  :style="{
+                    width: '90px',
+                    height: '90px',
+                  }"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -168,18 +119,37 @@ onMounted(() => {
   store.dispatch("setInfos", { goodsId });
 });
 let imgList = computed(() => store.getters.getImgList);
-let imageList = computed(() => store.getters.getNewInfoList.photo);
+//let imageList = computed(() => store.getters.getNewInfoList.photo);
+//默认大图为第一张
+//let imgsrc = computed(() => store.getters.getNewInfoList.photo[0]);
+let imgSrc = computed(() => store.getters.getImgsrc);
+//click事件 changeUrl
+const changeUrl = (e: Event) => {
+  if (e.target instanceof HTMLImageElement) {
+    store.commit("changeUrl", e.target.src);
+  }
+};
+console.log("imgSrc", imgSrc.value);
 </script>
 
 <style scoped>
 .p-gallery_thumbs_item {
-  background-size: contain;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px #009e96 inset;
 }
+/* .image_item {
+  text-align: center;
+} */
 .swiper-slide {
-  width: 350px;
-  height: 350px;
+  width: 380px;
+  height: 380px;
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  height: 100%;
+  position: relative;
+  transition-property: transform, -webkit-transform;
 }
 .silde-image-div {
   width: 80px;
@@ -218,20 +188,12 @@ let imageList = computed(() => store.getters.getNewInfoList.photo);
   flex-wrap: wrap;
 }
 
-.swiper-slide {
-  display: flex;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-  height: 100%;
-  position: relative;
-  transition-property: transform, -webkit-transform;
-}
 .p-gallery_thumbs_item:nth-child(-n + 4) {
   margin-top: 0;
 }
-.p-gallery_thumbs_item-active {
+/* .p-gallery_thumbs_item-active {
   box-shadow: 0 0 0 2px #009e96 inset;
-}
+} */
 .p-gallery_thumbs_item {
   width: calc((100% - 30px) / 4 - 0.1px);
   margin: 10px 10px 0 0;
@@ -246,9 +208,9 @@ let imageList = computed(() => store.getters.getNewInfoList.photo);
 .p-galleryReview_thumbs_item {
   background-position: center;
 }
-.p-gallery_thumbs_item:not(.p-gallery_thumbs_item-active) {
+/* .p-gallery_thumbs_item:not(.p-gallery_thumbs_item-active) {
   cursor: pointer;
-}
+} */
 .p-gallery_thumbs_item:nth-child(4n) {
   margin-right: 0;
 }
@@ -389,9 +351,7 @@ let imageList = computed(() => store.getters.getNewInfoList.photo);
 .p-gallery_caption {
   margin-bottom: 5px;
 }
-.p-gallery_thumbs_item:not(.p-gallery_thumbs_item-active) {
-  cursor: pointer;
-}
+
 .p-gallery_caption {
   margin-top: 10px;
   overflow-wrap: break-word;
@@ -405,9 +365,7 @@ let imageList = computed(() => store.getters.getNewInfoList.photo);
 .g-link .g-i:first-child {
   margin-right: 0.35em;
 }
-.p-gallery_thumbs_item:not(.p-gallery_thumbs_item-active) {
-  cursor: pointer;
-}
+
 .g-link [class*="g-i-arrow-"] {
   margin-top: -0.2em;
 }

@@ -12,6 +12,7 @@ type GoodsInfoState = {
   size: string;
   color: string;
   colorList: string[];
+  imgSrc: string;
   // colors: string[];
 };
 
@@ -44,6 +45,7 @@ export default {
     size: "",
     color: "",
     colorList: [],
+    imgSrc: "",
     // colors: [],
   },
   mutations: {
@@ -63,15 +65,11 @@ export default {
       console.log("array push variants", payload);
     },
     setColorList(state: GoodsInfoState, size: string) {
-      state.colorList = state.variants[0].color;
       state.colorList = state.variants.filter((v: V) => v.size === size)[0][
         "color"
       ];
     },
-    setNewList(
-      state: GoodsInfoState,
-      { size, color }: { size: string; color: string }
-    ) {
+    setNewList(state, { size, color }: { size: string; color: string }) {
       let imgs: string[] = [];
       const filteredList = state.infoList.filter(
         (info: InfoList) => info.size === size && info.color === color
@@ -90,7 +88,7 @@ export default {
         state.imgList.push(imgs.slice(index * limit, index * limit + limit));
         index++;
       }
-
+      state.imgSrc = state.newInfoList["photo"][0];
       state.size = size;
       state.color = color;
     },
@@ -101,8 +99,31 @@ export default {
     setColor(state: GoodsInfoState, payload: string) {
       state.color = payload;
     },
+
+    changeUrl(state: GoodsInfoState, img: string) {
+      state.imgSrc = img;
+    },
   },
   actions: {
+    setNewListAndColor(
+      context,
+      { size, color }: { size: string; color: string }
+    ) {
+      context.commit("setColorList", size);
+
+      const va = context.state.variants.filter((v) => v.size === size);
+      const filteredColor = va[0].color.filter(
+        (v) => v === context.state.color
+      );
+
+      if (filteredColor.length < 1) {
+        context.commit("setColor", va[0].color[0]);
+        context.commit("setNewList", { size, color: va[0].color[0] });
+      } else {
+        context.commit("setNewList", { size, color });
+      }
+    },
+
     //asyncronous 非同期
     async setInfos({ commit }: { commit: Function }, payload: string) {
       const infos = await fetch(url + payload, { headers });
@@ -148,6 +169,9 @@ export default {
     getColorList: (state: GoodsInfoState) => {
       console.log("colors", state.colorList);
       return state.colorList;
+    },
+    getImgsrc: (state: GoodsInfoState) => {
+      return state.imgSrc;
     },
   },
 };
