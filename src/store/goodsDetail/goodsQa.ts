@@ -1,5 +1,3 @@
-import { Data } from "ant-design-vue/lib/_util/type";
-
 const url = "http://localhost:3000/goodsqa/";
 const headers = { Accept: "application/json" };
 

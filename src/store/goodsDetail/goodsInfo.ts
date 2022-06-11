@@ -13,7 +13,7 @@ type GoodsInfoState = {
   color: string;
   colorList: string[];
   imgSrc: string;
-  // colors: string[];
+  index: number;
 };
 
 type InfoList = {
@@ -46,6 +46,7 @@ export default {
     color: "",
     colorList: [],
     imgSrc: "",
+    index: 0,
     // colors: [],
   },
   mutations: {
@@ -102,6 +103,12 @@ export default {
 
     changeUrl(state: GoodsInfoState, img: string) {
       state.imgSrc = img;
+    },
+    nextDiv(state: GoodsInfoState) {
+      state.index--;
+    },
+    previousDiv(state: GoodsInfoState) {
+      state.index++;
     },
   },
   actions: {
@@ -172,6 +179,9 @@ export default {
     },
     getImgsrc: (state: GoodsInfoState) => {
       return state.imgSrc;
+    },
+    getIndex: (state: GoodsInfoState) => {
+      return state.index;
     },
   },
 };

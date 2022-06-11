@@ -19,7 +19,6 @@
             class="swiper-container p-gallery_photo_el swiper-container-fade swiper-container-horizontal"
           >
             <div class="swiper-wrapper js-gallery-images">
-              <!-- <template v-for="(image, index) in imageList" :key="index"> -->
               <div
                 class="swiper-slide p-gallery_item"
                 data-caption=""
@@ -43,58 +42,89 @@
           </div>
         </div>
       </div>
-
+      <!-- small部分 -->
       <div class="p-gallery_thumbs">
+        <!-- 小图 -->
         <div class="swiper-container">
-          <div class="swiper-wrapper js-gallery-thumbnails">
+          <div
+            class="swiper-wrapper js-gallery-thumbnails"
+            :style="{
+              width: '395px',
+              height: '100px',
+              transform: 'translate3d(' + x + 'px, 0px, 0px)',
+            }"
+          >
             <div
               class="swiper-slide swiper-slide-active"
-              :style="{ width: '395px', height: '100px' }"
+              :style="{
+                width: '395px',
+                height: '100px',
+              }"
               v-for="(imgs, index) in imgList"
               :key="index"
             >
               <div
-                class="p-gallery_thumbs_item"
-                @click="changeUrl"
+                class="p-gallery_thumbs_item p-gallery_thumbs_item-active"
+                role="button"
+                tabindex="0"
+                data-index="0"
                 v-for="(img, idx2) in imgs"
                 :key="idx2"
                 :style="{
-                  width: '91.25px',
-                  height: '91.25px',
+                  backgroundImage: 'url(' + img + ')',
                 }"
-              >
-                <img
-                  class="image_item"
-                  :src="img"
-                  :style="{
-                    width: '90px',
-                    height: '90px',
-                  }"
-                />
-              </div>
+                @click="changeUrl(img)"
+              ></div>
             </div>
           </div>
         </div>
+        <!-- 图片下方箭头和圆点 -->
         <div class="p-gallery_controls">
+          <!-- 左箭头 -->
           <div class="p-gallery_btn p-gallery_prev swiper-button-disabled">
-            <i class="g-i g-i-arrow-l" aria-hidden="true"
-              ><span class="material-symbols-outlined">
+            <i
+              ><span
+                @click="previousDiv"
+                class="material-symbols-outlined"
+                :class="x === 0 ? 'gray' : 'green'"
+              >
                 arrow_back_ios
               </span></i
             >
           </div>
+          <!-- 圆点 -->
           <div
             class="p-gallery_pagination swiper-pagination-clickable swiper-pagination-bullets"
           >
             <span
-              class="swiper-pagination-bullet swiper-pagination-bullet-active"
+              class="material-symbols-outlined"
+              v-for="n in imgList.length"
+              :key="n"
+              style="color: rgb(201, 197, 197)"
+            >
+              fiber_manual_record
+            </span>
+            <!-- <span
+              class="swiper-pagination-bullet"
+              :class="index === 0 ? 'green-round' : '.black-round'"
             ></span
-            ><span class="swiper-pagination-bullet"></span
-            ><span class="swiper-pagination-bullet"></span>
+            ><span
+              class="swiper-pagination-bullet"
+              :class="index === -1 ? 'green-round' : '.black-round'"
+            ></span
+            ><span
+              class="swiper-pagination-bullet"
+              :class="index === -2 ? 'green-round' : '.black-round'"
+            ></span> -->
           </div>
+          <!-- 右箭头 -->
           <div class="p-gallery_btn p-gallery_next">
-            <i class="g-i g-i-arrow-r" aria-hidden="true"
-              ><span class="material-symbols-outlined">
+            <i
+              ><span
+                @click="nextDiv"
+                class="material-symbols-outlined"
+                :class="x === max ? 'gray' : 'green'"
+              >
                 arrow_forward_ios
               </span></i
             >
@@ -119,26 +149,59 @@ onMounted(() => {
   store.dispatch("setInfos", { goodsId });
 });
 let imgList = computed(() => store.getters.getImgList);
-//let imageList = computed(() => store.getters.getNewInfoList.photo);
+
 //默认大图为第一张
-//let imgsrc = computed(() => store.getters.getNewInfoList.photo[0]);
 let imgSrc = computed(() => store.getters.getImgsrc);
+//console.log("imgSrc1", imgSrc.value);
+
 //click事件 changeUrl
-const changeUrl = (e: Event) => {
-  if (e.target instanceof HTMLImageElement) {
-    store.commit("changeUrl", e.target.src);
-  }
+let changeUrl = (img: string) => {
+  store.commit("changeUrl", img);
 };
-console.log("imgSrc", imgSrc.value);
+// const changeUrl = (e: Event) => {
+//   if (e.target instanceof HTMLImageElement) {
+//     store.commit("changeUrl", e.target.src);
+//   }
+// };
+let index = computed(() => store.getters.getIndex);
+const max = computed(() => -(imgList.value.length - 1) * 395);
+console.log("max", max.value);
+
+let x = computed(() => index.value * 395);
+function nextDiv() {
+  store.commit("nextDiv");
+}
+function previousDiv() {
+  store.commit("previousDiv");
+}
 </script>
 
 <style scoped>
+.green {
+  color: #009e96;
+}
+.gray {
+  color: #686868;
+  pointer-events: none;
+}
+.green-round {
+  background: #009e96;
+}
+.black-round {
+  background: black;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 20;
+}
+
 .p-gallery_thumbs_item {
   cursor: pointer;
   box-shadow: 0 0 0 2px #009e96 inset;
 }
 /* .image_item {
   text-align: center;
+  border-color: #009e96;
 } */
 .swiper-slide {
   width: 380px;
