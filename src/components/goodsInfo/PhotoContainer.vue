@@ -73,7 +73,11 @@
                 :style="{
                   backgroundImage: 'url(' + img + ')',
                 }"
-                @click="changeUrl(img)"
+                @click="
+                  changeUrl(img);
+                  activeImg(idx2);
+                "
+                :class="{ activeImg: activeItem == idx2 }"
               ></div>
             </div>
           </div>
@@ -81,53 +85,38 @@
         <!-- 图片下方箭头和圆点 -->
         <div class="p-gallery_controls">
           <!-- 左箭头 -->
-          <div class="p-gallery_btn p-gallery_prev swiper-button-disabled">
-            <i
-              ><span
-                @click="previousDiv"
-                class="material-symbols-outlined"
-                :class="x === 0 ? 'gray' : 'green'"
-              >
-                arrow_back_ios
-              </span></i
+          <div class="p-gallery_btn p-gallery_prev">
+            <span
+              @click="previousDiv"
+              class="material-symbols-outlined pointer"
+              :class="indexImgDiv === 0 ? 'gray' : 'green'"
             >
+              arrow_back_ios
+            </span>
           </div>
           <!-- 圆点 -->
-          <div
-            class="p-gallery_pagination swiper-pagination-clickable swiper-pagination-bullets"
-          >
+          <div>
             <span
-              class="material-symbols-outlined"
-              v-for="n in imgList.length"
+              v-for="(n, index) in imgList.length"
               :key="n"
-              style="color: rgb(201, 197, 197)"
+              class="material-symbols-outlined round"
+              @click="changeDiv(index)"
+              :class="{
+                activeDiv: indexImgDiv == -index,
+              }"
             >
               fiber_manual_record
             </span>
-            <!-- <span
-              class="swiper-pagination-bullet"
-              :class="index === 0 ? 'green-round' : '.black-round'"
-            ></span
-            ><span
-              class="swiper-pagination-bullet"
-              :class="index === -1 ? 'green-round' : '.black-round'"
-            ></span
-            ><span
-              class="swiper-pagination-bullet"
-              :class="index === -2 ? 'green-round' : '.black-round'"
-            ></span> -->
           </div>
           <!-- 右箭头 -->
           <div class="p-gallery_btn p-gallery_next">
-            <i
-              ><span
-                @click="nextDiv"
-                class="material-symbols-outlined"
-                :class="x === max ? 'gray' : 'green'"
-              >
-                arrow_forward_ios
-              </span></i
+            <span
+              @click="nextDiv"
+              class="material-symbols-outlined pointer"
+              :class="x === max ? 'gray' : 'green'"
             >
+              arrow_forward_ios
+            </span>
           </div>
         </div>
       </div>
@@ -154,29 +143,48 @@ let imgList = computed(() => store.getters.getImgList);
 let imgSrc = computed(() => store.getters.getImgsrc);
 //console.log("imgSrc1", imgSrc.value);
 
-//click事件 changeUrl
-let changeUrl = (img: string) => {
+//click事件 点小图出现大图
+const changeUrl = (img: string) => {
   store.commit("changeUrl", img);
 };
-// const changeUrl = (e: Event) => {
-//   if (e.target instanceof HTMLImageElement) {
-//     store.commit("changeUrl", e.target.src);
-//   }
-// };
-let index = computed(() => store.getters.getIndex);
-const max = computed(() => -(imgList.value.length - 1) * 395);
-console.log("max", max.value);
 
-let x = computed(() => index.value * 395);
+//被选中的图片，改变style为有绿框
+const activeItem = computed(() => store.getters.getActiveItem);
+const activeImg = (idx2: number) => {
+  store.commit("activeImg", idx2);
+};
+
+//indexImgDiv 取值范围为 0，-1，-2...
+let indexImgDiv = computed(() => store.getters.getIndexImgDiv);
+//一组图片的坐标，改变x的值来切换图片组
+let x = computed(() => indexImgDiv.value * 395);
+//显示最后一组图片时的坐标
+//const max = computed(() => -(imgList.value.length - 1) * 395);
+const max = computed(() => -(imgList.value.length - 1));
+// console.log("max", max.value);
+
+//翻页
 function nextDiv() {
   store.commit("nextDiv");
 }
 function previousDiv() {
   store.commit("previousDiv");
 }
+
+let changeDiv = (index: number) => {
+  // state.activeItem2 = index;
+  store.commit("changeDiv", index);
+};
 </script>
 
 <style scoped>
+.pointer {
+  cursor: pointer;
+}
+.round {
+  color: #686868;
+  cursor: pointer;
+}
 .green {
   color: #009e96;
 }
@@ -184,11 +192,11 @@ function previousDiv() {
   color: #686868;
   pointer-events: none;
 }
-.green-round {
-  background: #009e96;
+.activeDiv {
+  color: #009e96;
 }
-.black-round {
-  background: black;
+.activeImg {
+  border: #009e96 solid 2px;
 }
 
 .material-symbols-outlined {
@@ -197,15 +205,12 @@ function previousDiv() {
 
 .p-gallery_thumbs_item {
   cursor: pointer;
-  box-shadow: 0 0 0 2px #009e96 inset;
 }
 /* .image_item {
   text-align: center;
   border-color: #009e96;
 } */
 .swiper-slide {
-  width: 380px;
-  height: 380px;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -215,14 +220,12 @@ function previousDiv() {
   transition-property: transform, -webkit-transform;
 }
 .silde-image-div {
-  width: 80px;
-  height: 80px;
   background-size: contain;
   background-repeat: no-repeat;
 }
-.p-grid_gallery {
+/* .p-grid_gallery {
   margin: auto !important;
-}
+} */
 .p-gallery_thumbs {
   position: relative;
   margin-top: 15px;
@@ -268,9 +271,7 @@ function previousDiv() {
 .p-gallery_thumbs_item {
   background-position: center;
 }
-.p-galleryReview_thumbs_item {
-  background-position: center;
-}
+
 /* .p-gallery_thumbs_item:not(.p-gallery_thumbs_item-active) {
   cursor: pointer;
 } */
@@ -278,9 +279,11 @@ function previousDiv() {
   margin-right: 0;
 }
 .p-gallery_controls {
+  width: 395px;
   display: flex;
   margin-top: 10px;
   align-items: center;
+  justify-content: space-between;
 }
 .p-gallery_prev {
   transform: translateX(-10px);
@@ -345,18 +348,16 @@ function previousDiv() {
   transition: transform 0.3s;
   color: #009e96;
 }
-.p-grid .g-grid_item {
-  max-width: 395px;
-  width: 100% !important;
-  margin-top: 40px;
-  padding: 0 !important;
-}
 .g-grid_item {
   max-width: 395px;
+  padding: 0 !important;
+}
+/* .g-grid_item {
+  max-width: 395px;
   width: 100% !important;
   margin-top: 40px;
   padding: 0 !important;
-}
+} */
 * {
   box-sizing: border-box;
 }

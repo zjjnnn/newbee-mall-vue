@@ -38,7 +38,9 @@
                 data-answer-id="227726"
               >
                 <i class="zv-helpful zv-helpful-yes-i"></i>
-                <span class="material-symbols-outlined"> thumb_up </span>
+                <span class="material-symbols-outlined green-icon">
+                  thumb_up
+                </span>
                 <span
                   class="zv-helpful zv-helpful-yes zv-helpful-yes-227726"
                   data-count="227726"

@@ -3,14 +3,16 @@
     <!-- <p>goodsId:{{ goodsId }}</p> -->
     <h2 class="g-h-2 g-h-i p-hd">
       <!-- <i class="g-s g-s-comment" aria-hidden="true"></i> -->
-      <span class="material-symbols-outlined"> sms </span>
+      <span class="material-symbols-outlined green-icon"> sms </span>
       <span>レビュー</span>
     </h2>
     <review-total></review-total>
     <div id="n-review-btn" class="n-review-btn">
       <button onclick="javascript:void(0);" class="g-btn g-btn-w-sm">
         <span>商品レビューを書く</span>
-        <span class="material-symbols-outlined"> arrow_forward_ios </span>
+        <span class="material-symbols-outlined green-icon">
+          arrow_forward_ios
+        </span>
         <!-- <i class="g-i g-i-arrow-r" aria-hidden="true"></i> -->
       </button>
     </div>

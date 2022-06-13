@@ -52,7 +52,9 @@
               id="js-hitLike"
               data-count="0"
               ><i class="g-s g-s-like-g" aria-hidden="true"></i>
-              <span class="material-symbols-outlined"> thumb_up </span>
+              <span class="material-symbols-outlined green-icon">
+                thumb_up
+              </span>
               <span>参考になった（{{ count }}人） {{ helpfulText }} </span></a
             >
           </p>

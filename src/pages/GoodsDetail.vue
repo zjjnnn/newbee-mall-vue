@@ -3,6 +3,8 @@
     <h1>商品详情页面</h1>
     <p>goodsId:{{ goodsId }}</p>
     <router-link to="/">Go to Home</router-link>
+    <br />
+    <router-link to="/cart">Go to Cart</router-link>
     <hr />
     <body-container></body-container>
     <qa-and-review></qa-and-review>

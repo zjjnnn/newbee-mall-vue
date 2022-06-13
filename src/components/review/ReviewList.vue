@@ -7,7 +7,7 @@
       </div>
       <div class="g-link">
         <span id="click" @click="state.showTotal = !state.showTotal">
-          <span class="material-symbols-outlined">
+          <span class="material-symbols-outlined green-icon">
             {{ icon }}
           </span>
           {{ text }}
@@ -20,7 +20,7 @@
       </div>
       <div id="click-div">
         <span id="click" @click="state.showTotal = !state.showTotal">
-          <span class="material-symbols-outlined">
+          <span class="material-symbols-outlined green-icon">
             {{ icon }}
           </span>
           {{ text }}

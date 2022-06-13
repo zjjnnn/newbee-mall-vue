@@ -6,7 +6,7 @@
         <span>全{{ totalCount }}件&nbsp;</span>
         <!-- click "<" -> go back to a previous page -->
         <span
-          class="material-symbols-outlined"
+          class="material-symbols-outlined green-icon"
           @click="previousPage"
           v-if="pageNo != 1"
           >chevron_left
@@ -14,7 +14,7 @@
         <span>ページ{{ pageNo }}/{{ totalPage }}</span>
         <!-- click ">" -> go back to a next page -->
         <span
-          class="material-symbols-outlined"
+          class="material-symbols-outlined green-icon"
           @click="nextPage"
           v-if="pageNo != totalPage"
           >chevron_right
@@ -152,7 +152,7 @@ p {
 
 .material-symbols-outlined {
   cursor: pointer;
-  color: #009e96;
+
   flex-shrink: 0;
   display: inline-block;
   vertical-align: middle;
@@ -204,5 +204,8 @@ p {
   appearance: none;
   padding: 4px 38px 4px 8px;
   font-size: 13px;
+}
+.green-icon {
+  color: #009e96;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="g-grid_item js-sku-details" id="p-specGridItem">
+  <div class="g-grid_item js-sku-details right-layout" id="p-specGridItem">
     <info-up></info-up>
     <div class="g-block-sm js-sku-cutlock"></div>
     <div class="g-units-xs js-sku-price">
@@ -19,16 +19,24 @@
           獲得ポイント<span class="g-digit">{{ point }}pt</span> 付与
         </p>
         <p class="g-font-sm p-point-link">
-          <a class="g-link" href="/ec/userguide/memberscardpoint/">
-            <span>ポイントについて</span>
-            <i class="g-i g-i-info" aria-hidden="true"></i>
+          <a
+            class="g-link"
+            href="https://www.nitori-net.jp/ec/userguide/memberscardpoint/"
+          >
+            <span
+              @mouseover="mouseOver"
+              :style="state.underline"
+              @mouseleave="mouseLeave"
+              >ポイントについて</span
+            >
+            <span class="material-symbols-outlined green-icon"> info </span>
           </a>
         </p>
       </div>
     </div>
     <section class="g-block-sm p-spec" id="js-product-spec">
       <h2 class="g-h-2 g-h-i p-hd">
-        <span class="material-symbols-outlined"> straighten </span>
+        <span class="material-symbols-outlined green-icon"> straighten </span>
         <!-- <span class="g-s g-s-size" aria-hidden="true"></span> -->
         <span>仕様・サイズ</span>
       </h2>
@@ -71,8 +79,7 @@
 
 <script setup lang="ts">
 import InfoUp from "./InfoUp.vue";
-//import InfoDown from "./InfoDown.vue";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, reactive } from "vue";
 // import { useStore } from "vuex";
 import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
@@ -82,24 +89,34 @@ const goodsId = route.params.goodsId;
 
 const store = useStore();
 onMounted(() => {
-  store.dispatch("setInfos", { goodsId });
+  store.dispatch("setInfos", goodsId);
 });
 const newInfoList = computed(() => store.getters.getNewInfoList);
 const price = computed(() => store.getters.getNewInfoList.price);
 //计算 point
 let point = computed(() => Math.round(price.value / 1.1 / 100));
+
+const state = reactive({ underline: "" });
+
+function mouseOver() {
+  state.underline = " text-decoration: underline";
+}
+
+function mouseLeave() {
+  state.underline = "";
+}
 </script>
 
 <style scoped>
-section {
-  width: 500px;
-  margin-bottom: 20px;
+.g-link {
+  text-decoration: none;
+  cursor: pointer;
+  color: #000;
+  font-size: small;
 }
-.g-h-i .g-i:first-child,
-.g-h-i .g-s:first-child,
-.g-lg-h-i .g-i:first-child,
-.g-lg-h-i .g-s:first-child {
-  margin-right: 0.5em;
+.right-layout {
+  width: 500px;
+  margin-left: 30px;
 }
 .p-hd {
   font-size: 2rem;
@@ -112,12 +129,6 @@ div {
   width: 100%;
   border-spacing: 0;
   border-top: 1px solid #dbdbdb;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
 }
 
 table {
@@ -223,20 +234,7 @@ dd.price-size-up > span {
 .bundle-js-price .p-point-link {
   width: auto;
 }
-.js-sku-price .p-point-link,
-.bundle-js-price .p-point-link {
-  text-align: right;
-  flex-grow: 1;
-}
-.g-font-sm,
-.g-lg-font-sm {
-  font-size: 1.2rem !important;
-  line-height: 1.5 !important;
-}
-a:-webkit-any-link {
-  color: -webkit-link;
-  cursor: pointer;
-}
+
 .js-sku-price .p-point-link,
 .bundle-js-price .p-point-link {
   text-align: right;

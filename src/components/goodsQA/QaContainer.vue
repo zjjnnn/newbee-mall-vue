@@ -1,7 +1,7 @@
 <template>
   <h2 class="g-h-2 g-h-i p-hd">
     <!-- <i class="g-s g-s-comment" aria-hidden="true"></i> -->
-    <span class="material-symbols-outlined"> sms </span>
+    <span class="material-symbols-outlined green-icon"> sms </span>
     <span>商品Q&amp;A</span>
   </h2>
   <qa-list></qa-list>

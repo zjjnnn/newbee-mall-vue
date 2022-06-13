@@ -13,7 +13,8 @@ type GoodsInfoState = {
   color: string;
   colorList: string[];
   imgSrc: string;
-  index: number;
+  indexImgDiv: number;
+  activeItem: number;
 };
 
 type InfoList = {
@@ -46,7 +47,9 @@ export default {
     color: "",
     colorList: [],
     imgSrc: "",
-    index: 0,
+    indexImgDiv: 0,
+    activeItem: 0,
+
     // colors: [],
   },
   mutations: {
@@ -92,6 +95,8 @@ export default {
       state.imgSrc = state.newInfoList["photo"][0];
       state.size = size;
       state.color = color;
+      state.activeItem = 0;
+      state.indexImgDiv = 0;
     },
     setSize(state: GoodsInfoState, payload: string) {
       state.size = payload;
@@ -105,10 +110,19 @@ export default {
       state.imgSrc = img;
     },
     nextDiv(state: GoodsInfoState) {
-      state.index--;
+      state.indexImgDiv--;
+      state.activeItem = -1;
     },
     previousDiv(state: GoodsInfoState) {
-      state.index++;
+      state.indexImgDiv++;
+      state.activeItem = -1;
+    },
+    changeDiv(state: GoodsInfoState, index: number) {
+      state.indexImgDiv = -index;
+      state.activeItem = -1;
+    },
+    activeImg(state: GoodsInfoState, idx2: number) {
+      state.activeItem = idx2;
     },
   },
   actions: {
@@ -180,8 +194,11 @@ export default {
     getImgsrc: (state: GoodsInfoState) => {
       return state.imgSrc;
     },
-    getIndex: (state: GoodsInfoState) => {
-      return state.index;
+    getIndexImgDiv: (state: GoodsInfoState) => {
+      return state.indexImgDiv;
+    },
+    getActiveItem: (state: GoodsInfoState) => {
+      return state.activeItem;
     },
   },
 };

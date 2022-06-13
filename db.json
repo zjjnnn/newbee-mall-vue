@@ -744,7 +744,9 @@
             "http://localhost:8080/assets/images/goodsphoto9.jpg"
           ],
           "price": 3990,
-          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s WH SD)"
+          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s WH SD)",
+          "shipment": "2~6",
+          "postage": 0
         },
         {
           "size": "シングル",
@@ -764,7 +766,9 @@
             "http://localhost:8080/assets/images/goods1.jpg"
           ],
           "price": 3990,
-          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s GY S)"
+          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s GY S)",
+          "shipment": "1~3",
+          "postage": 0
         },
         {
           "size": "セミダブル",
@@ -787,7 +791,9 @@
             "http://localhost:8080/assets/images/goods1.jpg"
           ],
           "price": 4990,
-          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s DBL SD)"
+          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s DBL SD)",
+          "shipment": "2~6",
+          "postage": 0
         },
         {
           "size": "シングル",
@@ -810,7 +816,9 @@
             "http://localhost:8080/assets/images/goods1.jpg"
           ],
           "price": 3990,
-          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s DBL D)"
+          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s DBL D)",
+          "shipment": "2~5",
+          "postage": 0
         },
         {
           "size": "セミダブル",
@@ -833,7 +841,9 @@
             "http://localhost:8080/assets/images/goods1.jpg"
           ],
           "price": 4990,
-          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s DBL D)"
+          "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s DBL D)",
+          "shipment": "2~3",
+          "postage": 0
         }
       ],
       "variants": [
@@ -846,6 +856,57 @@
           "color": ["ホワイト", "ダークブルー"]
         }
       ]
+    }
+  ],
+  "cartList": [
+    {
+      "goodsId": 10195,
+      "size": "シングル",
+      "sizeValue": "7565681",
+      "sizeDataCode": "05700010014",
+      "sku": "10195s_wh",
+      "color": "ホワイト",
+      "sizeDetail": "幅100x奥行200cm",
+      "material": "ナイロン／ＰＥ／ＰＡ／ＰＵ",
+      "weight": "約1.25kg",
+      "warranty": "1年",
+      "photo": [
+        "http://localhost:8080/assets/images/goodsphoto1.jpg",
+        "http://localhost:8080/assets/images/goodsphoto2.jpg",
+        "http://localhost:8080/assets/images/goodsphoto3.jpg",
+        "http://localhost:8080/assets/images/goodsphoto4.jpg",
+        "http://localhost:8080/assets/images/goodsphoto5.jpg",
+        "http://localhost:8080/assets/images/goodsphoto6.jpg",
+        "http://localhost:8080/assets/images/goodsphoto7.jpg",
+        "http://localhost:8080/assets/images/goodsphoto8.jpg",
+        "http://localhost:8080/assets/images/goodsphoto9.jpg"
+      ],
+      "price": 3990,
+      "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s WH SD)",
+      "shipment": "2~6",
+      "postage": 0
+    },
+    {
+      "size": "シングル",
+      "sizeValue": "7565681",
+      "sizeDataCode": "05700010014",
+      "sku": "10195s_gr",
+      "color": "グレー",
+      "sizeDetail": "幅100x奥行200cm",
+      "material": "ナイロン／ＰＥ／ＰＡ／ＰＵ",
+      "weight": "約1.25kg",
+      "warranty": "1年",
+      "photo": [
+        "http://localhost:8080/assets/images/goods1.jpg",
+        "http://localhost:8080/assets/images/goods2.jpg",
+        "http://localhost:8080/assets/images/goods3.jpg",
+        "http://localhost:8080/assets/images/goods4.jpg",
+        "http://localhost:8080/assets/images/goods1.jpg"
+      ],
+      "price": 3990,
+      "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s GY S)",
+      "shipment": "1~3",
+      "postage": 0
     }
   ]
 }
