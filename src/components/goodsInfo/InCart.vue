@@ -1,0 +1,415 @@
+<template>
+  <div class="g-layout_sidebar">
+    <div class="g-sm-full p-sm-full-cls">
+      <div class="g-lg-sticky">
+        <div class="g-pane g-pane-gray">
+          <div class="g-position-r g-units-lg js-sku-sidebar">
+            <dl class="p-order">
+              <dt>納品方法</dt>
+              <dd><span>玄関先迄納品（店舗受取可能商品）</span></dd>
+              <dt>配送目安</dt>
+              <dd>2～6日で出荷</dd>
+              <dt>返品・交換</dt>
+              <dd>
+                14日間返品可能
+                <p class="p-order_help">
+                  <a class="g-link" href="/ec/userguide/cancel/">
+                    <span>返品・交換について</span
+                    ><i class="g-i g-i-info" aria-hidden="true"></i>
+                  </a>
+                </p>
+              </dd>
+              <dt>送料</dt>
+              <dd>
+                <span class="g-label-price">有料</span>
+                <p class="p-order_help">
+                  <a class="g-link" href="/ec/userguide/delivery/"
+                    ><span>送料について</span
+                    ><i class="g-i g-i-info" aria-hidden="true"></i
+                  ></a>
+                </p>
+              </dd>
+            </dl>
+
+            <p>
+              <img
+                src="http://localhost:8080/assets/images/free_shipping2.webp"
+                alt=""
+              />
+            </p>
+            <dl class="p-pcs">
+              <dt>
+                <label for="p-pieces">数量</label>
+              </dt>
+              <dd>
+                <input
+                  class="g-input g-input-sm addToCartQty"
+                  id="p-pieces"
+                  type="text"
+                  name="quantity"
+                  value="1"
+                  size="5"
+                  maxlength="3"
+                />
+              </dd>
+            </dl>
+
+            <div>
+              <div class="g-flow-0 g-align-fbl">
+                <dl class="p-price p-price-area">
+                  <dd class="g-price g-price-lg g-price-ra price-size-up">
+                    3,990<span>円</span>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+            <div class="g-foot-v">
+              <div class="cartBtnArea disp">
+                <button
+                  @click="addItem"
+                  class="g-btn g-btn-cv g-btn-c g-fw addToCartBtn"
+                  id="p-addItem"
+                  type="button"
+                >
+                  <span class="material-symbols-outlined">
+                    add_shopping_cart
+                  </span>
+                  <span>カートに入れる</span>
+                </button>
+              </div>
+            </div>
+            <ul class="g-grid-2 g-grid-xs p-misc">
+              <li class="g-grid_item p-misc_item">
+                <a
+                  onclick="jsShopStockClick()"
+                  class="g-hover js-popUp-store-inventory"
+                  href="#p-stockModal"
+                  role="button"
+                  aria-expanded="false"
+                  data-sku-code="7565685"
+                >
+                  <div class="p-misc_i g-hover_img">
+                    <span class="material-symbols-outlined g-s g-s-stock-g">
+                      inventory_2
+                    </span>
+                  </div>
+                  <span class="p-misc_label">店舗在庫を確認</span>
+                </a>
+              </li>
+              <li class="g-grid_item p-misc_item">
+                <a
+                  onclick="jswishclick()"
+                  id="addFavoriteA"
+                  data="7565685"
+                  data-login="anonymous"
+                  class="g-hover"
+                  data-clickable=""
+                >
+                  <div class="p-misc_i g-hover_img">
+                    <span class="material-symbols-outlined g-s g-s-favorite-g">
+                      favorite
+                    </span>
+                  </div>
+                  <span class="p-misc_label">お気に入り</span>
+                </a>
+
+                <a
+                  onclick=""
+                  id="addFavoriteDiv"
+                  class="g-hover"
+                  style="display: none"
+                >
+                  <div class="p-misc_i g-hover_img">
+                    <i class="g-s g-s-favorite"></i>
+                  </div>
+                  <span class="p-misc_label">お気に入り</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- 3个超链接 -->
+        <!-- <ul class="p-sns">
+          <li>
+            <div
+              class="fb-like fb_iframe_widget"
+              data-href="https://www.nitori-net.jp/ec/product/7565685/"
+              data-layout="button_count"
+              data-action="like"
+              data-size="small"
+              data-show-faces="false"
+              data-share="false"
+              fb-xfbml-state="rendered"
+              fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=0&amp;href=https%3A%2F%2Fwww.nitori-net.jp%2Fec%2Fproduct%2F7565685%2F&amp;layout=button_count&amp;locale=ja_JP&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;size=small"
+            >
+              <span style="vertical-align: bottom; width: 130px; height: 28px"
+                ><iframe
+                  name="f2b025c1bb9f4dc"
+                  width="1000px"
+                  height="1000px"
+                  data-testid="fb:like Facebook Social Plugin"
+                  title="fb:like Facebook Social Plugin"
+                  frameborder="0"
+                  allowtransparency="true"
+                  allowfullscreen="true"
+                  scrolling="no"
+                  allow="encrypted-media"
+                  src="https://www.facebook.com/v3.2/plugins/like.php?action=like&amp;app_id=&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df138226dbb7408c%26domain%3Dwww.nitori-net.jp%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fwww.nitori-net.jp%252Ffb050a79078dd%26relation%3Dparent.parent&amp;container_width=0&amp;href=https%3A%2F%2Fwww.nitori-net.jp%2Fec%2Fproduct%2F7565685%2F&amp;layout=button_count&amp;locale=ja_JP&amp;sdk=joey&amp;share=false&amp;show_faces=false&amp;size=small"
+                  style="
+                    border: none;
+                    visibility: visible;
+                    width: 130px;
+                    height: 28px;
+                  "
+                  class=""
+                ></iframe
+              ></span>
+            </div>
+          </li>
+
+          <li>
+            <iframe
+              id="twitter-widget-0"
+              scrolling="no"
+              frameborder="0"
+              allowtransparency="true"
+              allowfullscreen="true"
+              class="twitter-share-button twitter-share-button-rendered twitter-tweet-button"
+              style="
+                position: static;
+                visibility: visible;
+                width: 89px;
+                height: 20px;
+              "
+              title="Twitter Tweet Button"
+              src="https://platform.twitter.com/widgets/tweet_button.d7fc2fc075c61f6fa34d79a0cbbf1e34.ja.html#dnt=false&amp;id=twitter-widget-0&amp;lang=ja&amp;original_referer=https%3A%2F%2Fwww.nitori-net.jp%2Fec%2Fproduct%2F7565685%2F&amp;size=m&amp;text=%E4%B8%A1%E9%9D%A2%E4%BD%BF%E3%81%88%E3%82%8B%E6%95%B7%E3%81%8D%E3%83%91%E3%83%83%E3%83%89%E3%80%80%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB(N%E3%82%AF%E3%83%BC%E3%83%ABWSP%20n-s%20GY%20S)%E9%80%9A%E8%B2%A9%20%7C%20%E3%83%8B%E3%83%88%E3%83%AA%E3%83%8D%E3%83%83%E3%83%88%E3%80%90%E5%85%AC%E5%BC%8F%E3%80%91%E3%80%80%E5%AE%B6%E5%85%B7%E3%83%BB%E3%82%A4%E3%83%B3%E3%83%86%E3%83%AA%E3%82%A2%E9%80%9A%E8%B2%A9&amp;time=1655168606580&amp;type=share&amp;url=https%3A%2F%2Fwww.nitori-net.jp%2Fec%2Fproduct%2F7565685%2F"
+              data-url="https://www.nitori-net.jp/ec/product/7565685/"
+            ></iframe>
+          </li>
+
+          <li>
+            <iframe
+              data-lang="ja"
+              data-type="share-a"
+              data-ver="3"
+              data-url="https://www.nitori-net.jp/ec/product/7565685/"
+              data-color="default"
+              data-size="small"
+              data-count="false"
+              data-line-it-id="0"
+              scrolling="no"
+              frameborder="0"
+              allowtransparency="true"
+              style="
+                width: 87px;
+                height: 20px;
+                visibility: visible;
+                position: static !important;
+                opacity: 1 !important;
+              "
+              class="line-it-button"
+              src="https://social-plugins.line.me/widget/share?url=https%3A%2F%2Fwww.nitori-net.jp%2Fec%2Fproduct%2F7565685%2F&amp;buttonType=share-a&amp;size=small&amp;count=false&amp;color=default&amp;lang=ja&amp;type=share&amp;ver=3&amp;id=0&amp;origin=https%3A%2F%2Fwww.nitori-net.jp%2Fec%2Fproduct%2F7565685%2F&amp;title=%E4%B8%A1%E9%9D%A2%E4%BD%BF%E3%81%88%E3%82%8B%E6%95%B7%E3%81%8D%E3%83%91%E3%83%83%E3%83%89%E3%80%80%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB(N%E3%82%AF%E3%83%BC%E3%83%ABWSP%20n-s%20GY%20S)%E9%80%9A%E8%B2%A9%20%7C%20%E3%83%8B%E3%83%88%E3%83%AA%E3%83%8D%E3%83%83%E3%83%88%E3%80%90%E5%85%AC%E5%BC%8F%E3%80%91%E3%80%80%E5%AE%B6%E5%85%B7%E3%83%BB%E3%82%A4%E3%83%B3%E3%83%86%E3%83%AA%E3%82%A2%E9%80%9A%E8%B2%A9&amp;env=REAL"
+              title="Share this page on LINE."
+            ></iframe>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useStore } from "../../store/index";
+
+const store = useStore();
+
+const addItem = () => {
+  store.dispatch("addCart");
+};
+</script>
+
+<style scoped>
+.g-layout-detail {
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 2;
+  grid-row: 3/5;
+  -ms-grid-column: 2;
+  grid-column: 2;
+  margin-left: 40px;
+}
+
+.g-layout_sidebar {
+  -ms-grid-row: 3;
+  -ms-grid-row-span: 2;
+  grid-row: 3/5;
+  -ms-grid-column: 2;
+  grid-column: 2;
+  margin-left: 40px;
+}
+.g-layout_sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 40px;
+}
+.g-pane {
+  padding: 30px;
+}
+.g-pane-gray {
+  background-color: #f7f7f7;
+  display: block;
+}
+
+.g-position-r,
+.g-lg-position-r {
+  position: relative;
+}
+
+.p-order {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.p-order dt {
+  float: left;
+  clear: left;
+  padding: 10px 0;
+}
+
+.p-order dd {
+  font-weight: bold;
+  overflow: hidden;
+  text-align: right;
+  padding: 10px 0;
+}
+.p-order_help {
+  margin-top: 2px;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.p-order_help a {
+  color: #808080;
+}
+.g-link {
+  display: inline-flex;
+  align-items: center;
+}
+.g-lg-link {
+  display: inline-flex;
+  align-items: center;
+}
+a {
+  text-decoration: none;
+}
+.g-link .g-i-info,
+.g-lg-link .g-i-info {
+  font-size: 1em;
+  margin-top: 0.15em;
+}
+.p-pcs {
+  display: flex;
+  align-items: center;
+}
+.g-flow-0 {
+  margin-bottom: 0;
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.g-align-fbl {
+  align-items: baseline !important;
+}
+.p-price-area {
+  display: inline;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.g-foot-v {
+  display: flex;
+  flex-direction: column;
+}
+.g-lg-foot-v {
+  display: flex;
+  flex-direction: column;
+}
+.cartBtnArea {
+  position: relative;
+}
+.g-btn-cv {
+  border-color: #eb6157;
+  background-color: #eb6157;
+  color: #fff;
+}
+.g-lg-btn-cv {
+  border-color: #eb6157;
+  background-color: #eb6157;
+}
+
+.g-btn {
+  font-weight: normal;
+  display: inline-flex;
+  padding: 0;
+  transition: background-color 0.2s;
+  vertical-align: middle;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  appearance: none;
+}
+.g-btn-c > .g-i + span {
+  padding: 5px 10px;
+  transform: none;
+}
+
+.g-btn > span,
+.g-lg-btn > span {
+  min-height: 48px;
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.p-misc {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  display: flex;
+}
+.p-sns {
+  line-height: 1;
+  display: flex;
+  height: 20px;
+  margin-top: 20px;
+  justify-content: center;
+}
+.p-misc a {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: center;
+  align-items: center;
+  color: #333;
+  font-size: 0.8rem;
+}
+.p-misc_i {
+  font-size: 2.4rem;
+  display: flex;
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+  border: 2px solid #dbdbdb;
+  border-radius: 50%;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+hover .g-hover_img,
+.g-lg-hover img,
+.g-lg-hover .g-hover_img {
+  transition: opacity 0.2s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.g-grid-2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>

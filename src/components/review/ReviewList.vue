@@ -104,7 +104,7 @@ const icon = computed(() => {
   border: 1px solid #009e96;
 }
 .g-label-brand {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: normal;
   line-height: 1;
   display: inline-block;

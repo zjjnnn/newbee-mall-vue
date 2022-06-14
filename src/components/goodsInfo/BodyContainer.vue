@@ -3,6 +3,7 @@
     <div class="p-grid g-lg-grid-2 g-grid-lg">
       <photo-container />
       <info-container />
+      <in-car />
     </div>
   </div>
 </template>
@@ -10,13 +11,13 @@
 <script setup lang="ts">
 import InfoContainer from "./InfoContainer.vue";
 import PhotoContainer from "./PhotoContainer.vue";
+import InCar from "./InCart.vue";
 </script>
 
 <style scoped>
 .g-lg-grid-2 {
   display: flex;
   flex-wrap: wrap;
-  width: 1000px;
   margin-bottom: 20px;
 }
 

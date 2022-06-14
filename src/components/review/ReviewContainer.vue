@@ -62,7 +62,7 @@ div {
 }
 .g-btn,
 .g-lg-btn {
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: normal;
   display: inline-flex;

@@ -4,5 +4,5 @@
   "/goods/detail/review/rating/:goodsId": "/goodsDetailReviewRating?goodsId=:goodsId",
   "/goodsqa/:goodsId": "/goodsqa?goodsId=:goodsId",
   "/goods/info/:goodsId": "/goodsInfo?goodsId=:goodsId",
-  "/cart/list/:sku": "/cartList?sku=:sku"
+  "/cart/list/:userId": "/cartList?userId=:userId"
 }

@@ -4,30 +4,30 @@
       <li class="g-itemList_item g-media g-media-lg p-cartItem">
         <!-- photo -->
         <p class="g-media_head">
-          <a class="g-hover" href="/ec/product/7565685/"
-            ><img
-              class="g-fw g-rc"
-              :src="imgSrc"
-              srcset="
-                https://www.nitori-net.jp/ecstatic/image/product/7565685/756568501.jpg?imwidth=97&amp;imdensity=1&amp;ts=20220307112236500 2x
-              "
-              alt="cartItem.title"
-          /></a>
+          <router-link class="g-hover" to="/goods/detail/10195"
+            ><img class="g-fw g-rc" :src="photo" :alt="title"
+          /></router-link>
         </p>
         <!-- goods info -->
         <div class="g-media_body g-units-sm">
           <p class="g-media_h">
-            <a href="/ec/product/7565685/">{{ cartItem.title }}</a>
+            <router-link
+              to="/goods/detail/10195"
+              @mouseover="mouseOver"
+              :style="state.underline"
+              @mouseleave="mouseLeave"
+              >{{ title }}</router-link
+            >
           </p>
-          <p class="g-font-sm">商品コード {{ cartItem.sku }}</p>
+          <p class="g-font-sm">商品コード {{ sku }}</p>
           <ul class="g-font-sm">
-            <li>カラー：{{ cartItem.color }}</li>
-            <li>サイズ：{{ cartItem.size }}</li>
+            <li>カラー：{{ color }}</li>
+            <li>サイズ：{{ size }}</li>
             <li></li>
           </ul>
-          <p class="g-price">{{ cartItem.price }}<span>円 （税込）</span></p>
+          <p class="g-price">{{ price }}<span>円 （税込）</span></p>
           <div class="g-butterfly g-font-sm">
-            <p>{{ cartItem.shipment }}日で出荷</p>
+            <p>{{ shipment }}日で出荷</p>
           </div>
         </div>
         <!-- input and price -->
@@ -54,16 +54,7 @@
               name="uniDeleteCartEntryForm0"
               action="/ec/cart/delete/cartEntry"
               method="post"
-            >
-              <!-- <input id="pk" name="pk" value="12605289365548" type="hidden" />
-              <div>
-                <input
-                  type="hidden"
-                  name="CSRFToken"
-                  value="b9e8f46d-ed08-48af-a4b3-a4ed1fbfcbc0"
-                />
-              </div> -->
-            </form>
+            ></form>
             <div class="p-cartItem_pcs">
               <form
                 id="uniUpdateQuantityForm0"
@@ -82,23 +73,8 @@
                   name="quantity"
                   value="1"
                   aria-label="個数"
-                  onchange="if(this.value&amp;&amp;this.value!=='1') uniUpdateQuantityForm0.submit();"
-                  aria-describedby="p-cartItem_pcs0_alert"
-                  data-validation-rules='[{"action":"hankaku"},{"rule":"number"}]'
                   maxlength="3"
                 />
-                <!-- <div
-                  class="g-formGrid_error-alone"
-                  id="p-cartItem_pcs0_alert"
-                  role="alert"
-                ></div> -->
-                <!-- <div>
-                  <input
-                    type="hidden"
-                    name="CSRFToken"
-                    value="b9e8f46d-ed08-48af-a4b3-a4ed1fbfcbc0"
-                  />
-                </div> -->
               </form>
             </div>
             <p class="p-cartItem_btn">
@@ -120,7 +96,7 @@
             </p>
             <div class="p-cartItem_sum">
               <p class="g-price">
-                <span>個別送料</span>{{ cartItem.postage }}<span>円</span>
+                <span>個別送料</span>{{ postage }}<span>円</span>
               </p>
               <p class="g-price g-lg-price-lg">
                 <span>小計</span>{{ totalPrice }}<span>円 （税込）</span>
@@ -139,21 +115,35 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from "../../store/index";
-import { computed, onMounted } from "vue";
-const sku = "10195s_wh";
-const store = useStore();
-onMounted(() => {
-  store.dispatch("setCartItem", sku);
-});
-//输入的商品数量，暂时写成 quantity = 1
-let quantity = 1;
-const cartItem = computed(() => store.getters.getCartItem);
-const imgSrc = computed(() => store.getters.getImgSrc);
+import { defineProps, toRefs } from "vue";
+import { reactive } from "vue";
 
-const totalPrice = computed(
-  () => cartItem.value.price * quantity + cartItem.value.postage
-);
+const props = defineProps({
+  goodsId: Number,
+  size: String,
+  sku: String,
+  color: String,
+  photo: String,
+  price: Number,
+  title: String,
+  shipment: String,
+  postage: Number,
+  link: String,
+  quantity: Number,
+});
+const { size, sku, color, photo, title, price, shipment, postage, quantity } =
+  toRefs(props);
+
+const totalPrice = +price! * +quantity! + +postage!;
+
+//mouse event: change style, add underline
+const state = reactive({ underline: "" });
+function mouseOver() {
+  state.underline = " text-decoration: underline";
+}
+function mouseLeave() {
+  state.underline = "";
+}
 </script>
 
 <style scoped>

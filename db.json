@@ -849,64 +849,75 @@
       "variants": [
         {
           "size": "シングル",
-          "color": ["ホワイト", "グレー", "ダークブルー"]
+          "color": [
+            "ホワイト",
+            "グレー",
+            "ダークブルー"
+          ]
         },
         {
           "size": "セミダブル",
-          "color": ["ホワイト", "ダークブルー"]
+          "color": [
+            "ホワイト",
+            "ダークブルー"
+          ]
         }
       ]
     }
   ],
+  "addCart": [
+    {
+      "id": 1,
+      "userId": "user01",
+      "sku": "10195s_wh",
+      "quantity": 1,
+      "cartDate": "2022-06-01 19:00:00"
+    },
+    {
+      "id": 2,
+      "userId": "user01",
+      "sku": "10195m_wh",
+      "quantity": 1,
+      "cartDate": "2022-06-01 19:00:01"
+    },
+    {
+      "userId": "user01",
+      "sku": "10195s_wh",
+      "quantity": 1,
+      "cartDate": "2022-06-14T11:04:00.394Z",
+      "id": 3
+    }
+  ],
   "cartList": [
     {
+      "id": 1,
+      "userId": "user01",
       "goodsId": 10195,
       "size": "シングル",
-      "sizeValue": "7565681",
-      "sizeDataCode": "05700010014",
       "sku": "10195s_wh",
       "color": "ホワイト",
-      "sizeDetail": "幅100x奥行200cm",
-      "material": "ナイロン／ＰＥ／ＰＡ／ＰＵ",
-      "weight": "約1.25kg",
-      "warranty": "1年",
-      "photo": [
-        "http://localhost:8080/assets/images/goodsphoto1.jpg",
-        "http://localhost:8080/assets/images/goodsphoto2.jpg",
-        "http://localhost:8080/assets/images/goodsphoto3.jpg",
-        "http://localhost:8080/assets/images/goodsphoto4.jpg",
-        "http://localhost:8080/assets/images/goodsphoto5.jpg",
-        "http://localhost:8080/assets/images/goodsphoto6.jpg",
-        "http://localhost:8080/assets/images/goodsphoto7.jpg",
-        "http://localhost:8080/assets/images/goodsphoto8.jpg",
-        "http://localhost:8080/assets/images/goodsphoto9.jpg"
-      ],
+      "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
+      "price": 3990,
+      "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
+      "shipment": "2~6",
+      "postage": 0,
+      "link": "/goods/detail/10195",
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "userId": "user01",
+      "goodsId": 10195,
+      "size": "セミダブル",
+      "sku": "10195m_wh",
+      "color": "ホワイト",
+      "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
       "price": 3990,
       "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
-      "postage": 0
-    },
-    {
-      "size": "シングル",
-      "sizeValue": "7565681",
-      "sizeDataCode": "05700010014",
-      "sku": "10195s_gr",
-      "color": "グレー",
-      "sizeDetail": "幅100x奥行200cm",
-      "material": "ナイロン／ＰＥ／ＰＡ／ＰＵ",
-      "weight": "約1.25kg",
-      "warranty": "1年",
-      "photo": [
-        "http://localhost:8080/assets/images/goods1.jpg",
-        "http://localhost:8080/assets/images/goods2.jpg",
-        "http://localhost:8080/assets/images/goods3.jpg",
-        "http://localhost:8080/assets/images/goods4.jpg",
-        "http://localhost:8080/assets/images/goods1.jpg"
-      ],
-      "price": 3990,
-      "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s GY S)",
-      "shipment": "1~3",
-      "postage": 0
+      "postage": 0,
+      "link": "/goods/detail/10195",
+      "quantity": 1
     }
   ]
 }
