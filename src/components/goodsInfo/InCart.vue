@@ -43,13 +43,15 @@
               </dt>
               <dd>
                 <input
+                  :value="quantity"
+                  @input="updateQuantity"
                   class="g-input g-input-sm addToCartQty"
                   id="p-pieces"
-                  type="text"
+                  type="number"
                   name="quantity"
-                  value="1"
-                  size="5"
-                  maxlength="3"
+                  oninput="value=value.replace(/\D-/g, '');if(value.length>3)value=value.slice(0,3)"
+                  max="999"
+                  min="0"
                 />
               </dd>
             </dl>
@@ -58,7 +60,7 @@
               <div class="g-flow-0 g-align-fbl">
                 <dl class="p-price p-price-area">
                   <dd class="g-price g-price-lg g-price-ra price-size-up">
-                    3,990<span>円</span>
+                    {{ price }}<span>円</span>
                   </dd>
                 </dl>
               </div>
@@ -219,13 +221,33 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted } from "vue";
 import { useStore } from "../../store/index";
+import { useRoute } from "vue-router";
 
 const store = useStore();
 
 const addItem = () => {
   store.dispatch("addCart");
 };
+const quantity = computed(() => store.getters.getQuantity);
+
+const route = useRoute();
+const goodsId = route.params.goodsId;
+
+onMounted(() => {
+  store.dispatch("setInfos", goodsId);
+});
+
+const updateQuantity = (e: Event) => {
+  if (e.target instanceof HTMLInputElement) {
+    store.commit("updateQuantity", e.target.value);
+  }
+};
+
+// const newInfoList = computed(() => store.getters.getNewInfoList);
+const price = computed(() => store.getters.getNewInfoList.price);
+// const totalPrice = computed(() => price.value * quantity.value);
 </script>
 
 <style scoped>

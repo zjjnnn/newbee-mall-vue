@@ -4,7 +4,7 @@
       <li class="g-itemList_item g-media g-media-lg p-cartItem">
         <!-- photo -->
         <p class="g-media_head">
-          <router-link class="g-hover" to="/goods/detail/10195"
+          <router-link class="g-hover" :to="link"
             ><img class="g-fw g-rc" :src="photo" :alt="title"
           /></router-link>
         </p>
@@ -12,7 +12,7 @@
         <div class="g-media_body g-units-sm">
           <p class="g-media_h">
             <router-link
-              to="/goods/detail/10195"
+              :to="link"
               @mouseover="mouseOver"
               :style="state.underline"
               @mouseleave="mouseLeave"
@@ -34,27 +34,6 @@
         <div class="g-media_foot">
           <div class="g-hr-sm g-hr-dark g-only-sm"></div>
           <div class="p-cartItem_controls">
-            <form
-              id="uniAddLaterListEntryForm0"
-              name="uniAddLaterListEntryForm0"
-              action="/ec/cart/add/laterListEntry"
-              method="post"
-            >
-              <input id="pk" name="pk" value="12605289365548" type="hidden" />
-              <div>
-                <input
-                  type="hidden"
-                  name="CSRFToken"
-                  value="b9e8f46d-ed08-48af-a4b3-a4ed1fbfcbc0"
-                />
-              </div>
-            </form>
-            <form
-              id="uniDeleteCartEntryForm0"
-              name="uniDeleteCartEntryForm0"
-              action="/ec/cart/delete/cartEntry"
-              method="post"
-            ></form>
             <div class="p-cartItem_pcs">
               <form
                 id="uniUpdateQuantityForm0"
@@ -63,17 +42,13 @@
                 method="post"
               >
                 <input
-                  id="pk"
-                  name="pk"
-                  value="12605289365548"
-                  type="hidden"
-                /><input
                   class="g-input g-input-sm g-fw"
                   type="text"
                   name="quantity"
-                  value="1"
+                  v-model="quantity"
                   aria-label="個数"
                   maxlength="3"
+                  oninput="value=value.replace(/\D/g, '')"
                 />
               </form>
             </div>
@@ -85,21 +60,19 @@
                 ><span>あとで買う</span></a
               >
             </p>
-            <p class="p-cartItem_del">
-              <a
-                class="g-link g-link-gray"
-                href="javascript:chgItem('uniDeleteCartEntryForm','0',false)"
-                data-once=""
-                ><i class="g-i g-i-close" aria-hidden="true"></i
-                ><span>削除</span></a
-              >
+            <p
+              class="p-cartItem_del"
+              @click="deleteItem"
+              style="cursor: pointer"
+            >
+              <span style="color: gray">x</span><span> 削除</span>
             </p>
             <div class="p-cartItem_sum">
               <p class="g-price">
                 <span>個別送料</span>{{ postage }}<span>円</span>
               </p>
               <p class="g-price g-lg-price-lg">
-                <span>小計</span>{{ totalPrice }}<span>円 （税込）</span>
+                <span>小計</span>{{ sum }}<span>円 （税込）</span>
               </p>
             </div>
           </div>
@@ -115,26 +88,38 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, toRefs } from "vue";
+import { computed } from "@vue/reactivity";
+import { defineProps, toRefs, ref } from "vue";
+// import { toRefs } from "vue";
 import { reactive } from "vue";
+import { useStore } from "../../store/index";
 
-const props = defineProps({
-  goodsId: Number,
-  size: String,
-  sku: String,
-  color: String,
-  photo: String,
-  price: Number,
-  title: String,
-  shipment: String,
-  postage: Number,
-  link: String,
-  quantity: Number,
-});
-const { size, sku, color, photo, title, price, shipment, postage, quantity } =
+const store = useStore();
+const props = defineProps<{
+  goodsId: number;
+  size: string;
+  sku: string;
+  color: string;
+  photo: string;
+  price: number;
+  title: string;
+  shipment: string;
+  postage: number;
+  link: string;
+  quantity: number;
+}>();
+const { size, sku, color, photo, title, price, shipment, postage } =
   toRefs(props);
+const quantity = ref(props.quantity);
 
-const totalPrice = +price! * +quantity! + +postage!;
+//计算每个sku的总价
+const sum = computed(() => +price.value * +quantity.value + +postage.value);
+console.log("quantity", quantity.value);
+
+//delect cart item
+const deleteItem = () => {
+  store.dispatch("deleteCart");
+};
 
 //mouse event: change style, add underline
 const state = reactive({ underline: "" });
