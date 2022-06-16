@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import GoodsList from "./GoodsList.vue";
 export default {
   components: { GoodsList },

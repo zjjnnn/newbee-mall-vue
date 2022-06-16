@@ -4,20 +4,37 @@ const url = "http://localhost:3000/cart/list/";
 const headers = { Accept: "application/json" };
 
 type CartState = {
-  cartItem: {};
+  cartItem: Item[];
   quantity: number;
+  paymentSum: number;
+  quantityInCart: number;
+};
+type Item = {
+  id: number;
+  userId: string;
+  goodsId: number;
+  size: string;
   sku: string;
+  color: string;
+  photo: string;
+  price: number;
+  title: string;
+  shipment: string;
+  postage: number;
+  link: string;
+  quantity: number;
 };
 
 export default {
   state: {
-    cartItem: {},
+    cartItem: [],
     quantity: 1,
-    sku: "",
+    paymentSum: 0,
+    quantityInCart: 0,
   },
   mutations: {
     //syncrous
-    setCartItem(state: CartState, payload: {}) {
+    setCartItem(state: CartState, payload: any) {
       state.cartItem = payload;
     },
     updateQuantity(state: CartState, quantity: number) {
@@ -27,14 +44,31 @@ export default {
         state.quantity = +quantity;
       }
     },
+    updateQuantityInCart(state: CartState, quantity: number) {
+      if (quantity > 999) {
+        state.quantityInCart = +quantity.toString().slice(0, 3);
+      } else {
+        state.quantityInCart = +quantity;
+      }
+    },
+    setSum(state: CartState, payload: number) {
+      state.paymentSum = payload;
+    },
   },
   actions: {
-    //asyncronous
-    async setCartItem({ commit }: { commit: Function }, payload: string) {
+    // get data
+    async setCartItem(context, payload: string) {
       const cartItem = await fetch(url + payload, { headers });
       const j = await cartItem.json();
-      commit("setCartItem", j);
+      context.commit("setCartItem", j);
+
+      let paymentSum = 0;
+      context.state.cartItem.map(
+        (item) => (paymentSum += item.price * item.quantity + item.postage)
+      );
+      context.commit("setSum", paymentSum);
     },
+    // add data
     async addCart(context) {
       const cart = {
         userId: "user01",
@@ -49,10 +83,33 @@ export default {
       } else {
         await axios.post("http://localhost:3000/addCart", cart);
       }
+      alert("カートに追加しました！");
     },
-    async deleteCart() {
-      await fetch("http://localhost:3000/cartList/2", { method: "DELETE" });
-      alert("deleted!!!!!");
+    // delect data
+    async deleteCart(
+      { commit }: { commit: Function },
+      { id, userId }: { id: number; userId: string }
+    ) {
+      await fetch("http://localhost:3000/cartList/" + id, { method: "DELETE" });
+
+      const cartItem = await fetch(url + userId, { headers });
+      const j = await cartItem.json();
+      commit("setCartItem", j);
+    },
+    // update data
+    async UpdateCart(context, { id, userId }: { id: number; userId: string }) {
+      await axios.patch("http://localhost:3000/cartList/" + id, {
+        quantity: context.state.quantityInCart,
+      });
+      const cartItem = await fetch(url + userId, { headers });
+      const j = await cartItem.json();
+      context.commit("setCartItem", j);
+      console.log("j", j);
+      let paymentSum = 0;
+      context.state.cartItem.map(
+        (item) => (paymentSum += item.price * item.quantity + item.postage)
+      );
+      context.commit("setSum", paymentSum);
     },
   },
   getters: {
@@ -61,6 +118,9 @@ export default {
     },
     getQuantity: (state: CartState) => {
       return state.quantity;
+    },
+    getPaymentSum: (state: CartState) => {
+      return state.paymentSum;
     },
   },
 };

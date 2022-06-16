@@ -5,7 +5,9 @@
         <div class="p-payment">
           <dl class="p-payment_total">
             <dt class="p-paymentAmountLabel">お支払金額</dt>
-            <dd class="g-price g-price-lg">12,530<span>円</span></dd>
+            <dd class="g-price g-price-lg">
+              {{ paymentAmount }}<span>円</span>
+            </dd>
           </dl>
           <div class="p-payment_body g-units-lg">
             <dl class="p-payment_itemized p-shorten-dl" id="p-payment_itemized">
@@ -16,14 +18,17 @@
                 aria-controls="p-aboutAcquiredPointModal"
                 ><dt>
                   獲得予定ポイント<span style="margin-right: 10px"></span
-                  ><i class="g-i g-i-info" aria-hidden="true"></i></dt
-              ></a>
-              <dd class="p-pointMerginTop">113<span>pt</span></dd>
+                  ><span class="material-symbols-outlined green-icon">
+                    info
+                  </span>
+                </dt></a
+              >
+              <dd class="p-pointMerginTop">{{ pointSum }}<span>pt</span></dd>
 
               <dt class="p-payment_sum p-paymentSumShorten">商品金額合計</dt>
-              <dd>12,530<span>円</span></dd>
+              <dd>{{ paymentSum }}{{}}<span>円</span></dd>
               <dt>送料</dt>
-              <dd>0<span>円</span></dd>
+              <dd>{{ postageSum }}<span>円</span></dd>
             </dl>
             <ul class="g-list g-list-note">
               <li>
@@ -93,19 +98,7 @@
             />
           </div>
         </form>
-        <div></div>
-        <p>
-          <a
-            class="g-link"
-            href="#p-pdfModal"
-            role="button"
-            aria-hidden="true"
-            aria-expanded="false"
-            aria-controls="p-pdfModal"
-            ><i class="g-i g-i-arrow-r"></i><span>見積書（PDF）を出力</span
-            ><i class="g-s g-s-pdf"></i
-          ></a>
-        </p>
+
         <div class="g-foot-v">
           <p>
             <button
@@ -116,10 +109,12 @@
             </button>
           </p>
           <p>
-            <a class="g-btn g-fw" href="/ec/"
+            <a class="g-btn g-fw" href="/"
               ><span>ショッピングを続ける</span
-              ><i class="g-i g-i-arrow-r" aria-hidden="true"></i
-            ></a>
+              ><span class="material-symbols-outlined green-icon">
+                chevron_right
+              </span></a
+            >
           </p>
         </div>
       </section>
@@ -127,7 +122,30 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted, computed } from "vue";
+import { useStore } from "../../store/index";
+const userId = "user01";
+const store = useStore();
+onMounted(() => {
+  store.dispatch("setCartItem", userId);
+});
+
+//paymentAmount お支払金額 paymentSum+postageSum
+const paymentAmount = computed(() => paymentSum.value + postageSum.value);
+//pointSum  獲得予定ポイント paymentSum/1.1/100
+const pointSum = computed(() => Math.round(paymentSum.value / 110));
+//paymentSum 商品金額合計 sum1+sum2+...
+const paymentSum = computed(() => store.getters.getPaymentSum);
+//postageSum 送料 >=11000 送料無料、else 550円
+const postageSum = computed(() => {
+  if (paymentSum.value > 11000) {
+    return 0;
+  } else {
+    return 550;
+  }
+});
+</script>
 
 <style scoped>
 .g-layout_sidebar {

@@ -3,7 +3,7 @@
     <div class="p-grid g-lg-grid-2 g-grid-lg">
       <photo-container />
       <info-container />
-      <in-car />
+      <into-cart />
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import InfoContainer from "./InfoContainer.vue";
 import PhotoContainer from "./PhotoContainer.vue";
-import InCar from "./InCart.vue";
+import IntoCart from "./IntoCart.vue";
 </script>
 
 <style scoped>

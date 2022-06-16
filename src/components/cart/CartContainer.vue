@@ -8,12 +8,18 @@
       <h1>カート</h1>
     </div>
     <div class="flex">
-      <div id="cart">
-        <template v-for="item in cartItem" :key="item">
-          <cart-item v-bind="item" />
-        </template>
+      <div v-if="length && length === 0">
+        <p>
+          ショッピングカートに商品が入っていません。<br />
+          ショッピングカート内の商品は自由に出し入れしていただけます。<br />
+          また、商品は「あとで買う」に移動していただくこともできます。
+        </p>
       </div>
-      <div>
+      <div id="cart">
+        <cart-item></cart-item>
+      </div>
+
+      <div v-if="length !== 0">
         <side-bar></side-bar>
       </div>
     </div>
@@ -21,7 +27,6 @@
 </template>
 
 <script setup lang="ts">
-// eslint-disable-next-line no-unused-vars
 import CartItem from "./CartItem.vue";
 import SideBar from "./SideBar.vue";
 
@@ -32,7 +37,8 @@ const store = useStore();
 onMounted(() => {
   store.dispatch("setCartItem", userId);
 });
-const cartItem = computed(() => store.getters.getCartItem);
+const length = computed(() => store.getters.getCartItem.length);
+console.log("length", length);
 </script>
 
 <style scoped>

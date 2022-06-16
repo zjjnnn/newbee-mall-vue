@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import HotImageLink from "./HotImageLink.vue";
 export default {
   components: {

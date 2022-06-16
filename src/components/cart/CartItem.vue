@@ -1,126 +1,118 @@
 <template>
-  <div class="g-layout_body">
-    <ul class="g-itemList">
-      <li class="g-itemList_item g-media g-media-lg p-cartItem">
-        <!-- photo -->
-        <p class="g-media_head">
-          <router-link class="g-hover" :to="link"
-            ><img class="g-fw g-rc" :src="photo" :alt="title"
-          /></router-link>
-        </p>
-        <!-- goods info -->
-        <div class="g-media_body g-units-sm">
-          <p class="g-media_h">
-            <router-link
-              :to="link"
-              @mouseover="mouseOver"
-              :style="state.underline"
-              @mouseleave="mouseLeave"
-              >{{ title }}</router-link
-            >
+  <template v-for="item in cartItems" :key="item">
+    <div class="g-layout_body">
+      <ul class="g-itemList">
+        <li class="g-itemList_item g-media g-media-lg p-cartItem">
+          <!-- photo -->
+          <p class="g-media_head">
+            <router-link class="g-hover" :to="item.link"
+              ><img class="g-fw g-rc" :src="item.photo" :alt="item.title"
+            /></router-link>
           </p>
-          <p class="g-font-sm">商品コード {{ sku }}</p>
-          <ul class="g-font-sm">
-            <li>カラー：{{ color }}</li>
-            <li>サイズ：{{ size }}</li>
-            <li></li>
-          </ul>
-          <p class="g-price">{{ price }}<span>円 （税込）</span></p>
-          <div class="g-butterfly g-font-sm">
-            <p>{{ shipment }}日で出荷</p>
-          </div>
-        </div>
-        <!-- input and price -->
-        <div class="g-media_foot">
-          <div class="g-hr-sm g-hr-dark g-only-sm"></div>
-          <div class="p-cartItem_controls">
-            <div class="p-cartItem_pcs">
-              <form
-                id="uniUpdateQuantityForm0"
-                name="uniUpdateQuantityForm0"
-                action="/ec/cart/update/quantity"
-                method="post"
-              >
-                <input
-                  class="g-input g-input-sm g-fw"
-                  type="text"
-                  name="quantity"
-                  v-model="quantity"
-                  aria-label="個数"
-                  maxlength="3"
-                  oninput="value=value.replace(/\D/g, '')"
-                />
-              </form>
-            </div>
-            <p class="p-cartItem_btn">
-              <a
-                class="g-btn g-btn-sm g-btn-em g-fw g-sm-font-md"
-                href="javascript:chgItem('uniAddLaterListEntryForm','0',false)"
-                data-once=""
-                ><span>あとで買う</span></a
+          <!-- goods info -->
+          <div class="g-media_body g-units-sm">
+            <p class="g-media_h">
+              <router-link
+                :to="item.link"
+                @mouseover="mouseOver"
+                :style="state.underline"
+                @mouseleave="mouseLeave"
+                >{{ item.title }}</router-link
               >
             </p>
-            <p
-              class="p-cartItem_del"
-              @click="deleteItem"
-              style="cursor: pointer"
-            >
-              <span style="color: gray">x</span><span> 削除</span>
-            </p>
-            <div class="p-cartItem_sum">
-              <p class="g-price">
-                <span>個別送料</span>{{ postage }}<span>円</span>
-              </p>
-              <p class="g-price g-lg-price-lg">
-                <span>小計</span>{{ sum }}<span>円 （税込）</span>
-              </p>
+            <p class="g-font-sm">商品コード {{ item.sku }}</p>
+            <ul class="g-font-sm">
+              <li>カラー：{{ item.color }}</li>
+              <li>サイズ：{{ item.size }}</li>
+              <li></li>
+            </ul>
+            <p class="g-price">{{ item.price }}<span>円 （税込）</span></p>
+            <div class="g-butterfly g-font-sm">
+              <p>{{ item.shipment }}日で出荷</p>
             </div>
           </div>
-        </div>
-        <div class="p-cartItem_addon g-sm-units-sm g-lg-units-lg">
-          <ul class="g-flow-xs g-item_label">
-            <li class="g-label-brand">店舗受取可能商品</li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
+          <!-- input and price -->
+          <div class="g-media_foot">
+            <div class="g-hr-sm g-hr-dark g-only-sm"></div>
+            <div class="p-cartItem_controls">
+              <div class="p-cartItem_pcs">
+                <form
+                  id="uniUpdateQuantityForm0"
+                  name="uniUpdateQuantityForm0"
+                  action="/ec/cart/update/quantity"
+                  method="post"
+                >
+                  <input
+                    :id="item.id"
+                    @change="
+                      updateQuantity($event);
+                      UpdateItem(item.id);
+                    "
+                    class="g-input g-input-sm g-fw"
+                    type="text"
+                    name="quantity"
+                    v-model="item.quantity"
+                    aria-label="個数"
+                    maxlength="3"
+                    oninput="value=value.replace(/\D/g, '')"
+                  />
+                </form>
+              </div>
+              <p class="p-cartItem_btn">
+                <a
+                  class="g-btn g-btn-sm g-btn-em g-fw g-sm-font-md"
+                  href="javascript:chgItem('uniAddLaterListEntryForm','0',false)"
+                  data-once=""
+                  ><span>あとで買う</span></a
+                >
+              </p>
+              <p
+                :id="item.id"
+                class="p-cartItem_del"
+                @click="deleteItem(item.id)"
+                style="cursor: pointer"
+              >
+                <span style="color: gray">x</span><span> 削除</span>
+              </p>
+              <div class="p-cartItem_sum">
+                <p class="g-price">
+                  <span>個別送料</span>{{ item.postage }}<span>円</span>
+                </p>
+                <p class="g-price g-lg-price-lg">
+                  <span>小計</span>{{ item.price * item.quantity + item.postage
+                  }}<span>円 （税込）</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="p-cartItem_addon g-sm-units-sm g-lg-units-lg">
+            <ul class="g-flow-xs g-item_label">
+              <li class="g-label-brand">店舗受取可能商品</li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { computed } from "@vue/reactivity";
-import { defineProps, toRefs, ref } from "vue";
-// import { toRefs } from "vue";
-import { reactive } from "vue";
+import { computed, reactive, onMounted } from "vue";
 import { useStore } from "../../store/index";
-
+const userId = "user01";
 const store = useStore();
-const props = defineProps<{
-  goodsId: number;
-  size: string;
-  sku: string;
-  color: string;
-  photo: string;
-  price: number;
-  title: string;
-  shipment: string;
-  postage: number;
-  link: string;
-  quantity: number;
-}>();
-const { size, sku, color, photo, title, price, shipment, postage } =
-  toRefs(props);
-const quantity = ref(props.quantity);
-
-//计算每个sku的总价
-const sum = computed(() => +price.value * +quantity.value + +postage.value);
-console.log("quantity", quantity.value);
-
-//delect cart item
-const deleteItem = () => {
-  store.dispatch("deleteCart");
+onMounted(() => {
+  store.dispatch("setCartItem", userId);
+});
+const cartItems = computed(() => store.getters.getCartItem);
+//delect cart item, then set item
+const deleteItem = (id: number) => {
+  store.dispatch("deleteCart", { id, userId });
 };
 
+const UpdateItem = (id: number) => {
+  store.dispatch("UpdateCart", { id, userId });
+};
 //mouse event: change style, add underline
 const state = reactive({ underline: "" });
 function mouseOver() {
@@ -129,6 +121,11 @@ function mouseOver() {
 function mouseLeave() {
   state.underline = "";
 }
+const updateQuantity = (e: Event) => {
+  if (e.target instanceof HTMLInputElement) {
+    store.commit("updateQuantityInCart", e.target.value);
+  }
+};
 </script>
 
 <style scoped>

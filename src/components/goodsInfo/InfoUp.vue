@@ -64,6 +64,7 @@ const change = (e: Event) => {
   }
 };
 console.log("size", size.value);
+
 const goodsDescribe = computed(() => store.getters.getInfos.goodsDescribe);
 </script>
 
