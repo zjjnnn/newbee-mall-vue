@@ -26,7 +26,7 @@
               <dd class="p-pointMerginTop">{{ pointSum }}<span>pt</span></dd>
 
               <dt class="p-payment_sum p-paymentSumShorten">商品金額合計</dt>
-              <dd>{{ paymentSum }}{{}}<span>円</span></dd>
+              <dd>{{ paymentSum }}<span>円</span></dd>
               <dt>送料</dt>
               <dd>{{ postageSum }}<span>円</span></dd>
             </dl>
@@ -49,56 +49,79 @@
                   type="radio"
                   name="checkoutFlowMode"
                   value="DELIVERY"
-                /><span
-                  ><i
-                    class="g-s g-s-radio-on g-checkable_on"
-                    aria-hidden="true"
-                  ></i
-                  ><i
-                    class="g-s g-s-radio-off g-checkable_off"
-                    aria-hidden="true"
-                  ></i
-                  ><span class="g-checkable_label"
+                /><span>
+                  <span class="g-checkable_label" style="cursor: pointer"
                     >ご指定の場所に配送する</span
                   ></span
                 >
               </label>
             </li>
-            <li class="g-mt-10">
+            <li class="g-mt-10" @click="isShow = true">
               <label class="g-checkable">
                 <input
                   type="radio"
                   name="checkoutFlowMode"
                   value="PICKUP"
-                  aria-expanded="false"
-                  aria-controls="p-alertModal"
-                /><span
-                  ><i
-                    class="g-s g-s-radio-on g-checkable_on"
-                    aria-hidden="true"
-                  ></i
-                  ><i
-                    class="g-s g-s-radio-off g-checkable_off"
-                    aria-hidden="true"
-                  ></i
-                  ><span class="g-checkable_label"
-                    ><span class="g-align-vm g-mr-10"
-                      >店舗/配送センターで受け取る</span
-                    ><span class="g-label-price">送料無料</span></span
-                  ></span
+                /><span>
+                  <span class="g-align-vm g-mr-10" style="cursor: pointer">
+                    店舗/配送センターで受け取る</span
+                  ><br /><span class="g-label-price">送料無料</span></span
                 >
               </label>
             </li>
+            <!-- modal -->
+            <GDialog v-model="isShow">
+              <div class="modal">
+                <div class="g-modal_el">
+                  <header class="g-modal_head">
+                    <p class="g-modal_h" id="p-alertModal_h">ご注意ください</p>
+                    <button
+                      @click="isShow = false"
+                      class="g-modal_close modal-close"
+                      type="button"
+                      aria-label="閉じる"
+                      aria-expanded="true"
+                      aria-controls="p-alertModal"
+                    >
+                      <span
+                        class="material-symbols-outlined"
+                        style="cursor: pointer"
+                      >
+                        close
+                      </span>
+                    </button>
+                  </header>
+                  <div class="g-modal_body">
+                    <ul class="g-list g-list-disc">
+                      <li>
+                        一部商品のみ配送でお受け取りいただく場合、送料が発生する可能性がございます。
+                      </li>
+                      <li>店舗ではお受け取りいただけない商品もございます。</li>
+                      <li>
+                        ニトリネットに登録済みのお客様は、店舗で受け取れない商品について、別途購入手続きをお願いいたします。
+                      </li>
+                      <li>
+                        ニトリネットに未登録のお客様は、店舗で受け取れない商品がカートから削除されます。
+                        お手数ですが改めてカートへ商品を追加のうえ、購入手続きをお願いいたします。
+                      </li>
+                    </ul>
+                    <div class="g-sm-foot-v g-lg-foot-h g-foot-lg">
+                      <p>
+                        <button
+                          class="g-btn g-btn-cv g-btn-w-md modal-button"
+                          onclick="javascript:checkoutFlowModeForm.submit();return false;"
+                        >
+                          <span>レジへ進む</span>
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </GDialog>
+            <!-- modal end -->
           </ul>
-          <div>
-            <input
-              type="hidden"
-              name="CSRFToken"
-              value="9439107a-af9c-4071-bf15-94178d5b97d5"
-            />
-          </div>
         </form>
-
         <div class="g-foot-v">
           <p>
             <button
@@ -123,13 +146,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { useStore } from "../../store/index";
 const userId = "user01";
 const store = useStore();
 onMounted(() => {
   store.dispatch("setCartItem", userId);
 });
+
+const isShow = ref(false);
 
 //paymentAmount お支払金額 paymentSum+postageSum
 const paymentAmount = computed(() => paymentSum.value + postageSum.value);
@@ -239,5 +264,46 @@ input {
 .g-fw,
 .g-lg-fw {
   width: 100% !important;
+}
+.g-modal_head {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: sticky;
+  z-index: 12;
+  top: 0;
+  display: flex;
+  background-color: #009e96;
+  justify-content: space-between;
+}
+
+.g-modal_h {
+  font-size: 1.2rem;
+  padding: 5px;
+  color: #fff;
+}
+.g-modal_close {
+  font-size: 1rem;
+  padding: 20px;
+}
+
+.g-modal_body {
+  padding: 30px 30px 40px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #fff;
+}
+
+.modal-close {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10;
+  color: #ffffff;
+}
+.modal-button {
+  background-color: #eb6157;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  width: 200px;
 }
 </style>

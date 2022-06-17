@@ -2,9 +2,9 @@
   <div>
     <h1>商品详情页面</h1>
     <p>goodsId:{{ goodsId }}</p>
-    <router-link to="/">Go to Home</router-link>
+    <a href="/">Go to Home</a>
     <br />
-    <router-link to="/cart">Go to Cart</router-link>
+    <router-link :to="'/cart'">Go to Cart</router-link>
     <hr />
     <body-container></body-container>
     <qa-and-review></qa-and-review>
@@ -14,7 +14,6 @@
 <script setup lang="ts">
 import QaAndReview from "../components/QaAndReview.vue";
 import { useRoute } from "vue-router";
-//import GoodsInfo from "../components/GoodsInfo.vue";
 import BodyContainer from "../components/goodsInfo/BodyContainer.vue";
 
 const route = useRoute();

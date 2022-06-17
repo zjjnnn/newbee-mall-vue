@@ -14,7 +14,12 @@
                 14日間返品可能
                 <p class="p-order_help">
                   <a class="g-link" href="/ec/userguide/cancel/">
-                    <span>返品・交換について</span
+                    <span
+                      >返品・交換について<span
+                        class="material-symbols-outlined green-icon"
+                      >
+                        info
+                      </span></span
                     ><i class="g-i g-i-info" aria-hidden="true"></i>
                   </a>
                 </p>
@@ -24,7 +29,12 @@
                 <span class="g-label-price">有料</span>
                 <p class="p-order_help">
                   <a class="g-link" href="/ec/userguide/delivery/"
-                    ><span>送料について</span
+                    ><span
+                      >送料について<span
+                        class="material-symbols-outlined green-icon"
+                      >
+                        info
+                      </span></span
                     ><i class="g-i g-i-info" aria-hidden="true"></i
                   ></a>
                 </p>
@@ -47,11 +57,10 @@
                   @input="updateQuantity"
                   class="g-input g-input-sm addToCartQty"
                   id="p-pieces"
-                  type="number"
+                  type="text"
                   name="quantity"
-                  oninput="value=value.replace(/\D-/g, '');if(value.length>3)value=value.slice(0,3)"
-                  max="999"
-                  min="0"
+                  maxlength="3"
+                  oninput="value=value.replace(/\D/g, '')"
                 />
               </dd>
             </dl>
@@ -67,11 +76,60 @@
             </div>
             <div class="g-foot-v">
               <div class="cartBtnArea disp">
+                <!--inset sussessful modal -->
+                <GDialog v-model="isShow">
+                  <div class="modal">
+                    <button
+                      @click="isShow = false"
+                      type="button"
+                      aria-label="閉じる"
+                      class="modal-close"
+                    >
+                      <span
+                        class="material-symbols-outlined"
+                        style="cursor: pointer"
+                      >
+                        close
+                      </span>
+                    </button>
+
+                    <p>カートに追加しました</p>
+                    <button @click="isShow = false" class="modal-button">
+                      <router-link to="/cart">カートを見る</router-link>
+                    </button>
+                  </div>
+                </GDialog>
+
+                <!-- error modal -->
+                <div
+                  v-if="showError"
+                  class="p-itemAdded g-item-add-error"
+                  style="
+                    bottom: 70.2083px;
+                    animation: 1.8s ease 0s 1 normal both running p-itemAddedIn;
+                  "
+                >
+                  <button
+                    @click="showError = false"
+                    class="g-modal_close p-modal_button"
+                    type="button"
+                    aria-label="閉じる"
+                  >
+                    <span
+                      class="material-symbols-outlined"
+                      style="cursor: pointer"
+                    >
+                      close
+                    </span>
+                  </button>
+                  <div>数量は1以上、999以下で設定してください。</div>
+                </div>
                 <button
-                  @click="addItem"
+                  @click="addItem(sku)"
                   class="g-btn g-btn-cv g-btn-c g-fw addToCartBtn"
                   id="p-addItem"
                   type="button"
+                  :sku="sku"
                 >
                   <span class="material-symbols-outlined">
                     add_shopping_cart
@@ -111,18 +169,6 @@
                     <span class="material-symbols-outlined g-s g-s-favorite-g">
                       favorite
                     </span>
-                  </div>
-                  <span class="p-misc_label">お気に入り</span>
-                </a>
-
-                <a
-                  onclick=""
-                  id="addFavoriteDiv"
-                  class="g-hover"
-                  style="display: none"
-                >
-                  <div class="p-misc_i g-hover_img">
-                    <i class="g-s g-s-favorite"></i>
                   </div>
                   <span class="p-misc_label">お気に入り</span>
                 </a>
@@ -221,36 +267,69 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 
 const store = useStore();
-
-const addItem = () => {
-  store.dispatch("addCart");
-};
-const quantity = computed(() => store.getters.getQuantity);
-
 const route = useRoute();
 const goodsId = route.params.goodsId;
 
 onMounted(() => {
   store.dispatch("setInfos", goodsId);
 });
+const quantity = computed(() => store.getters.getQuantity);
+const price = computed(() => store.getters.getNewInfoList.price);
+const sku = computed(() => store.getters.getNewInfoList.sku);
+
+const isShow = ref(false);
+const showError = ref(false);
 
 const updateQuantity = (e: Event) => {
   if (e.target instanceof HTMLInputElement) {
     store.commit("updateQuantity", e.target.value);
   }
 };
-
-// const newInfoList = computed(() => store.getters.getNewInfoList);
-const price = computed(() => store.getters.getNewInfoList.price);
-// const totalPrice = computed(() => price.value * quantity.value);
+// add into cart
+const addItem = (sku: string) => {
+  if (quantity.value < 1 || quantity.value > 999) {
+    showError.value = true;
+  } else {
+    store.dispatch("addCart", sku);
+    isShow.value = true;
+  }
+};
 </script>
 
 <style scoped>
+.modal {
+  width: 300px;
+  height: 500px;
+  padding: 30px;
+  box-sizing: border-box;
+  background-color: #fff;
+  font-size: 20px;
+  text-align: center;
+}
+.modal-button {
+  background-color: #eb6157;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  width: 200px;
+}
+a {
+  color: #fff;
+}
+.modal-close {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 223px;
+  right: 39px;
+  cursor: pointer;
+  padding: 0;
+  color: #808080;
+}
 .g-layout-detail {
   -ms-grid-row: 3;
   -ms-grid-row-span: 2;
@@ -267,8 +346,6 @@ const price = computed(() => store.getters.getNewInfoList.price);
   -ms-grid-column: 2;
   grid-column: 2;
   margin-left: 40px;
-}
-.g-layout_sidebar {
   position: -webkit-sticky;
   position: sticky;
   top: 40px;
@@ -360,10 +437,6 @@ a {
   background-color: #eb6157;
   color: #fff;
 }
-.g-lg-btn-cv {
-  border-color: #eb6157;
-  background-color: #eb6157;
-}
 
 .g-btn {
   font-weight: normal;
@@ -433,5 +506,67 @@ hover .g-hover_img,
 .g-grid-2 {
   display: flex;
   flex-wrap: wrap;
+}
+.cartBtnArea .p-itemAdded {
+  margin-top: 0;
+  bottom: calc(100% + 20px);
+}
+
+.p-itemAdded {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 75%;
+  margin: -85px auto 0;
+  padding: 10px 10px;
+  text-align: center;
+  border: 2px solid #eb6157;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 3px 0 0 rgb(0 0 0 / 15%);
+}
+.g-modal_close {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  cursor: pointer;
+  padding: 0;
+  color: #808080;
+}
+.p-itemAdded.g-item-add-error > div {
+  text-align: left;
+}
+.p-itemAdded > div {
+  margin-top: 5px;
+  margin-right: 16px;
+}
+.p-itemAdded::after {
+  position: absolute;
+  right: 0;
+  bottom: -11px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  content: "";
+  transform: rotate(45deg);
+  border: 2px solid #eb6157;
+  border-top-width: 0;
+  border-left-width: 0;
+  background-image: linear-gradient(135deg, transparent 50%, #fff 50%);
+  box-shadow: 2px 2px 0 0 rgb(0 0 0 / 15%);
+}
+
+button {
+  cursor: pointer;
+}
+.g-fw,
+.g-lg-fw {
+  width: 100% !important;
 }
 </style>

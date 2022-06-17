@@ -1,5 +1,6 @@
 <template>
-  <template v-for="item in cartItems" :key="item">
+  <h2 style="font-size: 1.5rem">「あとで買う」に入っている商品</h2>
+  <template v-for="item in buyLaterItems" :key="item">
     <div class="g-layout_body">
       <ul class="g-itemList">
         <li class="g-itemList_item g-media g-media-lg p-cartItem">
@@ -35,55 +36,23 @@
           <div class="g-media_foot">
             <div class="g-hr-sm g-hr-dark g-only-sm"></div>
             <div class="p-cartItem_controls">
-              <div class="p-cartItem_pcs">
-                <form
-                  id="uniUpdateQuantityForm0"
-                  name="uniUpdateQuantityForm0"
-                  action="/ec/cart/update/quantity"
-                  method="post"
-                >
-                  <input
-                    :id="item.id"
-                    @change="
-                      updateQuantity($event);
-                      UpdateItem(item.id);
-                    "
-                    class="g-input g-input-sm g-fw"
-                    type="text"
-                    name="quantity"
-                    v-model="item.quantity"
-                    aria-label="個数"
-                    maxlength="3"
-                    oninput="value=value.replace(/\D/g, '')"
-                  />
-                </form>
-              </div>
               <p
                 class="p-cartItem_btn"
                 :id="item.id"
-                @click="intoLaterList(item.id)"
+                @click="backtoCartList(item.id)"
               >
-                <a class="g-btn g-btn-sm g-btn-em g-fw">
-                  <span>あとで買う</span>
+                <a class="g-btn g-btn-sm g-btn-em g-fw"
+                  ><span>カートに戻す</span>
                 </a>
               </p>
               <p
                 :id="item.id"
                 class="p-cartItem_del"
-                @click="deleteItem(item.id)"
+                @click="deleteByLater(item.id)"
                 style="cursor: pointer"
               >
                 <span style="color: gray">x</span><span> 削除</span>
               </p>
-              <div class="p-cartItem_sum">
-                <p class="g-price">
-                  <span>個別送料</span>{{ item.postage }}<span>円</span>
-                </p>
-                <p class="g-price g-lg-price-lg">
-                  <span>小計</span>{{ item.price * item.quantity + item.postage
-                  }}<span>円 （税込）</span>
-                </p>
-              </div>
             </div>
           </div>
           <div class="p-cartItem_addon g-sm-units-sm g-lg-units-lg">
@@ -103,20 +72,17 @@ import { useStore } from "../../store/index";
 const userId = "user01";
 const store = useStore();
 onMounted(() => {
-  store.dispatch("setCartItem", userId);
+  store.dispatch("setBuyLaterItem", userId);
 });
-const cartItems = computed(() => store.getters.getCartItem);
+const buyLaterItems = computed(() => store.getters.getBuyLaterItem);
+
 //delect cart item, then set item
-const deleteItem = (id: number) => {
-  store.dispatch("deleteCart", { id, userId });
+const deleteByLater = (id: number) => {
+  store.dispatch("deleteByLater", { id, userId });
 };
 
-const UpdateItem = (id: number) => {
-  store.dispatch("UpdateCart", { id, userId });
-};
-
-const intoLaterList = (id: number) => {
-  store.dispatch("intoLaterList", { id, userId });
+const backtoCartList = (id: number) => {
+  store.dispatch("backtoCartList", { id, userId });
 };
 //mouse event: change style, add underline
 const state = reactive({ underline: "" });
@@ -126,11 +92,6 @@ function mouseOver() {
 function mouseLeave() {
   state.underline = "";
 }
-const updateQuantity = (e: Event) => {
-  if (e.target instanceof HTMLInputElement) {
-    store.commit("updateQuantityInCart", e.target.value);
-  }
-};
 </script>
 
 <style scoped>

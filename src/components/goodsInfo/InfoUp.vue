@@ -45,6 +45,7 @@ const store = useStore();
 onMounted(() => {
   store.dispatch("setInfos", goodsId);
 });
+
 const variants = computed(() => store.getters.getVariants);
 let size = computed(() => store.getters.getSize);
 let color = computed(() => store.getters.getColor);

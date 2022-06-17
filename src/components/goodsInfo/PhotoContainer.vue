@@ -1,20 +1,9 @@
 <template>
   <div class="p-grid_gallery g-grid_item g-sm-full">
-    <div
-      class="p-gallery p-gallery-static"
-      aria-hidden="true"
-      data-breakpoints=""
-      captionlength="0"
-    >
+    <div class="p-gallery p-gallery-static">
       <!-- big -->
       <div class="p-gallery_top">
-        <div
-          class="p-gallery_photo"
-          role="button"
-          aria-expanded="false"
-          aria-controls="p-galleryModal"
-          tabindex="0"
-        >
+        <div class="p-gallery_photo" role="button" tabindex="0">
           <div
             class="swiper-container p-gallery_photo_el swiper-container-fade swiper-container-horizontal"
           >

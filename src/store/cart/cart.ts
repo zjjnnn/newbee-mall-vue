@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const url = "http://localhost:3000/cart/list/";
+const url2 = "http://localhost:3000/buy/later/list/";
 const headers = { Accept: "application/json" };
 
 type CartState = {
@@ -8,6 +9,7 @@ type CartState = {
   quantity: number;
   paymentSum: number;
   quantityInCart: number;
+  buyLaterItems: Item[];
 };
 type Item = {
   id: number;
@@ -30,7 +32,8 @@ export default {
     cartItem: [],
     quantity: 1,
     paymentSum: 0,
-    quantityInCart: 0,
+    quantityInCart: 1,
+    buyLaterItems: [],
   },
   mutations: {
     //syncrous
@@ -54,6 +57,10 @@ export default {
     setSum(state: CartState, payload: number) {
       state.paymentSum = payload;
     },
+
+    setBuyLaterItem(state: CartState, payload: any) {
+      state.buyLaterItems = payload;
+    },
   },
   actions: {
     // get data
@@ -69,47 +76,111 @@ export default {
       context.commit("setSum", paymentSum);
     },
     // add data
-    async addCart(context) {
+    async addCart(context, sku: string) {
       const cart = {
         userId: "user01",
-        sku: "10195s_wh",
+        sku: sku,
         quantity: 1,
         cartDate: new Date(),
       };
       cart.quantity = context.state.quantity;
-
-      if (cart.quantity < 1 || cart.quantity > 999) {
-        alert("数量は1以上、999以下で設定してください");
-      } else {
-        await axios.post("http://localhost:3000/addCart", cart);
-      }
-      alert("カートに追加しました！");
+      await axios.post("http://localhost:3000/addCart", cart);
     },
     // delect data
-    async deleteCart(
-      { commit }: { commit: Function },
-      { id, userId }: { id: number; userId: string }
-    ) {
+    async deleteCart(context, { id, userId }: { id: number; userId: string }) {
       await fetch("http://localhost:3000/cartList/" + id, { method: "DELETE" });
 
-      const cartItem = await fetch(url + userId, { headers });
-      const j = await cartItem.json();
-      commit("setCartItem", j);
+      //get data again
+      context.dispatch("setCartItem", userId);
+      // const cartItem = await fetch(url + userId, { headers });
+      // const j = await cartItem.json();
+      // context.commit("setCartItem", j);
+      // //compute sum again
+      // let paymentSum = 0;
+      // context.state.cartItem.map(
+      //   (item) => (paymentSum += item.price * item.quantity + item.postage)
+      // );
+      // context.commit("setSum", paymentSum);
     },
+
     // update data
     async UpdateCart(context, { id, userId }: { id: number; userId: string }) {
       await axios.patch("http://localhost:3000/cartList/" + id, {
         quantity: context.state.quantityInCart,
       });
-      const cartItem = await fetch(url + userId, { headers });
-      const j = await cartItem.json();
-      context.commit("setCartItem", j);
-      console.log("j", j);
-      let paymentSum = 0;
-      context.state.cartItem.map(
-        (item) => (paymentSum += item.price * item.quantity + item.postage)
-      );
-      context.commit("setSum", paymentSum);
+      //get data again
+      context.dispatch("setCartItem", userId);
+    },
+
+    async setBuyLaterItem(context, payload: string) {
+      const buyLater = await fetch(url2 + payload, { headers });
+      const j = await buyLater.json();
+      context.commit("setBuyLaterItem", j);
+    },
+    async intoLaterList(
+      context,
+      { id, userId }: { id: number; userId: string }
+    ) {
+      await fetch("http://localhost:3000/cartList/" + id, { method: "DELETE" });
+      const cartList = {
+        id: 3,
+        userId: "user01",
+        goodsId: 10195,
+        size: "シングル",
+        sku: "10195s_wh",
+        color: "ホワイト",
+        photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
+        price: 5000,
+        title: "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
+        shipment: "2~6",
+        postage: 500,
+        link: "/goods/detail/10195",
+        quantity: 3,
+      };
+      await axios.post("http://localhost:3000/buyLaterList", cartList);
+
+      //get data again
+      context.dispatch("setCartItem", userId);
+      context.dispatch("setBuyLaterItem", userId);
+    },
+    async backtoCartList(
+      context,
+      { id, userId }: { id: number; userId: string }
+    ) {
+      await fetch("http://localhost:3000/buyLaterList/" + id, {
+        method: "DELETE",
+      });
+      const cartList = {
+        id: 3,
+        userId: "user01",
+        goodsId: 10195,
+        size: "シングル",
+        sku: "10195s_wh",
+        color: "ホワイト",
+        photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
+        price: 5000,
+        title: "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
+        shipment: "2~6",
+        postage: 500,
+        link: "/goods/detail/10195",
+        quantity: 3,
+      };
+      await axios.post("http://localhost:3000/cartList", cartList);
+
+      //get data again
+      context.dispatch("setCartItem", userId);
+      context.dispatch("setBuyLaterItem", userId);
+    },
+    async deleteByLater(
+      context,
+      { id, userId }: { id: number; userId: string }
+    ) {
+      await fetch("http://localhost:3000/buyLaterList/" + id, {
+        method: "DELETE",
+      });
+
+      //get data again
+      context.dispatch("setBuyLaterItem", userId);
     },
   },
   getters: {
@@ -121,6 +192,13 @@ export default {
     },
     getPaymentSum: (state: CartState) => {
       return state.paymentSum;
+    },
+    getQuantityInCart: (state: CartState) => {
+      return state.quantityInCart;
+    },
+
+    getBuyLaterItem: (state: CartState) => {
+      return state.buyLaterItems;
     },
   },
 };
