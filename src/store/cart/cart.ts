@@ -34,6 +34,21 @@ export default {
     paymentSum: 0,
     quantityInCart: 1,
     buyLaterItems: [],
+    item: {
+      id: Number,
+      userId: String,
+      goodsId: Number,
+      size: String,
+      sku: String,
+      color: String,
+      photo: String,
+      price: String,
+      title: String,
+      shipment: String,
+      postage: Number,
+      link: String,
+      quantity: Number,
+    },
   },
   mutations: {
     //syncrous
@@ -80,10 +95,10 @@ export default {
       const cart = {
         userId: "user01",
         sku: sku,
-        quantity: 1,
+        quantity: context.state.quantity,
         cartDate: new Date(),
       };
-      cart.quantity = context.state.quantity;
+      // cart.quantity = context.state.quantity;
       await axios.post("http://localhost:3000/addCart", cart);
     },
     // delect data
@@ -119,25 +134,26 @@ export default {
     },
     async intoLaterList(
       context,
-      { id, userId }: { id: number; userId: string }
+      { id, item, userId }: { id: number; item: {}; userId: string }
     ) {
       await fetch("http://localhost:3000/cartList/" + id, { method: "DELETE" });
-      const cartList = {
-        id: 3,
-        userId: "user01",
-        goodsId: 10195,
-        size: "シングル",
-        sku: "10195s_wh",
-        color: "ホワイト",
-        photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
-        price: 5000,
-        title: "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
-        shipment: "2~6",
-        postage: 500,
-        link: "/goods/detail/10195",
-        quantity: 3,
-      };
-      await axios.post("http://localhost:3000/buyLaterList", cartList);
+
+      // cartList = {
+      //   id: id,
+      //   userId: "user01",
+      //   goodsId: 10195,
+      //   size: "シングル",
+      //   sku: "10195s_wh",
+      //   color: "ホワイト",
+      //   photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
+      //   price: 5000,
+      //   title: "ゴムバンド付き敷きパッド シングル(NクールWSP n-s WH SD)",
+      //   shipment: "2~6",
+      //   postage: 500,
+      //   link: "/goods/detail/10195",
+      //   quantity: 3,
+      // };
+      await axios.post("http://localhost:3000/buyLaterList", item);
 
       //get data again
       context.dispatch("setCartItem", userId);
@@ -145,27 +161,27 @@ export default {
     },
     async backtoCartList(
       context,
-      { id, userId }: { id: number; userId: string }
+      { id, item, userId }: { id: number; item: {}; userId: string }
     ) {
       await fetch("http://localhost:3000/buyLaterList/" + id, {
         method: "DELETE",
       });
-      const cartList = {
-        id: 3,
-        userId: "user01",
-        goodsId: 10195,
-        size: "シングル",
-        sku: "10195s_wh",
-        color: "ホワイト",
-        photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
-        price: 5000,
-        title: "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
-        shipment: "2~6",
-        postage: 500,
-        link: "/goods/detail/10195",
-        quantity: 3,
-      };
-      await axios.post("http://localhost:3000/cartList", cartList);
+      // const cartList = {
+      //   id: id,
+      //   userId: "user01",
+      //   goodsId: 10195,
+      //   size: "シングル",
+      //   sku: "10195s_wh",
+      //   color: "ホワイト",
+      //   photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
+      //   price: 5000,
+      //   title: "ゴムバンド付き敷きパッド シングル(NクールWSP n-s WH SD)",
+      //   shipment: "2~6",
+      //   postage: 500,
+      //   link: "/goods/detail/10195",
+      //   quantity: 3,
+      // };
+      await axios.post("http://localhost:3000/cartList", item);
 
       //get data again
       context.dispatch("setCartItem", userId);

@@ -60,8 +60,9 @@
               </div>
               <p
                 class="p-cartItem_btn"
+                :item="item"
                 :id="item.id"
-                @click="intoLaterList(item.id)"
+                @click="intoLaterList(item.id, item)"
               >
                 <a class="g-btn g-btn-sm g-btn-em g-fw">
                   <span>あとで買う</span>
@@ -115,8 +116,8 @@ const UpdateItem = (id: number) => {
   store.dispatch("UpdateCart", { id, userId });
 };
 
-const intoLaterList = (id: number) => {
-  store.dispatch("intoLaterList", { id, userId });
+const intoLaterList = (id, item) => {
+  store.dispatch("intoLaterList", { id, item, userId });
 };
 //mouse event: change style, add underline
 const state = reactive({ underline: "" });

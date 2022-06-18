@@ -102,7 +102,7 @@
             <span
               @click="nextDiv"
               class="material-symbols-outlined pointer"
-              :class="x === max ? 'gray' : 'green'"
+              :class="indexImgDiv === max ? 'gray' : 'green'"
             >
               arrow_forward_ios
             </span>
@@ -147,6 +147,7 @@ const activeImg = (idx2: number) => {
 let indexImgDiv = computed(() => store.getters.getIndexImgDiv);
 //一组图片的坐标，改变x的值来切换图片组
 let x = computed(() => indexImgDiv.value * 395);
+
 //显示最后一组图片时的坐标
 //const max = computed(() => -(imgList.value.length - 1) * 395);
 const max = computed(() => -(imgList.value.length - 1));

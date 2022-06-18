@@ -39,7 +39,8 @@
               <p
                 class="p-cartItem_btn"
                 :id="item.id"
-                @click="backtoCartList(item.id)"
+                :item="item"
+                @click="backtoCartList(item.id, item)"
               >
                 <a class="g-btn g-btn-sm g-btn-em g-fw"
                   ><span>カートに戻す</span>
@@ -81,8 +82,8 @@ const deleteByLater = (id: number) => {
   store.dispatch("deleteByLater", { id, userId });
 };
 
-const backtoCartList = (id: number) => {
-  store.dispatch("backtoCartList", { id, userId });
+const backtoCartList = (id, item) => {
+  store.dispatch("backtoCartList", { id, item, userId });
 };
 //mouse event: change style, add underline
 const state = reactive({ underline: "" });
