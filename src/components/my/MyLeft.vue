@@ -7,11 +7,25 @@
             >ニトリメンバーズ ネット会員</span
           >
         </h1>
-        <p><a class="g-link-t" href="/">ログアウト</a></p>
+        <p>
+          <a
+            class="g-link-t"
+            href="/"
+            @mouseover="mouseOver1"
+            :style="state.underline1"
+            @mouseleave="mouseLeave1"
+            >ログアウト</a
+          >
+        </p>
       </div>
       <ul class="g-list-note g-unit-xs">
-        <li>
-          <a href="https://www.nitori-net.jp/ec/userguide/nitorinet/">
+        <li style="margin-top: -8px">
+          <a
+            href="https://www.nitori-net.jp/ec/userguide/nitorinet/"
+            @mouseover="mouseOver2"
+            :style="state.underline2"
+            @mouseleave="mouseLeave2"
+          >
             <span class="g-list-note">※会員種別について</span>
             <span
               class="material-symbols-outlined green-icon"
@@ -23,20 +37,24 @@
         </li>
       </ul>
       <div class="g-butterfly">
-        <h1><span>シュショウショウ</span>さんの会員証</h1>
+        <h1>
+          <span>{{ userInfo.nickName }}</span
+          >さんの会員証
+        </h1>
       </div>
       <div class="p-barcode">
-        <img
-          id="js-bar-code"
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyAQAAAAAxKqlMAAAAL0lEQVR42mP4Oa+iTnIe+/wZdXWVM+exVf6QS6icV1chOZ9hVGZUZlRmVGbEyQAAL5FTb2CB0EYAAAAASUVORK5CYII="
-        />
-        <p id="memberCardNumber">2200758580085</p>
+        <img id="js-bar-code" :src="userInfo.barCodeImg" />
+        <p id="memberCardNumber">{{ userInfo.userId }}</p>
       </div>
       <dl class="p-pointInfo">
         <dt>現在のポイント</dt>
-        <dd class="g-digit p-pointInfo_available">0<span>pt</span></dd>
+        <dd class="g-digit p-pointInfo_available">
+          {{ userInfo.pointAvailable }}<span>pt</span>
+        </dd>
         <dt>今年失効するポイント</dt>
-        <dd class="g-digit p-pointInfo_lapse">0<span>pt</span></dd>
+        <dd class="g-digit p-pointInfo_lapse">
+          {{ userInfo.pointLapse }}<span>pt</span>
+        </dd>
       </dl>
       <ul class="g-list-note g-unit-xs">
         <li>毎日午前9時以降に順次更新されます</li>
@@ -45,7 +63,30 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed, onMounted, reactive } from "vue";
+import { useStore } from "../../store/index";
+const userId = "user01";
+const store = useStore();
+onMounted(() => {
+  store.dispatch("setUserInfo", userId);
+});
+const userInfo = computed(() => store.getters.getUserInfo);
+
+const state = reactive({ underline1: "", underline2: "" });
+function mouseOver1() {
+  state.underline1 = " text-decoration: underline";
+}
+function mouseOver2() {
+  state.underline2 = " text-decoration: underline";
+}
+function mouseLeave1() {
+  state.underline1 = "";
+}
+function mouseLeave2() {
+  state.underline2 = "";
+}
+</script>
 
 <style scoped>
 .g-layout-sidebar {
@@ -130,5 +171,8 @@ a {
 .p-pointInfo span {
   font-size: 1rem;
   margin-left: 0.2em;
+}
+dl {
+  font-size: 0.9rem;
 }
 </style>

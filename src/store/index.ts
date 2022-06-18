@@ -10,6 +10,7 @@ import reviewRating from "./goodsDetail/reviewRating";
 import goodsQa from "./goodsDetail/goodsQa";
 import goodsInfo from "./goodsDetail/goodsInfo";
 import cart from "./cart/cart";
+import myPage from "./myPage/myPage";
 
 type State = {};
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -24,6 +25,7 @@ export const store = createStore<State>({
     goodsQa,
     goodsInfo,
     cart,
+    myPage,
   },
 });
 

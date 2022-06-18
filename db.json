@@ -925,7 +925,9 @@
       "postage": 0,
       "link": "/goods/detail/10195",
       "quantity": 1
-    },
+    }
+  ],
+  "buyLaterList": [
     {
       "id": 3,
       "userId": "user01",
@@ -942,5 +944,13 @@
       "quantity": 3
     }
   ],
-  "buyLaterList": []
+  "userInfo": [
+    {
+      "userId": "user01",
+      "nickName": "user1",
+      "barCodeImg": "http://localhost:8080/assets/images/barCode.png",
+      "pointAvailable": 100,
+      "pointLapse": 0
+    }
+  ]
 }

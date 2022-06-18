@@ -166,21 +166,7 @@ export default {
       await fetch("http://localhost:3000/buyLaterList/" + id, {
         method: "DELETE",
       });
-      // const cartList = {
-      //   id: id,
-      //   userId: "user01",
-      //   goodsId: 10195,
-      //   size: "シングル",
-      //   sku: "10195s_wh",
-      //   color: "ホワイト",
-      //   photo: "http://localhost:8080/assets/images/goodsphoto1.jpg",
-      //   price: 5000,
-      //   title: "ゴムバンド付き敷きパッド シングル(NクールWSP n-s WH SD)",
-      //   shipment: "2~6",
-      //   postage: 500,
-      //   link: "/goods/detail/10195",
-      //   quantity: 3,
-      // };
+
       await axios.post("http://localhost:3000/cartList", item);
 
       //get data again

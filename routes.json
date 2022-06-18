@@ -5,5 +5,6 @@
   "/goodsqa/:goodsId": "/goodsqa?goodsId=:goodsId",
   "/goods/info/:goodsId": "/goodsInfo?goodsId=:goodsId",
   "/cart/list/:userId": "/cartList?userId=:userId",
-  "/buy/later/list/:userId": "/buyLaterList?userId=:userId"
+  "/buy/later/list/:userId": "/buyLaterList?userId=:userId",
+  "/user/info/:userId": "/userInfo?userId=:userId"
 }

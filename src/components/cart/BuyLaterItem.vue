@@ -15,9 +15,9 @@
             <p class="g-media_h">
               <router-link
                 :to="item.link"
-                @mouseover="mouseOver"
-                :style="state.underline"
-                @mouseleave="mouseLeave"
+                class="router-link"
+                @mouseover="hover = true"
+                @mouseleave="hover = false"
                 >{{ item.title }}</router-link
               >
             </p>
@@ -68,7 +68,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, onMounted } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "../../store/index";
 const userId = "user01";
 const store = useStore();
@@ -86,16 +86,16 @@ const backtoCartList = (id, item) => {
   store.dispatch("backtoCartList", { id, item, userId });
 };
 //mouse event: change style, add underline
-const state = reactive({ underline: "" });
-function mouseOver() {
-  state.underline = " text-decoration: underline";
-}
-function mouseLeave() {
-  state.underline = "";
-}
+const hover = false;
 </script>
 
 <style scoped>
+.router-link {
+  text-decoration: none;
+}
+.router-link:hover {
+  text-decoration: underline;
+}
 ul,
 ol {
   padding: 0;

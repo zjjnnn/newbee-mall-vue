@@ -3,6 +3,7 @@ import HomePage from "../pages/HomePage.vue";
 import GoodsDetail from "../pages/GoodsDetail.vue";
 import CartPage from "../pages/CartPage.vue";
 import MyPage from "../pages/MyPage.vue";
+import OrdersPage from "../pages/OrdersPage.vue";
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -25,10 +26,12 @@ export default createRouter({
       props: true,
     },
     {
-      name: "my-account",
       path: "/my-account",
       component: MyPage,
-      props: true,
+      children: [
+        { path: "/", component: MyPage },
+        { path: "orders", component: OrdersPage },
+      ],
     },
   ],
 });

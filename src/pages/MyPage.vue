@@ -1,8 +1,4 @@
 <template>
-  <router-link to="/">Go to Home</router-link>
-  <br />
-  <router-link to="/cart">Go to Cart</router-link>
-  <hr />
   <div>
     <my-container></my-container>
   </div>
