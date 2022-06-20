@@ -849,18 +849,11 @@
       "variants": [
         {
           "size": "シングル",
-          "color": [
-            "ホワイト",
-            "グレー",
-            "ダークブルー"
-          ]
+          "color": ["ホワイト", "グレー", "ダークブルー"]
         },
         {
           "size": "セミダブル",
-          "color": [
-            "ホワイト",
-            "ダークブルー"
-          ]
+          "color": ["ホワイト", "ダークブルー"]
         }
       ]
     }
@@ -950,7 +943,92 @@
       "nickName": "user1",
       "barCodeImg": "http://localhost:8080/assets/images/barCode.png",
       "pointAvailable": 100,
-      "pointLapse": 0
+      "pointLapse": 0,
+      "orderList": [
+        {
+          "orderId": "EC0001-20200101",
+          "orderDate": "2020/01/01",
+          "store": "ニトリネット",
+          "orderDetail": [
+            {
+              "deliveryStatus": "出荷・配送・お渡し済",
+              "deliverytype": "配送員組立設置",
+              "deliverDate": "2020/01/03",
+              "goodsId": 10195,
+              "quantity": 1,
+              "price": 3000
+            }
+          ]
+        },
+        {
+          "orderId": "EC0002-20210101",
+          "orderDate": "2021/01/01",
+          "store": "ニトリネット",
+          "orderDetail": [
+            {
+              "deliveryStatus": "キャンセル済",
+              "deliverytype": "宅急便",
+              "deliverDate": "2021/01/03",
+              "goodsId": 10195,
+              "quantity": 1,
+              "price": 3000
+            }
+          ]
+        },
+        {
+          "orderId": "EC0003-20220101",
+          "orderDate": "2022/01/01",
+          "store": "ニトリネット",
+          "orderDetail": [
+            {
+              "deliveryStatus": "出荷・配送・お渡し済",
+              "deliverytype": "配送員組立設置",
+              "deliverDate": "2022/01/03",
+              "goodsId": 10196,
+              "quantity": 2,
+              "price": 6000
+            }
+          ]
+        },
+        {
+          "orderId": "EC0004-20220201",
+          "orderDate": "2022/02/01",
+          "store": "ニトリネット",
+          "orderDetail": [
+            {
+              "deliveryStatus": "出荷・配送・お渡し済",
+              "deliverytype": "宅急便",
+              "deliverDate": "2022/02/03",
+              "goodsId": 10195,
+              "quantity": 1,
+              "price": 3000
+            }
+          ]
+        },
+        {
+          "orderId": "EC0004-20220601",
+          "orderDate": "2022/06/20",
+          "store": "ニトリネット",
+          "orderDetail": [
+            {
+              "deliveryStatus": "出荷・お渡し準備中",
+              "deliverytype": "配送員組立設置",
+              "deliverDate": "2022/06/25",
+              "goodsId": 10195,
+              "quantity": 1,
+              "price": 3000
+            },
+            {
+              "deliveryStatus": "受注済",
+              "deliverytype": "宅急便",
+              "deliverDate": "2022/06/30",
+              "goodsId": 10196,
+              "quantity": 1,
+              "price": 2000
+            }
+          ]
+        }
+      ]
     }
   ]
 }

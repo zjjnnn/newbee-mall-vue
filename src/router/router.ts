@@ -28,10 +28,15 @@ export default createRouter({
     {
       path: "/my-account",
       component: MyPage,
-      children: [
-        { path: "/", component: MyPage },
-        { path: "orders", component: OrdersPage },
-      ],
+      // children: [
+      //   { path: "/", component: MyPage },
+      //   { path: "orders", component: OrdersPage },
+      // ],
+    },
+    {
+      name: "order",
+      path: "/my-account/orders",
+      component: OrdersPage,
     },
   ],
 });

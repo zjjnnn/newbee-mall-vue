@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h1>注文履歴</h1>
-  </div>
+  <orders-container></orders-container>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import OrdersContainer from "../components/orders/OrdersContainer.vue";
+</script>
 
 <style scoped></style>

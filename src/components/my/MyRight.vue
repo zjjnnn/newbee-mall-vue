@@ -2,11 +2,12 @@
   <div class="g-layout_body">
     <ul class="g-lg-grid-3">
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
-        <a href="#"></a>
-        <div class="flex-body">
-          <span class="material-symbols-outlined span-icon"> history </span>
-          <span class="g-card_body span-text">注文履歴</span>
-        </div>
+        <router-link to="/my-account/orders">
+          <div class="flex-body">
+            <span class="material-symbols-outlined span-icon"> history </span>
+            <span class="g-card_body span-text">注文履歴</span>
+          </div>
+        </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
         <a href="#"></a>
