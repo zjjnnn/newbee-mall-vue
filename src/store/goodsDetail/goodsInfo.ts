@@ -1,5 +1,3 @@
-import { State } from "vue";
-
 const url = "http://localhost:3000/goods/info/";
 const headers = { Accept: "application/json" };
 

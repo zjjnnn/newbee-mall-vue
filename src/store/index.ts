@@ -11,6 +11,7 @@ import goodsQa from "./goodsDetail/goodsQa";
 import goodsInfo from "./goodsDetail/goodsInfo";
 import cart from "./cart/cart";
 import myPage from "./myPage/myPage";
+import orderDetail from "./myPage/orderDetail";
 
 type State = {};
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -26,6 +27,7 @@ export const store = createStore<State>({
     goodsInfo,
     cart,
     myPage,
+    orderDetail,
   },
 });
 

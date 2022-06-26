@@ -939,7 +939,7 @@
   ],
   "userInfo": [
     {
-      "userId": "user01",
+      "userId": "userId",
       "nickName": "user1",
       "barCodeImg": "http://localhost:8080/assets/images/barCode.png",
       "pointAvailable": 100,
@@ -952,6 +952,7 @@
           "orderDetail": [
             {
               "deliveryStatus": "出荷・配送・お渡し済",
+              "statusValue": "SHIPPED",
               "deliverytype": "配送員組立設置",
               "deliverDate": "2020/01/03",
               "goodsId": 10195,
@@ -967,9 +968,26 @@
           "orderDetail": [
             {
               "deliveryStatus": "キャンセル済",
+              "statusValue": "CANCELLED",
               "deliverytype": "宅急便",
               "deliverDate": "2021/01/03",
               "goodsId": 10195,
+              "quantity": 1,
+              "price": 3000
+            }
+          ]
+        },
+        {
+          "orderId": "EC0002-20211228",
+          "orderDate": "2021/12/28",
+          "store": "ニトリネット",
+          "orderDetail": [
+            {
+              "deliveryStatus": "出荷・配送・お渡し済",
+              "statusValue": "SHIPPED",
+              "deliverytype": "宅急便",
+              "deliverDate": "2021/12/31",
+              "goodsId": 10197,
               "quantity": 1,
               "price": 3000
             }
@@ -982,6 +1000,7 @@
           "orderDetail": [
             {
               "deliveryStatus": "出荷・配送・お渡し済",
+              "statusValue": "SHIPPED",
               "deliverytype": "配送員組立設置",
               "deliverDate": "2022/01/03",
               "goodsId": 10196,
@@ -997,6 +1016,7 @@
           "orderDetail": [
             {
               "deliveryStatus": "出荷・配送・お渡し済",
+              "statusValue": "SHIPPED",
               "deliverytype": "宅急便",
               "deliverDate": "2022/02/03",
               "goodsId": 10195,
@@ -1012,6 +1032,7 @@
           "orderDetail": [
             {
               "deliveryStatus": "出荷・お渡し準備中",
+              "statusValue": "READY",
               "deliverytype": "配送員組立設置",
               "deliverDate": "2022/06/25",
               "goodsId": 10195,
@@ -1019,7 +1040,8 @@
               "price": 3000
             },
             {
-              "deliveryStatus": "受注済",
+              "deliveryStatus": "出荷・お渡し準備中",
+              "statusValue": "READY",
               "deliverytype": "宅急便",
               "deliverDate": "2022/06/30",
               "goodsId": 10196,
@@ -1027,6 +1049,52 @@
               "price": 2000
             }
           ]
+        }
+      ]
+    }
+  ],
+  "orderDetail": [
+    {
+      "orderId": "EC0004-20220601",
+      "orderDate": "2022/06/20",
+      "store": "ニトリネット",
+      "payment": "クレジットカード  一括払い",
+      "usePoint": "100pt",
+      "userName": "太郎",
+      "postCode": 111000,
+      "address": "東京都xxxxxxxxxxx",
+      "email": "nitori@gmail.com",
+      "phoneNum": "070-1111-1111",
+      "deliverAddress": "注文者情報と同じ",
+      "receipt": "なし",
+      "orderDetail": [
+        {
+          "deliveryStatus": "出荷・お渡し準備中",
+          "statusValue": "READY",
+          "deliverytype": "配送員組立設置",
+          "deliverDate": "2022/06/25",
+          "goodsId": 10195,
+          "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
+          "size": "シングル",
+          "sku": "10195s_wh",
+          "color": "ホワイト",
+          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
+          "quantity": 1,
+          "price": 3000
+        },
+        {
+          "deliveryStatus": "出荷・お渡し準備中",
+          "statusValue": "READY",
+          "deliverytype": "宅急便",
+          "deliverDate": "2022/06/30",
+          "goodsId": 10196,
+          "photo": "http://localhost:8080/assets/images/goodsphoto2.jpg",
+          "size": "シングル",
+          "sku": "10196s_wh",
+          "color": "ホワイト",
+          "title": "ゴムバンド付き敷きパッド",
+          "quantity": 1,
+          "price": 2000
         }
       ]
     }

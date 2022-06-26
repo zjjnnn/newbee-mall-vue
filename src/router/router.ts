@@ -4,6 +4,7 @@ import GoodsDetail from "../pages/GoodsDetail.vue";
 import CartPage from "../pages/CartPage.vue";
 import MyPage from "../pages/MyPage.vue";
 import OrdersPage from "../pages/OrdersPage.vue";
+import OrderDetailPage from "../pages/OrderDetailPage.vue";
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -28,15 +29,16 @@ export default createRouter({
     {
       path: "/my-account",
       component: MyPage,
-      // children: [
-      //   { path: "/", component: MyPage },
-      //   { path: "orders", component: OrdersPage },
-      // ],
     },
     {
       name: "order",
       path: "/my-account/orders",
       component: OrdersPage,
+    },
+    {
+      name: "orderDetail",
+      path: "/my-account/orders/:orderId",
+      component: OrderDetailPage,
     },
   ],
 });

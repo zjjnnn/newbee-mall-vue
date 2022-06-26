@@ -32,7 +32,11 @@
         <dd>
           <div class="g-select g-select-sm">
             <i class="g-i g-i-dropdown" aria-hidden="true"></i>
-            <select id="orderStatus" name="orderStatus">
+            <select
+              id="orderStatus"
+              name="orderStatus"
+              @change="filterByStatus"
+            >
               <option value="ALL">すべて</option>
               <option value="ORDERS">受注済</option>
               <option value="READY">出荷・お渡し準備中</option>
@@ -94,13 +98,24 @@ const orderTime = [
     time: thisYear - 4 + "年分の注文",
   },
 ];
-const length = computed(() => store.getters.getOrderList.length);
+const length = computed(() => store.getters.getFilteredList.length);
 // const orderList = computed(() => store.getters.getOrderList);
 const filteredList = computed(() => store.getters.getFilteredList);
+let date = computed(() => store.getters.getDate);
+console.log("date", date);
+let status = computed(() => store.getters.getStatus);
+console.log("status", status);
 
-const filterByDate = (e: Event): void => {
+const filterByDate = (e: Event) => {
   if (e.target instanceof HTMLSelectElement) {
-    store.commit("filterByDate", e.target.value);
+    store.commit("setDate", e.target.value);
+    store.commit("filterByDate");
+  }
+};
+const filterByStatus = (e: Event) => {
+  if (e.target instanceof HTMLSelectElement) {
+    store.commit("setStatus", e.target.value);
+    store.commit("filterByDate");
   }
 };
 </script>

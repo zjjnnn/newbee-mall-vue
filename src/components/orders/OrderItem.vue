@@ -1,15 +1,26 @@
 <template>
   <div class="order-top">
     <p>注文番号：{{ props.orderId }}</p>
-    <button>注文詳細</button>
+    <button>
+      <router-link :to="'/my-account/orders/' + props.orderId">
+        注文詳細</router-link
+      >
+    </button>
   </div>
   <div class="date-store">
     <p style="font-weight: bold; width: 100px">注文日</p>
-    <p>{{ props.orderDate }}</p>
+    <p>
+      <span class="material-symbols-outlined green-icon"> calendar_month </span
+      >&nbsp;
+      <span>{{ props.orderDate }}</span>
+    </p>
   </div>
-  <div class="date-store">
+  <div class="date-store" style="border-top: 1px dashed #e6e6e6">
     <p style="font-weight: bold; width: 100px">購入店舗</p>
-    <p>{{ props.store }}</p>
+    <p>
+      <span class="material-symbols-outlined green-icon"> dvr </span>&nbsp;
+      <span>{{ props.store }}</span>
+    </p>
   </div>
   <div id="p-specMore" v-for="(detail, index) in orderDetail" :key="index">
     <ul class="g-flow-lg"></ul>
@@ -20,12 +31,18 @@
           <td>{{ detail.deliveryStatus }}</td>
         </tr>
         <tr>
-          <td class="bold">納品種別</td>
-          <td>{{ detail.deliverytype }}</td>
+          <td class="bold" style="border-top: 1px dashed #e6e6e6">納品種別</td>
+          <td style="border-top: 1px dashed #e6e6e6">
+            {{ detail.deliverytype }}
+          </td>
         </tr>
         <tr>
-          <td class="bold">配送予定日</td>
-          <td>{{ detail.deliverDate }}</td>
+          <td class="bold" style="border-top: 1px dashed #e6e6e6">
+            配送予定日
+          </td>
+          <td style="border-top: 1px dashed #e6e6e6">
+            {{ detail.deliverDate }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -52,6 +69,11 @@ const { orderDetail } = toRefs(props);
 </script>
 
 <style scoped>
+p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 button {
   border: #dbdbdb solid 1px;
   color: #009e96;
@@ -73,7 +95,7 @@ button {
 .date-store {
   margin-left: 20px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 .order-top p {
@@ -102,5 +124,10 @@ tr {
 
 td {
   padding: 25px 50px;
+}
+
+a {
+  text-decoration: none;
+  color: #009e96;
 }
 </style>
