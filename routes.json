@@ -7,5 +7,6 @@
   "/cart/list/:userId": "/cartList?userId=:userId",
   "/buy/later/list/:userId": "/buyLaterList?userId=:userId",
   "/user/info/:userId": "/userInfo?userId=:userId",
-  "/order/detail/:orderId": "/orderDetail?orderId=:orderId"
+  "/order/detail/:orderId": "/orderDetail?orderId=:orderId",
+  "/wish/list/:userId": "/wishList?userId=:userId"
 }

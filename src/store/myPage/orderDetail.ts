@@ -5,19 +5,6 @@ type OrderState = {
   order: {};
   detailList: [];
 };
-type Order = {
-  orderId: string;
-  orderDate: Date;
-  store: string;
-  orderDetail: {
-    deliveryStatus: string;
-    deliverytype: string;
-    deliverDate: Date;
-    goodsId: number;
-    quantity: number;
-    statusValue: string;
-  };
-};
 
 export default {
   state: {

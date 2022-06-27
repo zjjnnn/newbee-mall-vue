@@ -10,11 +10,12 @@
         </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
-        <a href="#"></a>
-        <div class="flex-body">
-          <span class="material-symbols-outlined span-icon"> favorite </span>
-          <span class="g-card_body span-text">お気に入り商品</span>
-        </div>
+        <router-link to="/my-account/wishlist">
+          <div class="flex-body">
+            <span class="material-symbols-outlined span-icon"> favorite </span>
+            <span class="g-card_body span-text">お気に入り商品</span>
+          </div>
+        </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
         <a href="#"></a>

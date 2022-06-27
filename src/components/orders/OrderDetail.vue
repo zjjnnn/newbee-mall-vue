@@ -22,7 +22,7 @@
             <a
               class="g-btn g-btn-sm g-btn-em"
               href="/ec/input-inquiry?orderNumber=EC160114360-20181016&amp;productCode=5608689%2C8987741%2C8542056%2C8070752%2C8890243%2C8987447%2C8500522"
-              ><span>お問合せ</span></a
+              ><span style="padding: 0px 15px">お問合せ</span></a
             >
           </li>
         </ul>
@@ -55,5 +55,21 @@ const orderId = route.params.orderId;
 .p-orderTitle {
   padding: 15px;
   background-color: #e9f5f4;
+}
+.g-btn > span:only-child,
+.g-lg-btn > span:only-child {
+  /* padding: 5px 10px; */
+  transform: none;
+}
+.g-btn-sm,
+.g-lg-btn-sm {
+  font-size: 1rem;
+}
+.g-btn-em,
+.g-lg-btn-em {
+  color: #009e96;
+}
+a {
+  text-decoration: none;
 }
 </style>

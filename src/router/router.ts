@@ -5,6 +5,7 @@ import CartPage from "../pages/CartPage.vue";
 import MyPage from "../pages/MyPage.vue";
 import OrdersPage from "../pages/OrdersPage.vue";
 import OrderDetailPage from "../pages/OrderDetailPage.vue";
+import WishList from "../pages/WishList.vue";
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -39,6 +40,11 @@ export default createRouter({
       name: "orderDetail",
       path: "/my-account/orders/:orderId",
       component: OrderDetailPage,
+    },
+    {
+      name: "wishlist",
+      path: "/my-account/wishlist",
+      component: WishList,
     },
   ],
 });

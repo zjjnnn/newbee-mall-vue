@@ -53,7 +53,7 @@
         value=""
       />
     </form>
-    <div class="g-block-xs" v-if="length === 0">
+    <div class="g-block-xs" v-if="length && length === 0">
       <p>注文履歴がありません。</p>
     </div>
     <div v-for="(order, index) in filteredList" :key="index">

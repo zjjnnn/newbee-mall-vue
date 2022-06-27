@@ -38,12 +38,13 @@ export default {
     setOrderList(state: userState, payload: []) {
       state.orderList = payload;
     },
-    // setFilterList(state: userState, payload: []) {
-    //   state.filteredList = payload;
-    //   state.filteredList.sort(
-    //     (a, b) => +new Date(b.orderDate) - +new Date(a.orderDate)
-    //   );
-    // },
+    setFilterList(state: userState, payload: []) {
+      state.filteredList = payload;
+      state.filteredList.sort(
+        (a, b) => +new Date(b.orderDate) - +new Date(a.orderDate)
+      );
+    },
+
     setDate(state: userState, dateValue: string) {
       state.date = dateValue;
     },
@@ -67,7 +68,7 @@ export default {
       console.log("半年前：" + GetDateStr(-180));
 
       //根据注文日date过滤数据
-      const today = new Date();
+      // const today = new Date();
       const thisYear = new Date().getFullYear();
       // const thisMonth = new Date().getMonth() + 1;
       const halfYear = GetDateStr(-180);
@@ -113,14 +114,6 @@ export default {
         (a, b) => +new Date(b.orderDate) - +new Date(a.orderDate)
       );
     },
-    // filterByStatus(state: userState) {
-    //   state.filteredList = state.orderList.filter(
-    //     (order) => order.orderDetail[0].statusValue === state.status
-    //   );
-    //   state.filteredList.sort(
-    //     (a, b) => +new Date(b.orderDate) - +new Date(a.orderDate)
-    //   );
-    // },
   },
 
   actions: {
@@ -131,12 +124,24 @@ export default {
       context.commit("setOrderList", j[0].orderList);
       console.log("j", j);
       context.commit("filterByDate");
-      // const filtered = context.state.orderList.filter(
-      //   (order) =>
-      //     new Date(order.orderDate).getMonth() + 1 > 0 &&
-      //     new Date(order.orderDate).getFullYear() > 2021
-      // );
-      // context.commit("setFilterList", filtered);
+
+      function GetDateStr(AddDayCount) {
+        const dd = new Date();
+        dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期
+        const y = dd.getFullYear();
+        const m =
+          dd.getMonth() + 1 < 10
+            ? "0" + (dd.getMonth() + 1)
+            : dd.getMonth() + 1; //获取当前月份的日期，不足10补0
+        const d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0
+        return y + "-" + m + "-" + d;
+      }
+      const halfYear = GetDateStr(-180);
+      const filtered = context.state.orderList.filter(
+        (order) => new Date(order.orderDate) > new Date(halfYear)
+      );
+      filtered.sort((a, b) => +new Date(b.orderDate) - +new Date(a.orderDate));
+      context.commit("setFilterList", filtered);
     },
   },
   getters: {

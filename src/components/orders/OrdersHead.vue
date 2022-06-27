@@ -101,6 +101,9 @@ a {
 .g-modal_close {
   font-size: 1rem;
   padding: 20px;
+  background-color: #009e96;
+  border: none;
+  color: #fff;
 }
 
 .g-modal_body {
