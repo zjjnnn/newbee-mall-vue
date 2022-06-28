@@ -73,7 +73,7 @@ const isShow = ref(false);
   margin-left: auto;
 }
 .g-layout_head {
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 }
 h1 {
   font-size: 2rem;

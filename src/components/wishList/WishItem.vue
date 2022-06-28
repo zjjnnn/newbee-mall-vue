@@ -48,17 +48,7 @@
               data-checkall="favorite"
               v-model="state.checked"
               @change="selectAll"
-            /><span
-              ><i
-                class="g-s g-s-checkbox-on g-checkable_on"
-                aria-hidden="true"
-              ></i
-              ><i
-                class="g-s g-s-checkbox-off g-checkable_off"
-                aria-hidden="true"
-              ></i
-              ><span class="g-checkable_label">すべて選択</span></span
-            >
+            /><span class="g-checkable_label">すべて選択</span>
           </label>
           <div class="p-listControl_edit">
             <div>チェックしたものを</div>
@@ -102,7 +92,7 @@
           <li
             class="g-itemList_item"
             v-for="goods in goodsList"
-            :key="goods.title"
+            :key="goods.id"
           >
             <div
               class="g-media g-media-lg g-media-lead g-media-tail p-favoriteItem"
@@ -112,21 +102,9 @@
                   <input
                     type="checkbox"
                     name="productCheckBox"
-                    :value="goods.title"
-                    data-checkall-children="favorite"
+                    :value="goods.id"
                     v-model="state.checkList"
                   />
-                  <!-- <span><i
-                      class="g-s g-s-checkbox-on g-checkable_on"
-                      aria-hidden="true"
-                    >
-                    </i>
-                    <i
-                      class="g-s g-s-checkbox-off g-checkable_off"
-                      aria-hidden="true"
-                    >
-                    </i>
-                    </span> -->
                 </div>
               </div>
               <div class="g-media_head">
@@ -151,6 +129,7 @@
                       size="5"
                       maxlength="3"
                       id="p-pieces"
+                      style="margin-left: 10px"
                     />
                   </dd>
                 </dl>
@@ -169,7 +148,9 @@
                       data-product-id="7030841s"
                       data-bundle="false"
                     >
-                      <i class="g-i g-i-add-cart" aria-hidden="true"></i>
+                      <span class="material-symbols-outlined">
+                        add_shopping_cart
+                      </span>
                       <span>カートに入れる</span>
                     </button>
                   </div>
@@ -182,15 +163,8 @@
         <div class="p-listControl">
           <label class="g-checkable">
             <input type="checkbox" data-checkall="favorite" /><span
-              ><i
-                class="g-s g-s-checkbox-on g-checkable_on"
-                aria-hidden="true"
-              ></i
-              ><i
-                class="g-s g-s-checkbox-off g-checkable_off"
-                aria-hidden="true"
-              ></i
-              ><span class="g-checkable_label">すべて選択</span></span
+              class="g-checkable_label"
+              >すべて選択</span
             >
           </label>
           <div class="p-listControl_edit">
@@ -263,7 +237,7 @@ const state = reactive({
 // };
 const selectAll = async () => {
   if (state.checked) {
-    const checkList1 = goodsList.value.map((goods) => goods.title);
+    const checkList1 = goodsList.value.map((goods) => goods.id);
     console.log("checkList1", checkList1);
     state.checkList = checkList1;
     console.log("checkList", state.checkList);
@@ -281,23 +255,20 @@ const selectAll = async () => {
 .g-h-2 {
   font-size: 1.4rem;
 }
-.g-checkable input {
+/* .g-checkable input {
   position: absolute;
   top: 0;
   left: 0;
-}
+} */
 .p-listControl {
   display: flex;
 }
 .g-checkable {
-  line-height: 1;
   position: relative;
   display: inline-block;
   vertical-align: middle;
 }
-.g-checkable,
 .g-lg-checkable {
-  line-height: 1;
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -359,5 +330,127 @@ a {
 .g-lg-link {
   display: inline-flex;
   align-items: center;
+}
+.g-itemList-border {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.g-lg-itemList-border {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.g-itemList-border {
+  border: 0 solid #dbdbdb;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+.g-lg-itemList-border {
+  border: 0 solid #dbdbdb;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+.g-media-lg.g-media-lead.g-media-tail {
+  grid-template-columns: auto minmax(160px, 13.33333%) 1fr auto;
+}
+.g-media-tail,
+.g-lg-media-tail {
+  -ms-grid-rows: 1fr auto;
+  grid-template-rows: 1fr auto;
+}
+.g-media,
+.g-lg-media {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: auto;
+  grid-template-rows: auto;
+}
+.g-media-tail.g-media-lead .g-media_lead {
+  grid-row: 1;
+  -ms-grid-column: 1;
+  grid-column: 1;
+}
+.g-media .g-media_lead,
+.g-lg-media .g-media_lead {
+  display: block;
+  margin-right: 20px;
+}
+.g-align-im,
+.g-lg-align-im {
+  -ms-grid-row-align: center !important;
+  align-self: center !important;
+}
+
+.g-checkable > span,
+.g-lg-checkable > span {
+  line-height: normal;
+  display: inline-flex;
+  vertical-align: bottom;
+  align-items: center;
+}
+.g-media-tail.g-media-lead .g-media_body {
+  grid-row: 1;
+  -ms-grid-column: 3;
+  grid-column: 3;
+}
+.g-media {
+  font-size: 1rem;
+  line-height: 1;
+}
+.g-price {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.g-price span {
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+.g-flow {
+  display: flex;
+  flex-wrap: wrap;
+}
+.g-align-gm {
+  align-items: center;
+}
+.g-input[size="5"] {
+  max-width: calc(0.65em * 5 + 10px);
+}
+.g-position-r,
+.g-lg-position-r {
+  position: relative;
+}
+.cartBtnArea {
+  position: relative;
+}
+.p-addItem {
+  width: 200px;
+}
+.g-lg-btn-func {
+  font-size: 1rem;
+  line-height: 1;
+  color: white;
+}
+.g-btn-cv,
+.g-lg-btn-cv {
+  border-color: #eb6157;
+  background-color: #eb6157;
+}
+.g-itemList .g-itemList_item:nth-child(n + 2),
+.g-lg-itemList .g-itemList_item:nth-child(n + 2) {
+  border: 0 solid #dbdbdb;
+  border-top-width: 1px;
+}
+.g-itemList .g-itemList_item:nth-child(n + 2),
+.g-lg-itemList .g-itemList_item:nth-child(n + 2) {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.g-media-tail.g-media-lead .g-media_tail {
+  grid-row: 2;
+  -ms-grid-column: 3;
+  grid-column: 3;
+}
+.g-mb-20 {
+  margin-bottom: 20px;
 }
 </style>

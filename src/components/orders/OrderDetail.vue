@@ -29,14 +29,16 @@
       </div>
     </div>
   </div>
-  <div>
+  <div style="display: flex">
     <order-detail-body></order-detail-body>
+    <order-detail-sidebar></order-detail-sidebar>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import OrderDetailBody from "./OrderDetailBody.vue";
+import OrderDetailSidebar from "./OrderDetailSidebar.vue";
 
 const route = useRoute();
 const orderId = route.params.orderId;

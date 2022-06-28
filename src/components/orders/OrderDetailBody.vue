@@ -1,5 +1,5 @@
 <template>
-  <div class="g-layout_body">
+  <div class="g-layout_body" style="width: 700px">
     <div class="g-bundle">
       <div
         class="g-pane g-pane-border g-lg-pane-sm p-historyPane"

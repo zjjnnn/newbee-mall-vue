@@ -1067,6 +1067,7 @@
       "phoneNum": "070-1111-1111",
       "deliverAddress": "注文者情報と同じ",
       "receipt": "なし",
+      "postage": 0,
       "orderDetail": [
         {
           "deliveryStatus": "出荷・お渡し準備中",
