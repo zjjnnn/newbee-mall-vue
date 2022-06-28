@@ -1,6 +1,8 @@
 <template>
   <section class="g-block-sm">
-    <h2 class="g-h-2"><span id="wishlistHeadLabel">お気に入り商品</span></h2>
+    <h2 class="g-h-2">
+      <span id="wishlistHeadLabel">{{ selectedName }}</span>
+    </h2>
     <div class="g-lg-inputGroup p-favoriteList">
       <div class="g-select g-select-sm">
         <i class="g-i g-i-dropdown" aria-hidden="true"></i>
@@ -8,13 +10,22 @@
           id="wishlistDropDown"
           name=""
           aria-label="お気に入り商品リストの選択"
+          @change="filterGoodsList"
+          style="border: none"
+          v-model="selectedName"
         >
-          <option defaultwishlist="true" v-for="wish in wishList" :key="wish">
+          <option
+            defaultwishlist="true"
+            v-for="(wish, index) in wishList"
+            :value="wish.listName"
+            :key="index"
+          >
             {{ wish.listName }}
           </option>
         </select>
       </div>
-      <p class="wishlist-controls" style="display: none">
+      <!-- 选择【お気に入り商品】以外时 start -->
+      <p class="wishlist-controls" v-if="selectedName !== 'お気に入り商品'">
         <a
           class="g-btn g-btn-em g-btn-sm g-lg-fh"
           id="changepopupbutton"
@@ -25,19 +36,80 @@
           ><span>リスト名を変更</span></a
         >
       </p>
-      <p class="g-inputGroup_static wishlist-controls" style="display: none">
-        <a
-          class="g-link g-link-gray"
-          href="#p-listDeleteModal"
-          id="deleteInitial"
-          role="button"
-          aria-expanded="false"
-          aria-controls="p-listDeleteModal"
-          ><i class="g-i g-i-close" aria-hidden="true"></i
+      <p
+        class="g-inputGroup_static wishlist-controls"
+        v-if="selectedName !== 'お気に入り商品'"
+        @click="isShow01 = true"
+      >
+        <a class="g-link g-link-gray" id="deleteInitial" role="button">
+          <span
+            class="material-symbols-outlined"
+            style="cursor: pointer; color: #dbdbdb"
+          >
+            close </span
           ><span>リストを削除</span></a
         >
       </p>
+      <!-- 选择【お気に入り商品】以外时 end -->
     </div>
+    <!-- modal01 リストを削除?-->
+    <GDialog v-model="isShow01">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow01 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
+          <div class="g-modal_body">
+            <p id="modalMessage">"{{ selectedName }}"を削除しますか？</p>
+            <div class="button-delete-div">
+              <button
+                class="button-delete"
+                :id="id"
+                @click="
+                  deleteWishList(id);
+                  isShow01 = false;
+                "
+              >
+                <span>削除する</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </GDialog>
+    <!-- modal02 リストを削除した-->
+    <GDialog v-model="isShow02">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow02 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
+          <div class="g-modal_body">
+            <p id="modalMessage">お気に入り商品リストの削除は成功しました。</p>
+          </div>
+        </div>
+      </div>
+    </GDialog>
 
     <div id="entryList">
       <div id="wishlistEntryList" class="g-block-sm">
@@ -53,7 +125,7 @@
           <div class="p-listControl_edit">
             <div>チェックしたものを</div>
             <ul class="g-linkList g-linkList-lg">
-              <li>
+              <li v-if="wishList.length > 1">
                 <a class="g-link g-link-gray" href="#" role="button">
                   <span
                     class="material-symbols-outlined"
@@ -108,13 +180,24 @@
                 </div>
               </div>
               <div class="g-media_head">
-                <router-link class="g-hover" :to="goods.link">
+                <router-link
+                  class="g-hover"
+                  :to="goods.link"
+                  @mouseover="hover = true"
+                  @mouseleave="hover = false"
+                >
                   <img class="g-fw g-rc" :src="goods.photo"
                 /></router-link>
               </div>
               <div class="g-media_body g-sm-units-xs g-lg-units-sm">
                 <p class="g-media_h">
-                  <a href="/ec/product/7030893">{{ goods.title }}</a>
+                  <router-link
+                    :to="goods.link"
+                    class="router-link"
+                    @mouseover="hover = true"
+                    @mouseleave="hover = false"
+                    >{{ goods.title }}
+                  </router-link>
                 </p>
                 <p class="g-price">{{ goods.price }}<span>円（税込）</span></p>
                 <dl class="g-flow g-align-gm">
@@ -125,11 +208,13 @@
                       type="text"
                       inputmode="numeric"
                       name="quantity"
-                      :value="goods.quantity"
                       size="5"
                       maxlength="3"
                       id="p-pieces"
                       style="margin-left: 10px"
+                      oninput="value=value.replace(/\D/g, '')"
+                      :value="goods.quantity"
+                      @input="updateQuantity"
                     />
                   </dd>
                 </dl>
@@ -137,6 +222,58 @@
               <div class="g-media_tail g-units g-sm-align-tc">
                 <div class="g-position-r">
                   <div class="cartBtnArea">
+                    <!-- error modal -->
+                    <div
+                      v-if="showError"
+                      class="p-itemAdded g-item-add-error"
+                      style="
+                        bottom: 70.2083px;
+                        animation: 1.8s ease 0s 1 normal both running
+                          p-itemAddedIn;
+                      "
+                    >
+                      <button
+                        @click="showError = false"
+                        class="g-modal_close p-modal_button"
+                        type="button"
+                        aria-label="閉じる"
+                      >
+                        <span
+                          class="material-symbols-outlined"
+                          style="cursor: pointer"
+                        >
+                          close
+                        </span>
+                      </button>
+                      <div>数量は1以上、999以下で設定してください。</div>
+                    </div>
+                    <div
+                      v-if="showError"
+                      class="p-itemAdded g-item-add-error"
+                      style="
+                        bottom: 70.2083px;
+                        animation: 1.8s ease 0s 1 normal both running
+                          p-itemAddedIn;
+                      "
+                    >
+                      <button
+                        @click="isShow = false"
+                        class="g-modal_close p-modal_button"
+                        type="button"
+                        aria-label="閉じる"
+                      >
+                        <span
+                          class="material-symbols-outlined"
+                          style="cursor: pointer"
+                        >
+                          close
+                        </span>
+                      </button>
+                      <div>カートに追加しました</div>
+                      <button @click="isShow = false" class="modal-button">
+                        <router-link to="/cart">カートを見る</router-link>
+                      </button>
+                    </div>
                     <button
                       class="g-btn g-btn-cv g-btn-c g-sm-fw g-lg-btn-func addToCartBtn p-addItem"
                       id="p-addItem7030893"
@@ -147,6 +284,8 @@
                       data-category-id="11480"
                       data-product-id="7030841s"
                       data-bundle="false"
+                      @click="addItem(goods.sku)"
+                      :sku="goods.sku"
                     >
                       <span class="material-symbols-outlined">
                         add_shopping_cart
@@ -162,15 +301,17 @@
 
         <div class="p-listControl">
           <label class="g-checkable">
-            <input type="checkbox" data-checkall="favorite" /><span
-              class="g-checkable_label"
-              >すべて選択</span
-            >
+            <input
+              type="checkbox"
+              data-checkall="favorite"
+              v-model="state.checked"
+              @change="selectAll"
+            /><span class="g-checkable_label">すべて選択</span>
           </label>
           <div class="p-listControl_edit">
             <div>チェックしたものを</div>
             <ul class="g-linkList g-linkList-lg">
-              <li>
+              <li v-if="wishList.length > 1">
                 <a class="g-link g-link-gray" href="#" role="button">
                   <span
                     class="material-symbols-outlined"
@@ -207,8 +348,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, reactive } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 import { useStore } from "../../store/index";
+
+const isShow01 = ref(false);
+const isShow02 = ref(false);
+const showError = ref(false);
+const isShow = ref(false);
 
 const userId = "user01";
 const store = useStore();
@@ -216,12 +362,30 @@ onMounted(() => {
   store.dispatch("setWishList", userId);
 });
 const wishList = computed(() => store.getters.getWishList);
+const id = computed(() => store.getters.getId);
 const goodsList = computed(() => store.getters.getGoodsList);
+const selectedName = computed(() => store.getters.getSelectName);
 
+//mouseover event, change style
+const hover = false;
+
+//select all
 const state = reactive({
   checked: false,
   checkList: [],
 });
+
+const selectAll = async () => {
+  if (state.checked) {
+    const checkList1 = goodsList.value.map((goods) => goods.id);
+    console.log("checkList1", checkList1);
+    state.checkList = checkList1;
+    console.log("checkList", state.checkList);
+  } else {
+    state.checkList = [];
+  }
+};
+
 // const checked = ref(false);
 // const checkList = ref();
 // let { checked, checkList } = toRefs(state);
@@ -235,22 +399,109 @@ const state = reactive({
 //     checkList.value = [];
 //   }
 // };
-const selectAll = async () => {
-  if (state.checked) {
-    const checkList1 = goodsList.value.map((goods) => goods.id);
-    console.log("checkList1", checkList1);
-    state.checkList = checkList1;
-    console.log("checkList", state.checkList);
+
+//change goodsList
+const filterGoodsList = (e) => {
+  store.commit("filterGoodsList", e.target.value);
+};
+
+//delect listName
+const deleteWishList = (id: number) => {
+  store.dispatch("deleteWishList", { id, userId });
+  isShow02.value = true;
+};
+
+const quantity = computed(() => store.getters.getQuantity);
+const updateQuantity = (e: Event) => {
+  if (e.target instanceof HTMLInputElement) {
+    store.commit("updateQuantity", e.target.value);
+  }
+};
+const addItem = (sku: string) => {
+  if (quantity.value < 1 || quantity.value > 999) {
+    showError.value = true;
   } else {
-    state.checkList = [];
+    store.dispatch("addCart", sku);
+    isShow.value = true;
+    store.commit("updateQuantity", 1);
   }
 };
 </script>
 
 <style scoped>
+.button-delete-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button-delete {
+  border: none;
+  background-color: #009e96;
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px;
+}
+.g-modal_head {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  position: sticky;
+  z-index: 12;
+  top: 0;
+  display: flex;
+  background-color: #009e96;
+  justify-content: space-between;
+}
+.g-modal_h {
+  font-size: 1.2rem;
+  padding: 5px;
+  color: #fff;
+}
+
+.g-list-note {
+  font-size: 0.8rem;
+  color: #808080;
+}
+.g-modal_close {
+  font-size: 1rem;
+  padding: 20px;
+  background-color: #009e96;
+  border: none;
+  color: #fff;
+}
+
+.g-modal_body {
+  padding: 30px 30px 40px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: #fff;
+}
+
+.modal-close {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10;
+  color: #ffffff;
+}
+.modal-button {
+  background-color: #eb6157;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  width: 200px;
+}
+.g-hover:hover {
+  opacity: 0.8;
+}
+.router-link {
+  text-decoration: none;
+}
+.router-link:hover {
+  text-decoration: underline;
+}
+
 .g-block-sm,
 .g-lg-block-sm {
-  margin-top: 20px;
+  margin-top: 5px;
 }
 .g-h-2 {
   font-size: 1.4rem;
@@ -326,18 +577,17 @@ a {
   display: inline-flex;
   flex-wrap: wrap;
 }
-.g-link,
-.g-lg-link {
-  display: inline-flex;
+.g-link {
+  display: flex;
   align-items: center;
 }
 .g-itemList-border {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .g-lg-itemList-border {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .g-itemList-border {
   border: 0 solid #dbdbdb;
@@ -452,5 +702,47 @@ a {
 }
 .g-mb-20 {
   margin-bottom: 20px;
+}
+.g-lg-inputGroup {
+  display: flex;
+  align-items: center;
+}
+.g-select {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  background-color: #fff;
+}
+.g-lg-inputGroup > *:nth-child(n + 2) {
+  margin-left: 10px;
+}
+
+.g-lg-fh {
+  height: 100%;
+}
+.g-btn-em {
+  color: #009e96;
+}
+.g-btn > span {
+  display: flex;
+  min-height: 10px;
+  padding: 2px 5px 2px 5px;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.g-btn {
+  display: flex;
+  min-height: 20px;
+  padding: 5px 18px 5px 14px;
+  transform: translateX(5px);
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>

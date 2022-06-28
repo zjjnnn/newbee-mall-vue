@@ -12,8 +12,8 @@
           name="wishlistName"
           size="30"
           placeholder="新規リスト名を入力"
-          aria-describedby="p-list-new_alert"
-          data-validation-rules='[{"rule":"length","max":20}]'
+          @input="updateValue"
+          v-model="value"
         />
         <p
           class="g-formGrid_error-alone g-sm-align-tl"
@@ -25,20 +25,24 @@
         <a
           class="g-btn g-btn-brand g-sm-btn-func g-lg-btn-sm"
           role="button"
-          @click="isShow = true"
+          @click="addWishList"
         >
           <span>リストを作成</span></a
         >
       </p>
+      <p v-if="value.length > 20" style="color: #eb6157; font-size: small">
+        20文字以内で入力してください。
+      </p>
     </div>
-    <!-- modal -->
-    <GDialog v-model="isShow">
+
+    <!-- modal1 リストを作成1-->
+    <GDialog v-model="isShow1">
       <div class="modal">
         <div class="g-modal_el">
           <header class="g-modal_head">
             <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
             <button
-              @click="isShow = false"
+              @click="isShow1 = false"
               class="g-modal_close"
               type="button"
               aria-label="閉じる"
@@ -56,14 +60,129 @@
         </div>
       </div>
     </GDialog>
+    <!-- modal2 リストを作成2 inputなし-->
+    <GDialog v-model="isShow2">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow2 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
+          <div class="g-modal_body">
+            <p style="color: #eb6157; background-color: #fce7e6">
+              お気に入り商品リストの名前を入力してください。
+            </p>
+          </div>
+        </div>
+      </div>
+    </GDialog>
+    <!-- modal3 リストを作成3 同じリスト名前-->
+    <GDialog v-model="isShow3">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow3 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
+          <div class="g-modal_body">
+            <p style="color: #eb6157; background-color: #fce7e6">
+              入力された名前のお気に入り商品リストは既に存在します。別の名前を入力してください。
+            </p>
+          </div>
+        </div>
+      </div>
+    </GDialog>
+    <!-- modal4 リストを作成4 長すぎる-->
+    <GDialog v-model="isShow4">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow4 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
+          <div class="g-modal_body">
+            <p style="color: #eb6157; background-color: #fce7e6">
+              お気に入り商品リストの名前が長すぎます。
+            </p>
+          </div>
+        </div>
+      </div>
+    </GDialog>
     <wish-item></wish-item>
   </div>
 </template>
 
 <script setup lang="ts">
 import WishItem from "./WishItem.vue";
-import { ref } from "vue";
-const isShow = ref(false);
+// import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useStore } from "../../store/index";
+const isShow1 = ref(false);
+const isShow2 = ref(false);
+const isShow3 = ref(false);
+const isShow4 = ref(false);
+const store = useStore();
+
+// const value = ref("");
+const wishList = computed(() => store.getters.getWishList);
+const value = computed(() => store.getters.getValue);
+
+function updateValue(e: Event) {
+  if (e.target instanceof HTMLInputElement) {
+    store.commit("updateValue", e.target.value);
+  }
+}
+
+function addWishList() {
+  //去掉首尾空格后判断输入的内容是否为空
+  if (
+    value.value.replace(/(^\s*)|(\s*$)/g, "").length > 0 &&
+    value.value.length <= 20
+  ) {
+    //若不为空
+    //继续判断输入的listName是否已经存在
+    if (wishList.value.filter((w) => w.listName === value.value).length > 0) {
+      //若存在，则显示modal3，提示listName已经存在
+      isShow3.value = true;
+    } else {
+      //若不存在，则显示modal1，提示插入成功，并插入数据
+      isShow1.value = true;
+      store.dispatch("addWishList", "user01");
+    }
+  } else if (value.value.length > 20) {
+    isShow4.value = true;
+  } else {
+    //若为空，则显示modal2，提示不能为空
+    isShow2.value = true;
+  }
+}
 </script>
 
 <style scoped>
@@ -73,7 +192,7 @@ const isShow = ref(false);
   margin-left: auto;
 }
 .g-layout_head {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 h1 {
   font-size: 2rem;

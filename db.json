@@ -849,11 +849,18 @@
       "variants": [
         {
           "size": "シングル",
-          "color": ["ホワイト", "グレー", "ダークブルー"]
+          "color": [
+            "ホワイト",
+            "グレー",
+            "ダークブルー"
+          ]
         },
         {
           "size": "セミダブル",
-          "color": ["ホワイト", "ダークブルー"]
+          "color": [
+            "ホワイト",
+            "ダークブルー"
+          ]
         }
       ]
     }
@@ -886,6 +893,13 @@
       "quantity": 1,
       "cartDate": "2022-06-17T11:11:55.385Z",
       "id": 4
+    },
+    {
+      "userId": "user01",
+      "sku": "10195s_wh",
+      "quantity": 1,
+      "cartDate": "2022-06-28T07:55:00.882Z",
+      "id": 5
     }
   ],
   "cartList": [
@@ -1130,7 +1144,7 @@
           "size": "シングル",
           "sku": "10195s_wh",
           "color": "ホワイト",
-          "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
+          "photo": "http://localhost:8080/assets/images/goodsphoto2.jpg",
           "price": 2000,
           "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
           "shipment": "2~6",
@@ -1141,6 +1155,7 @@
       ]
     },
     {
+      "id": 2,
       "userId": "user01",
       "listName": "好きなもの",
       "goodsList": [
@@ -1151,23 +1166,8 @@
           "size": "シングル",
           "sku": "10195s_wh",
           "color": "ホワイト",
-          "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
+          "photo": "http://localhost:8080/assets/images/goodsphoto3.jpg",
           "price": 1000,
-          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
-          "shipment": "2~6",
-          "postage": 0,
-          "link": "/goods/detail/10195",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "userId": "user01",
-          "goodsId": 10196,
-          "size": "シングル",
-          "sku": "10195s_wh",
-          "color": "ホワイト",
-          "photo": "http://localhost:8080/assets/images/goodsphoto2.jpg",
-          "price": 2000,
           "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
           "shipment": "2~6",
           "postage": 0,
@@ -1175,6 +1175,18 @@
           "quantity": 1
         }
       ]
+    },
+    {
+      "userId": "user01",
+      "listName": "y",
+      "goodsList": [],
+      "id": 3
+    },
+    {
+      "userId": "user01",
+      "listName": "aaaaaaa",
+      "goodsList": [],
+      "id": 4
     }
   ]
 }

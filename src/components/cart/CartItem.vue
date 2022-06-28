@@ -5,7 +5,11 @@
         <li class="g-itemList_item g-media g-media-lg p-cartItem">
           <!-- photo -->
           <p class="g-media_head">
-            <router-link class="g-hover" :to="item.link"
+            <router-link
+              class="g-hover"
+              :to="item.link"
+              @mouseover="hover = true"
+              @mouseleave="hover = false"
               ><img class="g-fw g-rc" :src="item.photo" :alt="item.title"
             /></router-link>
           </p>
@@ -129,6 +133,9 @@ const updateQuantity = (e: Event) => {
 </script>
 
 <style scoped>
+.g-hover:hover {
+  opacity: 0.8;
+}
 .router-link {
   text-decoration: none;
 }
