@@ -95,8 +95,24 @@ export default {
     ) {
       await fetch("http://localhost:3000/wishList/" + id, { method: "DELETE" });
       context.dispatch("setWishList", userId);
+      context.state.selectedName = "お気に入り商品";
     },
     //update listName
+    async updateListName(
+      context,
+      { newName, id, userId }: { newName: string; id: number; userId: string }
+    ) {
+      await axios.patch("http://localhost:3000/wishList/" + id, {
+        listName: newName,
+      });
+      console.log("newName", newName);
+      context.dispatch("setWishList", userId);
+      context.state.selectedName = "お気に入り商品";
+    },
+
+    async intoDefaultWishList(context, item: {}) {
+      await axios.post("http://localhost:3000/defaultList", item);
+    },
   },
   getters: {
     getWishList(state: WishState) {

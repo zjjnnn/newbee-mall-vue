@@ -47,7 +47,7 @@ export default {
       shipment: String,
       postage: Number,
       link: String,
-      quantity: Number,
+      quantity: 1,
     },
   },
   mutations: {

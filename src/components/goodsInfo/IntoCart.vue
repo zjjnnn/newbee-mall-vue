@@ -53,7 +53,7 @@
               </dt>
               <dd>
                 <input
-                  :value="quantity"
+                  value="1"
                   @input="updateQuantity"
                   class="g-input g-input-sm addToCartQty"
                   id="p-pieces"
@@ -138,16 +138,9 @@
                 </button>
               </div>
             </div>
-            <ul class="g-grid-2 g-grid-xs p-misc">
+            <ul class="g-grid-2 g-grid-xs p-misc" style="margin-top: 10px">
               <li class="g-grid_item p-misc_item">
-                <a
-                  onclick="jsShopStockClick()"
-                  class="g-hover js-popUp-store-inventory"
-                  href="#p-stockModal"
-                  role="button"
-                  aria-expanded="false"
-                  data-sku-code="7565685"
-                >
+                <a style="cursor: pointer">
                   <div class="p-misc_i g-hover_img">
                     <span class="material-symbols-outlined g-s g-s-stock-g">
                       inventory_2
@@ -156,15 +149,8 @@
                   <span class="p-misc_label">店舗在庫を確認</span>
                 </a>
               </li>
-              <li class="g-grid_item p-misc_item">
-                <a
-                  onclick="jswishclick()"
-                  id="addFavoriteA"
-                  data="7565685"
-                  data-login="anonymous"
-                  class="g-hover"
-                  data-clickable=""
-                >
+              <li class="g-grid_item p-misc_item" style="margin-left: 50px">
+                <a style="cursor: pointer" @click="intoDefaultWishList">
                   <div class="p-misc_i g-hover_img">
                     <span class="material-symbols-outlined g-s g-s-favorite-g">
                       favorite
@@ -281,6 +267,7 @@ onMounted(() => {
 const quantity = computed(() => store.getters.getQuantity);
 const price = computed(() => store.getters.getNewInfoList.price);
 const sku = computed(() => store.getters.getNewInfoList.sku);
+const newInfoList = computed(() => store.getters.getNewInfoList);
 
 const isShow = ref(false);
 const showError = ref(false);
@@ -298,6 +285,10 @@ const addItem = (sku: string) => {
     store.dispatch("addCart", sku);
     isShow.value = true;
   }
+};
+
+const intoDefaultWishList = () => {
+  store.dispatch("intoDefaultWishList", newInfoList.value);
 };
 </script>
 

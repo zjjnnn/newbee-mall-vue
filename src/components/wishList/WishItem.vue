@@ -25,14 +25,19 @@
         </select>
       </div>
       <!-- 选择【お気に入り商品】以外时 start -->
-      <p class="wishlist-controls" v-if="selectedName !== 'お気に入り商品'">
+      <p
+        class="wishlist-controls"
+        v-if="selectedName !== 'お気に入り商品'"
+        @click="
+          isShow03 = true;
+          state.newName = selectedName;
+        "
+      >
         <a
           class="g-btn g-btn-em g-btn-sm g-lg-fh"
           id="changepopupbutton"
-          href="#p-changeModal"
           role="button"
-          aria-expanded="false"
-          aria-controls="p-changeModal"
+          style="cursor: pointer"
           ><span>リスト名を変更</span></a
         >
       </p>
@@ -110,8 +115,103 @@
         </div>
       </div>
     </GDialog>
+    <!-- modal03 リスト名を変更?-->
+    <GDialog v-model="isShow03">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow03 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
 
-    <div id="entryList">
+          <!-- <p style="color: #eb6157; background-color: #fce7e6">
+            お気に入り商品リストの名前を入力してください。
+          </p> -->
+
+          <div class="g-modal_body">
+            <p id="modalMessage">"リスト名を変更してください。</p>
+            <div class="button-delete-div">
+              <input type="text" v-model="state.newName" />
+              <button
+                :newName="state.newName"
+                class="button-delete"
+                :id="id"
+                @click="
+                  updateListName(state.newName, id);
+                  isShow03 = false;
+                "
+                style="margin-left: 10px"
+              >
+                <span>変更する</span>
+              </button>
+            </div>
+            <div
+              v-if="state.newName.length === 0"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <p style="color: #eb6157; font-size: 0.8rem">
+                入力必須項目です。
+              </p>
+            </div>
+            <div
+              v-if="state.newName.length > 20"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              <p style="color: #eb6157; font-size: 0.8rem">
+                20文字以内で入力してください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </GDialog>
+    <!-- modal04 リストを削除した-->
+    <GDialog v-model="isShow04">
+      <div class="modal">
+        <div class="g-modal_el">
+          <header class="g-modal_head">
+            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <button
+              @click="isShow04 = false"
+              class="g-modal_close"
+              type="button"
+              aria-label="閉じる"
+            >
+              <span class="material-symbols-outlined" style="cursor: pointer">
+                close
+              </span>
+            </button>
+          </header>
+          <div class="g-modal_body">
+            <p id="modalMessage">お気に入り商品リストの名前を変更しました。</p>
+          </div>
+        </div>
+      </div>
+    </GDialog>
+    <!-- リストに商品なし -->
+    <div v-if="goodsList.length === 0">
+      お気に入り商品が登録されていません。<br />
+      各商品の紹介ページで「お気に入り」を押すと追加できます。
+    </div>
+    <!-- リストに商品あり -->
+    <div id="entryList" v-if="goodsList.length && goodsList.length > 0">
       <div id="wishlistEntryList" class="g-block-sm">
         <div class="p-listControl">
           <label class="g-checkable">
@@ -156,15 +256,15 @@
             </ul>
           </div>
         </div>
-
+        <!-- 循环得到list内的商品信息 -->
         <ul
           id="p-ProductList"
           class="g-itemList g-itemList-border g-mt-20 g-mb-20"
         >
           <li
             class="g-itemList_item"
-            v-for="goods in goodsList"
-            :key="goods.id"
+            v-for="(goods, index) in goodsList"
+            :key="index"
           >
             <div
               class="g-media g-media-lg g-media-lead g-media-tail p-favoriteItem"
@@ -224,16 +324,16 @@
                   <div class="cartBtnArea">
                     <!-- error modal -->
                     <div
-                      v-if="showError"
+                      v-if="e === index"
                       class="p-itemAdded g-item-add-error"
                       style="
-                        bottom: 70.2083px;
+                        bottom: 60px;
                         animation: 1.8s ease 0s 1 normal both running
                           p-itemAddedIn;
                       "
                     >
                       <button
-                        @click="showError = false"
+                        @click="e = -1"
                         class="g-modal_close p-modal_button"
                         type="button"
                         aria-label="閉じる"
@@ -247,17 +347,18 @@
                       </button>
                       <div>数量は1以上、999以下で設定してください。</div>
                     </div>
+                    <!-- added modal -->
                     <div
-                      v-if="showError"
+                      v-if="i === index"
                       class="p-itemAdded g-item-add-error"
                       style="
-                        bottom: 70.2083px;
+                        bottom: 60px;
                         animation: 1.8s ease 0s 1 normal both running
                           p-itemAddedIn;
                       "
                     >
                       <button
-                        @click="isShow = false"
+                        @click="i = -1"
                         class="g-modal_close p-modal_button"
                         type="button"
                         aria-label="閉じる"
@@ -270,22 +371,18 @@
                         </span>
                       </button>
                       <div>カートに追加しました</div>
-                      <button @click="isShow = false" class="modal-button">
-                        <router-link to="/cart">カートを見る</router-link>
+                      <button @click="i = -1" class="modal-button">
+                        <router-link to="/cart" style="color: white"
+                          >カートを見る</router-link
+                        >
                       </button>
                     </div>
                     <button
                       class="g-btn g-btn-cv g-btn-c g-sm-fw g-lg-btn-func addToCartBtn p-addItem"
-                      id="p-addItem7030893"
-                      type="button"
-                      data-sku-code="7030893"
-                      data-price-without-tax="818.0"
-                      data-category="ジョイントマット・コルクマット"
-                      data-category-id="11480"
-                      data-product-id="7030841s"
-                      data-bundle="false"
-                      @click="addItem(goods.sku)"
+                      :index="index"
+                      @click="addItem(goods.sku, index)"
                       :sku="goods.sku"
+                      style="cursor: pointer"
                     >
                       <span class="material-symbols-outlined">
                         add_shopping_cart
@@ -353,8 +450,13 @@ import { useStore } from "../../store/index";
 
 const isShow01 = ref(false);
 const isShow02 = ref(false);
-const showError = ref(false);
-const isShow = ref(false);
+const isShow03 = ref(false);
+const isShow04 = ref(false);
+
+// const showError = ref(false);
+// const showAdded = ref(false);
+const i = ref(-1);
+const e = ref(-1);
 
 const userId = "user01";
 const store = useStore();
@@ -369,12 +471,12 @@ const selectedName = computed(() => store.getters.getSelectName);
 //mouseover event, change style
 const hover = false;
 
-//select all
 const state = reactive({
   checked: false,
   checkList: [],
+  newName: "",
 });
-
+//------------------すべて選択-----------------------
 const selectAll = async () => {
   if (state.checked) {
     const checkList1 = goodsList.value.map((goods) => goods.id);
@@ -385,20 +487,7 @@ const selectAll = async () => {
     state.checkList = [];
   }
 };
-
-// const checked = ref(false);
-// const checkList = ref();
-// let { checked, checkList } = toRefs(state);
-// const selectAll = async () => {
-//   if (checked.value) {
-//     const checkList1 = goodsList.value.map((goods) => goods.title);
-//     console.log("checkList1", checkList1);
-//     checkList.value = checkList1;
-//     console.log("checkList", checkList.value);
-//   } else {
-//     checkList.value = [];
-//   }
-// };
+//------------------すべて選択-----------------------
 
 //change goodsList
 const filterGoodsList = (e) => {
@@ -411,21 +500,37 @@ const deleteWishList = (id: number) => {
   isShow02.value = true;
 };
 
+//update listName
+const updateListName = (newName: string, id: number) => {
+  store.dispatch("updateListName", { newName, id, userId });
+  state.newName = ""; //清空modal4中的输入框
+  isShow04.value = true;
+};
+
+//------------------商品をカートに入れる-----------------------
+//store goods quantity
 const quantity = computed(() => store.getters.getQuantity);
 const updateQuantity = (e: Event) => {
   if (e.target instanceof HTMLInputElement) {
     store.commit("updateQuantity", e.target.value);
   }
 };
-const addItem = (sku: string) => {
+
+//add goods into cart.
+//商品数量在加入购物车后会回到数量1
+const addItem = (sku: string, index: number) => {
   if (quantity.value < 1 || quantity.value > 999) {
-    showError.value = true;
+    // showError.value = true;
+    e.value = index;
+    store.commit("updateQuantity", 1);
   } else {
     store.dispatch("addCart", sku);
-    isShow.value = true;
+    i.value = index;
+    // showAdded.value = true;
     store.commit("updateQuantity", 1);
   }
 };
+//------------------商品をカートに入れる-----------------------
 </script>
 
 <style scoped>
@@ -537,9 +642,6 @@ const addItem = (sku: string) => {
   pointer-events: none;
 }
 
-input {
-  cursor: pointer;
-}
 .g-checkable > span,
 .g-lg-checkable > span {
   line-height: normal;
@@ -744,5 +846,63 @@ a {
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+.cartBtnArea .p-itemAdded {
+  margin-top: 0;
+  bottom: calc(100% + 20px);
+}
+
+.p-itemAdded {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  left: 0;
+  width: 230px;
+  font-weight: normal;
+  padding: 10px 10px;
+  text-align: center;
+  border: 2px solid #eb6157;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 3px 0 0 rgb(0 0 0 / 15%);
+}
+.g-modal_close {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  cursor: pointer;
+  padding: 0;
+  color: #808080;
+}
+.p-itemAdded.g-item-add-error > div {
+  text-align: left;
+}
+.p-itemAdded > div {
+  margin-top: 5px;
+  margin-right: 16px;
+}
+.p-itemAdded::after {
+  position: absolute;
+  right: 0;
+  bottom: -11px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  margin: auto;
+  content: "";
+  transform: rotate(45deg);
+  border: 2px solid #eb6157;
+  border-top-width: 0;
+  border-left-width: 0;
+  background-image: linear-gradient(135deg, transparent 50%, #fff 50%);
+  box-shadow: 2px 2px 0 0 rgb(0 0 0 / 15%);
+}
+
+button {
+  cursor: pointer;
 }
 </style>

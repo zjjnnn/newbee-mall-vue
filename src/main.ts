@@ -15,4 +15,5 @@ app.use(VueViewer);
 app.use(store, key);
 app.use(router);
 app.component("GDialog", GDialog);
+
 app.mount("#app");

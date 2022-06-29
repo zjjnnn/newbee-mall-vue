@@ -164,7 +164,7 @@ const pointSum = computed(() => Math.round(paymentSum.value / 110));
 const paymentSum = computed(() => store.getters.getPaymentSum);
 //postageSum 送料 >=11000 送料無料、else 550円
 const postageSum = computed(() => {
-  if (paymentSum.value > 11000) {
+  if (paymentSum.value >= 11000) {
     return 0;
   } else {
     return 550;
