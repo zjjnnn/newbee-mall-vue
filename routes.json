@@ -8,5 +8,6 @@
   "/buy/later/list/:userId": "/buyLaterList?userId=:userId",
   "/user/info/:userId": "/userInfo?userId=:userId",
   "/order/detail/:orderId": "/orderDetail?orderId=:orderId",
-  "/wish/list/:userId": "/wishList?userId=:userId"
+  "/wish/list/:userId": "/wishList?userId=:userId",
+  "/wish/goods/list/:userId": "/wishgoodsList?userId=:userId"
 }

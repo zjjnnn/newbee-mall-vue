@@ -10,7 +10,7 @@
           id="wishlistDropDown"
           name=""
           aria-label="お気に入り商品リストの選択"
-          @change="filterGoodsList"
+          @change="filterList"
           style="border: none"
           v-model="selectedName"
         >
@@ -69,7 +69,10 @@
               type="button"
               aria-label="閉じる"
             >
-              <span class="material-symbols-outlined" style="cursor: pointer">
+              <span
+                class="material-symbols-outlined"
+                style="cursor: pointer; color: #ffffff"
+              >
                 close
               </span>
             </button>
@@ -104,7 +107,10 @@
               type="button"
               aria-label="閉じる"
             >
-              <span class="material-symbols-outlined" style="cursor: pointer">
+              <span
+                class="material-symbols-outlined"
+                style="cursor: pointer; color: #ffffff"
+              >
                 close
               </span>
             </button>
@@ -120,14 +126,17 @@
       <div class="modal">
         <div class="g-modal_el">
           <header class="g-modal_head">
-            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <p class="g-modal_h" id="p-messageModal_h">リスト名を変更</p>
             <button
               @click="isShow03 = false"
               class="g-modal_close"
               type="button"
               aria-label="閉じる"
             >
-              <span class="material-symbols-outlined" style="cursor: pointer">
+              <span
+                class="material-symbols-outlined"
+                style="cursor: pointer; color: #ffffff"
+              >
                 close
               </span>
             </button>
@@ -138,7 +147,7 @@
           </p> -->
 
           <div class="g-modal_body">
-            <p id="modalMessage">"リスト名を変更してください。</p>
+            <p id="modalMessage">リスト名を変更してください。</p>
             <div class="button-delete-div">
               <input type="text" v-model="state.newName" />
               <button
@@ -182,19 +191,22 @@
         </div>
       </div>
     </GDialog>
-    <!-- modal04 リストを削除した-->
+    <!-- modal04 リストを変更した-->
     <GDialog v-model="isShow04">
       <div class="modal">
         <div class="g-modal_el">
           <header class="g-modal_head">
-            <p class="g-modal_h" id="p-messageModal_h">リストを作成</p>
+            <p class="g-modal_h" id="p-messageModal_h">リスト名を変更</p>
             <button
               @click="isShow04 = false"
               class="g-modal_close"
               type="button"
               aria-label="閉じる"
             >
-              <span class="material-symbols-outlined" style="cursor: pointer">
+              <span
+                class="material-symbols-outlined"
+                style="cursor: pointer; color: #ffffff"
+              >
                 close
               </span>
             </button>
@@ -226,7 +238,11 @@
             <div>チェックしたものを</div>
             <ul class="g-linkList g-linkList-lg">
               <li v-if="wishList.length > 1">
-                <a class="g-link g-link-gray" href="#" role="button">
+                <a
+                  class="g-link g-link-gray"
+                  @click="if (state.checkList.length > 0) isShow07 = true;"
+                  role="button"
+                >
                   <span
                     class="material-symbols-outlined"
                     style="cursor: pointer; color: #dbdbdb"
@@ -239,10 +255,9 @@
 
               <li>
                 <a
-                  id="linkReal"
                   class="g-link g-link-gray"
-                  href="#p-deleteModal"
                   role="button"
+                  @click="if (state.checkList.length > 0) isShow05 = true;"
                 >
                   <span
                     class="material-symbols-outlined"
@@ -256,6 +271,147 @@
             </ul>
           </div>
         </div>
+        <!-- modal05 チェックした商品を削除?-->
+        <GDialog v-model="isShow05">
+          <div class="modal">
+            <div class="g-modal_el">
+              <header class="g-modal_head">
+                <p class="g-modal_h" id="p-messageModal_h">商品を削除</p>
+                <button
+                  @click="isShow05 = false"
+                  class="g-modal_close"
+                  type="button"
+                  aria-label="閉じる"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    style="cursor: pointer; color: #ffffff"
+                  >
+                    close
+                  </span>
+                </button>
+              </header>
+              <div class="g-modal_body">
+                <p id="modalMessage">
+                  チェックした商品{{ state.checkList.length }}つを削除しますか？
+                </p>
+                <div class="button-delete-div">
+                  <button class="button-delete" @click="deleteGoods">
+                    <span>削除する</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </GDialog>
+        <!-- modal06 チェックした商品を削除した-->
+        <GDialog v-model="isShow06">
+          <div class="modal">
+            <div class="g-modal_el">
+              <header class="g-modal_head">
+                <p class="g-modal_h" id="p-messageModal_h">商品を削除</p>
+                <button
+                  @click="isShow06 = false"
+                  class="g-modal_close"
+                  type="button"
+                  aria-label="閉じる"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    style="cursor: pointer; color: #ffffff"
+                  >
+                    close
+                  </span>
+                </button>
+              </header>
+              <div class="g-modal_body">
+                <p id="modalMessage">お気に入り商品から削除しました。</p>
+              </div>
+            </div>
+          </div>
+        </GDialog>
+        <!-- modal07 商品を別のリストへ移動?-->
+        <GDialog v-model="isShow07">
+          <div class="modal">
+            <div class="g-modal_el">
+              <header class="g-modal_head">
+                <p class="g-modal_h" id="p-messageModal_h">
+                  商品を別のリストへ移動
+                </p>
+                <button
+                  @click="isShow07 = false"
+                  class="g-modal_close"
+                  type="button"
+                  aria-label="閉じる"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    style="cursor: pointer; color: #ffffff"
+                  >
+                    close
+                  </span>
+                </button>
+              </header>
+              <div class="g-modal_body">
+                <p id="modalMessage">
+                  商品を移動させるリストを選択してください。
+                </p>
+                <div class="button-delete-div">
+                  <select v-model="anotherName">
+                    <option
+                      v-for="(c, index) in canMoveList"
+                      :key="index"
+                      :value="c.listName"
+                    >
+                      {{ c.listName }}
+                    </option>
+                  </select>
+
+                  <button
+                    :anotherName="anotherName"
+                    class="button-delete"
+                    @click="
+                      moveGoods(anotherName);
+                      isShow07 = false;
+                    "
+                    style="margin-left: 10px"
+                  >
+                    <span>変更する</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </GDialog>
+        <!-- modal08 商品を別のリストへ移動した-->
+        <GDialog v-model="isShow08">
+          <div class="modal">
+            <div class="g-modal_el">
+              <header class="g-modal_head">
+                <p class="g-modal_h" id="p-messageModal_h">
+                  商品を別のリストへ移動
+                </p>
+                <button
+                  @click="isShow08 = false"
+                  class="g-modal_close"
+                  type="button"
+                  aria-label="閉じる"
+                >
+                  <span
+                    class="material-symbols-outlined"
+                    style="cursor: pointer; color: #ffffff"
+                  >
+                    close
+                  </span>
+                </button>
+              </header>
+              <div class="g-modal_body">
+                <p id="modalMessage">お気に入り商品の移動が完了しました。</p>
+              </div>
+            </div>
+          </div>
+        </GDialog>
+
         <!-- 循环得到list内的商品信息 -->
         <ul
           id="p-ProductList"
@@ -286,7 +442,7 @@
                   @mouseover="hover = true"
                   @mouseleave="hover = false"
                 >
-                  <img class="g-fw g-rc" :src="goods.photo"
+                  <img class="g-fw g-rc" :src="goods.photo[0]"
                 /></router-link>
               </div>
               <div class="g-media_body g-sm-units-xs g-lg-units-sm">
@@ -448,25 +604,35 @@
 import { computed, onMounted, reactive, ref } from "vue";
 import { useStore } from "../../store/index";
 
-const isShow01 = ref(false);
-const isShow02 = ref(false);
-const isShow03 = ref(false);
-const isShow04 = ref(false);
-
-// const showError = ref(false);
-// const showAdded = ref(false);
-const i = ref(-1);
-const e = ref(-1);
-
 const userId = "user01";
 const store = useStore();
-onMounted(() => {
-  store.dispatch("setWishList", userId);
+onMounted(async () => {
+  await store.dispatch("setWishList", userId);
+  store.dispatch("setWishGoodsList", userId);
 });
 const wishList = computed(() => store.getters.getWishList);
 const id = computed(() => store.getters.getId);
 const goodsList = computed(() => store.getters.getGoodsList);
 const selectedName = computed(() => store.getters.getSelectName);
+const canMoveList = computed(() => store.getters.getCanMoveList);
+
+const anotherName = ref("");
+if (canMoveList.value.length > 0) {
+  anotherName.value = canMoveList.value[0].listName;
+}
+
+//modal
+const isShow01 = ref(false);
+const isShow02 = ref(false);
+const isShow03 = ref(false);
+const isShow04 = ref(false);
+const isShow05 = ref(false);
+const isShow06 = ref(false);
+const isShow07 = ref(false);
+const isShow08 = ref(false);
+// const anotherName = ref("");
+const i = ref(-1);
+const e = ref(-1);
 
 //mouseover event, change style
 const hover = false;
@@ -475,6 +641,7 @@ const state = reactive({
   checked: false,
   checkList: [],
   newName: "",
+  // anotherName: "",
 });
 //------------------すべて選択-----------------------
 const selectAll = async () => {
@@ -490,8 +657,9 @@ const selectAll = async () => {
 //------------------すべて選択-----------------------
 
 //change goodsList
-const filterGoodsList = (e) => {
+const filterList = (e) => {
   store.commit("filterGoodsList", e.target.value);
+  store.commit("filterWishList", e.target.value);
 };
 
 //delect listName
@@ -531,9 +699,40 @@ const addItem = (sku: string, index: number) => {
   }
 };
 //------------------商品をカートに入れる-----------------------
+
+const deleteGoods = () => {
+  let id = -1;
+  for (let i = 0; i < state.checkList.length; i++) {
+    id = state.checkList[i];
+    console.log("id", id);
+    store.dispatch("deleteGoods", { id, userId });
+  }
+  isShow05.value = false;
+  isShow06.value = true;
+  state.checked = false;
+};
+
+const moveGoods = (anotherName: string) => {
+  let id = -1;
+  for (let i = 0; i < state.checkList.length; i++) {
+    id = state.checkList[i];
+    console.log("id", id);
+    store.dispatch("moveGoods", { anotherName, id, userId });
+    isShow08.value = true;
+    state.checkList = [];
+    state.checked = false;
+  }
+};
 </script>
 
 <style scoped>
+.modal-close {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10;
+  color: #ffffff;
+}
 .button-delete-div {
   display: flex;
   align-items: center;

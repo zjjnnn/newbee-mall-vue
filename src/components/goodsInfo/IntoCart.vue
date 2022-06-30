@@ -142,15 +142,23 @@
               <li class="g-grid_item p-misc_item">
                 <a style="cursor: pointer">
                   <div class="p-misc_i g-hover_img">
-                    <span class="material-symbols-outlined g-s g-s-stock-g">
+                    <span
+                      class="material-symbols-outlined g-s g-s-stock-g"
+                      style="color: #333"
+                    >
                       inventory_2
                     </span>
                   </div>
-                  <span class="p-misc_label">店舗在庫を確認</span>
+                  <span class="p-misc_label" style="color: #333"
+                    >店舗在庫を確認</span
+                  >
                 </a>
               </li>
               <li class="g-grid_item p-misc_item" style="margin-left: 50px">
-                <a style="cursor: pointer" @click="intoDefaultWishList">
+                <a
+                  :class="skuExisted ? 'canNotClick' : 'canClick'"
+                  @click="intoWish"
+                >
                   <div class="p-misc_i g-hover_img">
                     <span class="material-symbols-outlined g-s g-s-favorite-g">
                       favorite
@@ -260,9 +268,15 @@ import { useRoute } from "vue-router";
 const store = useStore();
 const route = useRoute();
 const goodsId = route.params.goodsId;
-
-onMounted(() => {
+const userId = "user01";
+console.log("goodsId", goodsId);
+onMounted(async () => {
   store.dispatch("setInfos", goodsId);
+  await store.dispatch("setWishGoodsList", userId);
+  //判断当前sku的商品是否在【お気に入り】列表（wishgoodsList）中
+  if (allGoodsList.value.filter((a) => a.sku === sku.value).length > 0) {
+    skuExisted.value = true;
+  }
 });
 const quantity = computed(() => store.getters.getQuantity);
 const price = computed(() => store.getters.getNewInfoList.price);
@@ -277,7 +291,15 @@ const updateQuantity = (e: Event) => {
     store.commit("updateQuantity", e.target.value);
   }
 };
-// add into cart
+
+//判断当前sku的商品是否在【お気に入り】列表（wishgoodsList）中，若存在（true），则不能再点击
+const allGoodsList = computed(() => store.getters.getAllGoodsList);
+let skuExisted = ref(false);
+// if (allGoodsList.value.filter((a) => a.sku === sku.value).length > 0) {
+//   skuExisted.value = true;
+// }
+
+// add into cart 把当前sku的商品加到购物车
 const addItem = (sku: string) => {
   if (quantity.value < 1 || quantity.value > 999) {
     showError.value = true;
@@ -286,13 +308,23 @@ const addItem = (sku: string) => {
     isShow.value = true;
   }
 };
-
-const intoDefaultWishList = () => {
-  store.dispatch("intoDefaultWishList", newInfoList.value);
+// 把当前sku的商品加到【お気に入り】
+const intoWish = () => {
+  store.dispatch("intoWish", newInfoList.value);
+  skuExisted.value = true;
 };
 </script>
 
 <style scoped>
+.canClick {
+  cursor: pointer;
+  color: #333;
+}
+
+.canNotClick {
+  pointer-events: none;
+  color: #009e96;
+}
 .modal {
   width: 300px;
   height: 500px;
@@ -472,7 +504,6 @@ a {
   height: 100%;
   text-align: center;
   align-items: center;
-  color: #333;
   font-size: 0.8rem;
 }
 .p-misc_i {

@@ -884,50 +884,8 @@
       "userId": "user01",
       "sku": "10195s_wh",
       "quantity": 1,
-      "cartDate": "2022-06-29T04:47:22.954Z",
+      "cartDate": "2022-06-30T05:00:35.397Z",
       "id": 3
-    },
-    {
-      "userId": "user01",
-      "sku": "10195s_wh",
-      "quantity": 1,
-      "cartDate": "2022-06-29T04:54:41.198Z",
-      "id": 4
-    },
-    {
-      "userId": "user01",
-      "sku": "10195s_wh",
-      "quantity": 1,
-      "cartDate": "2022-06-29T04:54:45.713Z",
-      "id": 5
-    },
-    {
-      "userId": "user01",
-      "sku": "10195s_wh",
-      "quantity": 1,
-      "cartDate": "2022-06-29T04:54:55.472Z",
-      "id": 6
-    },
-    {
-      "userId": "user01",
-      "sku": "10195s_wh",
-      "quantity": 100,
-      "cartDate": "2022-06-29T05:03:26.089Z",
-      "id": 7
-    },
-    {
-      "userId": "user01",
-      "sku": "10195s_wh",
-      "quantity": 1,
-      "cartDate": "2022-06-29T05:15:31.438Z",
-      "id": 8
-    },
-    {
-      "userId": "user01",
-      "sku": "10195s_wh",
-      "quantity": 1,
-      "cartDate": "2022-06-29T05:55:55.164Z",
-      "id": 9
     }
   ],
   "cartList": [
@@ -1149,83 +1107,39 @@
       "userId": "user01",
       "id": 1,
       "listName": "お気に入り商品",
-      "goodsList": [
-        {
-          "id": 1,
-          "userId": "user01",
-          "goodsId": 10195,
-          "size": "シングル",
-          "sku": "10195s_wh",
-          "color": "ホワイト",
-          "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
-          "price": 1000,
-          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
-          "shipment": "2~6",
-          "postage": 0,
-          "link": "/goods/detail/10195",
-          "quantity": 1
-        },
-        {
-          "id": 2,
-          "userId": "user01",
-          "goodsId": 10195,
-          "size": "シングル",
-          "sku": "10195s_wh",
-          "color": "ホワイト",
-          "photo": "http://localhost:8080/assets/images/goodsphoto2.jpg",
-          "price": 2000,
-          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
-          "shipment": "2~6",
-          "postage": 0,
-          "link": "/goods/detail/10195",
-          "quantity": 1
-        }
-      ]
+      "goodsList": []
     },
     {
       "id": 2,
       "userId": "user01",
       "listName": "好きな商品",
-      "goodsList": [
-        {
-          "id": 1,
-          "userId": "user01",
-          "goodsId": 10195,
-          "size": "シングル",
-          "sku": "10195s_wh",
-          "color": "ホワイト",
-          "photo": "http://localhost:8080/assets/images/goodsphoto3.jpg",
-          "price": 1000,
-          "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
-          "shipment": "2~6",
-          "postage": 0,
-          "link": "/goods/detail/10195",
-          "quantity": 1
-        }
-      ]
-    },
-    {
-      "userId": "user01",
-      "listName": "aaaaaaaa",
-      "goodsList": [],
-      "id": 4
+      "goodsList": []
     },
     {
       "userId": "user01",
       "listName": "aa",
       "goodsList": [],
-      "id": 5
+      "id": 3
+    },
+    {
+      "userId": "user01",
+      "listName": "bbb",
+      "goodsList": [],
+      "id": 4
     }
   ],
-  "defaultList": [
+  "wishgoodsList": [
     {
       "id": 1,
+      "listName": "好きな商品",
       "userId": "user01",
       "goodsId": 10195,
       "size": "シングル",
-      "sku": "10195s_wh",
+      "sku": "10195m_wh",
       "color": "ホワイト",
-      "photo": "http://localhost:8080/assets/images/goodsphoto1.jpg",
+      "photo": [
+        "http://localhost:8080/assets/images/goodsphoto1.jpg"
+      ],
       "price": 1000,
       "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
@@ -1235,12 +1149,33 @@
     },
     {
       "id": 2,
+      "listName": "お気に入り商品",
       "userId": "user01",
       "goodsId": 10195,
       "size": "シングル",
-      "sku": "10195s_wh",
+      "sku": "10195m_bk",
       "color": "ホワイト",
-      "photo": "http://localhost:8080/assets/images/goodsphoto2.jpg",
+      "photo": [
+        "http://localhost:8080/assets/images/goodsphoto2.jpg"
+      ],
+      "price": 2000,
+      "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
+      "shipment": "2~6",
+      "postage": 0,
+      "link": "/goods/detail/10195",
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "listName": "好きな商品",
+      "userId": "user01",
+      "goodsId": 10195,
+      "size": "シングル",
+      "sku": "10195m_wh",
+      "color": "ホワイト",
+      "photo": [
+        "http://localhost:8080/assets/images/goodsphoto2.jpg"
+      ],
       "price": 2000,
       "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
@@ -1273,7 +1208,9 @@
       "title": "ゴムバンド付き敷きパッド　セミダブル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
       "postage": 0,
-      "id": 3
+      "listName": "お気に入り商品",
+      "userId": "user01",
+      "id": 4
     }
   ]
 }
