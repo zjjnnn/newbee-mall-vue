@@ -174,7 +174,7 @@ const postageSum = computed(() => {
 
 <style scoped>
 .g-layout_sidebar {
-  width: 320px;
+  width: 300px;
 }
 .g-layout-cart {
   display: grid;
@@ -183,7 +183,7 @@ const postageSum = computed(() => {
 }
 .g-layout-cart .g-layout_sidebar,
 .g-layout-purchase .g-layout_sidebar {
-  margin-left: 40px;
+  margin-left: 20px;
 }
 .g-layout_sidebar [data-sticky="true"] {
   position: -webkit-sticky;

@@ -90,6 +90,9 @@ export default {
       );
       state.selectableList = state.canMoveList[0].listName;
     },
+    updateSelectList(state: WishState, payload: string) {
+      state.selectableList = payload;
+    },
   },
 
   actions: {
@@ -150,13 +153,22 @@ export default {
     },
     //add goods into [お気に入り商品] list
     async intoWish(context, newInfoList: {}) {
-      const key = "listName";
-      const value = "お気に入り商品";
-      const key2 = "userId";
-      const value2 = "user01";
-      newInfoList[key] = value;
-      newInfoList[key2] = value2;
-      await axios.post("http://localhost:3000/wishgoodsList", newInfoList);
+      const obj = {
+        listName: "お気に入り商品",
+        userId: "user01",
+        quantity: 1,
+      };
+      const item = {
+        ...newInfoList,
+        ...obj,
+      };
+      // const key = "listName";
+      // const value = "お気に入り商品";
+      // const key2 = "userId";
+      // const value2 = "user01";
+      // newInfoList[key] = value;
+      // newInfoList[key2] = value2;
+      await axios.post("http://localhost:3000/wishgoodsList", item);
 
       const userId = "user01";
       context.dispatch("setWishList", userId);
@@ -173,13 +185,13 @@ export default {
     async moveGoods(
       context,
       {
-        anotherName,
+        selectableList,
         id,
         userId,
-      }: { anotherName: string; id: number; userId: string }
+      }: { selectableList: string; id: number; userId: string }
     ) {
       await axios.patch("http://localhost:3000/wishgoodsList/" + id, {
-        listName: anotherName,
+        listName: selectableList,
       });
       //console.log("anotherName", anotherName);
       context.dispatch("setWishGoodsList", userId);
@@ -225,6 +237,9 @@ export default {
     getAllGoodsList(state: WishState) {
       console.log("allGoodsList", state.allGoodsList);
       return state.allGoodsList;
+    },
+    getSelectableList(state: WishState) {
+      return state.selectableList;
     },
   },
 };

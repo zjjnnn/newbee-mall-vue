@@ -45,6 +45,7 @@
               <img
                 src="http://localhost:8080/assets/images/free_shipping2.webp"
                 alt=""
+                style="zoom: 0.8"
               />
             </p>
             <dl class="p-pcs">
@@ -156,8 +157,13 @@
               </li>
               <li class="g-grid_item p-misc_item" style="margin-left: 50px">
                 <a
-                  :class="skuExisted ? 'canNotClick' : 'canClick'"
-                  @click="intoWish"
+                  :class="
+                    allGoodsList.filter((a) => a.sku === sku).length > 0
+                      ? 'canNotClick'
+                      : 'canClick'
+                  "
+                  @click.once="intoWish"
+                  :style="state.canNotClick"
                 >
                   <div class="p-misc_i g-hover_img">
                     <span class="material-symbols-outlined g-s g-s-favorite-g">
@@ -261,7 +267,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, reactive } from "vue";
 import { useStore } from "../../store/index";
 import { useRoute } from "vue-router";
 
@@ -269,20 +275,21 @@ const store = useStore();
 const route = useRoute();
 const goodsId = route.params.goodsId;
 const userId = "user01";
-console.log("goodsId", goodsId);
-onMounted(async () => {
+// console.log("goodsId", goodsId);
+onMounted(() => {
   store.dispatch("setInfos", goodsId);
-  await store.dispatch("setWishGoodsList", userId);
-  //判断当前sku的商品是否在【お気に入り】列表（wishgoodsList）中
-  if (allGoodsList.value.filter((a) => a.sku === sku.value).length > 0) {
-    skuExisted.value = true;
-  }
+  store.dispatch("setWishGoodsList", userId);
 });
+
 const quantity = computed(() => store.getters.getQuantity);
 const price = computed(() => store.getters.getNewInfoList.price);
 const sku = computed(() => store.getters.getNewInfoList.sku);
 const newInfoList = computed(() => store.getters.getNewInfoList);
 
+//判断当前sku的商品是否在【お気に入り】列表（wishgoodsList）中，若存在（true），则不能再点击
+const allGoodsList = computed(() => store.getters.getAllGoodsList);
+
+//modal
 const isShow = ref(false);
 const showError = ref(false);
 
@@ -291,13 +298,6 @@ const updateQuantity = (e: Event) => {
     store.commit("updateQuantity", e.target.value);
   }
 };
-
-//判断当前sku的商品是否在【お気に入り】列表（wishgoodsList）中，若存在（true），则不能再点击
-const allGoodsList = computed(() => store.getters.getAllGoodsList);
-let skuExisted = ref(false);
-// if (allGoodsList.value.filter((a) => a.sku === sku.value).length > 0) {
-//   skuExisted.value = true;
-// }
 
 // add into cart 把当前sku的商品加到购物车
 const addItem = (sku: string) => {
@@ -308,14 +308,21 @@ const addItem = (sku: string) => {
     isShow.value = true;
   }
 };
-// 把当前sku的商品加到【お気に入り】
+
+// 把当前sku的商品加到【お気に入り】,并且改变按钮样式，使得不能再点击
+const state = reactive({
+  canNotClick: "",
+});
 const intoWish = () => {
   store.dispatch("intoWish", newInfoList.value);
-  skuExisted.value = true;
+  state.canNotClick = "pointer-events: none;color: #009e96";
 };
 </script>
 
 <style scoped>
+.g-layout_sidebar {
+  width: 320px;
+}
 .canClick {
   cursor: pointer;
   color: #333;
@@ -368,7 +375,7 @@ a {
   grid-row: 3/5;
   -ms-grid-column: 2;
   grid-column: 2;
-  margin-left: 40px;
+  margin-left: 20px;
   position: -webkit-sticky;
   position: sticky;
   top: 40px;

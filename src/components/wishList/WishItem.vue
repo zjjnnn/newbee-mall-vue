@@ -296,7 +296,7 @@
                   チェックした商品{{ state.checkList.length }}つを削除しますか？
                 </p>
                 <div class="button-delete-div">
-                  <button class="button-delete" @click="deleteGoods">
+                  <button class="button-delete" @click="deleteGoods()">
                     <span>削除する</span>
                   </button>
                 </div>
@@ -357,7 +357,7 @@
                   商品を移動させるリストを選択してください。
                 </p>
                 <div class="button-delete-div">
-                  <select v-model="anotherName">
+                  <select v-model="selectableList" @change="updatetList">
                     <option
                       v-for="(c, index) in canMoveList"
                       :key="index"
@@ -368,10 +368,10 @@
                   </select>
 
                   <button
-                    :anotherName="anotherName"
+                    :anotherName="selectableList"
                     class="button-delete"
                     @click="
-                      moveGoods(anotherName);
+                      moveGoods(selectableList);
                       isShow07 = false;
                     "
                     style="margin-left: 10px"
@@ -615,11 +615,7 @@ const id = computed(() => store.getters.getId);
 const goodsList = computed(() => store.getters.getGoodsList);
 const selectedName = computed(() => store.getters.getSelectName);
 const canMoveList = computed(() => store.getters.getCanMoveList);
-
-const anotherName = ref("");
-if (canMoveList.value.length > 0) {
-  anotherName.value = canMoveList.value[0].listName;
-}
+const selectableList = computed(() => store.getters.getSelectableList);
 
 //modal
 const isShow01 = ref(false);
@@ -673,6 +669,10 @@ const updateListName = (newName: string, id: number) => {
   store.dispatch("updateListName", { newName, id, userId });
   state.newName = ""; //清空modal4中的输入框
   isShow04.value = true;
+};
+
+const updatetList = (e) => {
+  store.commit("updateSelectList", e.target.value);
 };
 
 //------------------商品をカートに入れる-----------------------

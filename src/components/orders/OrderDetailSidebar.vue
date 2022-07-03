@@ -53,7 +53,7 @@ const sum = computed(() => store.getters.getSum);
 .g-layout_sidebar [data-sticky="true"] {
   position: -webkit-sticky;
   position: sticky;
-  top: 40px;
+  top: 20px;
 }
 .g-pane,
 .g-lg-pane {

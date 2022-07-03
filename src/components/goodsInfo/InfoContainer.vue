@@ -115,7 +115,7 @@ function mouseLeave() {
   font-size: small;
 }
 .right-layout {
-  width: 500px;
+  width: 350px;
   margin-left: 30px;
 }
 .p-hd {

@@ -18,18 +18,20 @@
         </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
-        <a href="#"></a>
-        <div class="flex-body">
-          <span class="material-symbols-outlined span-icon"> store </span>
-          <span class="g-card_body span-text">お気に入り店舗</span>
-        </div>
+        <router-link to="/my-account/mystore">
+          <div class="flex-body">
+            <span class="material-symbols-outlined span-icon"> store </span>
+            <span class="g-card_body span-text">お気に入り店舗</span>
+          </div>
+        </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
-        <a href="#"></a>
-        <div class="flex-body">
-          <span class="material-symbols-outlined span-icon"> person </span>
-          <span class="g-card_body span-text">お客様情報の確認・変更</span>
-        </div>
+        <router-link to="/my-account/profileEditSelect">
+          <div class="flex-body">
+            <span class="material-symbols-outlined span-icon"> person </span>
+            <span class="g-card_body span-text">お客様情報の確認・変更</span>
+          </div>
+        </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
         <a href="#"></a>
