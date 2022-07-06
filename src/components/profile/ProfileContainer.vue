@@ -12,9 +12,11 @@
         <section class="g-block">
           <div class="g-foot-v g-mt-0">
             <p class="g-align-tc">
-              <a class="g-btn g-btn-cv g-btn-w-md" href="#"
-                ><span>メールアドレスの変更</span></a
-              >
+              <router-link
+                class="g-btn g-btn-cv g-btn-w-md"
+                to="/my-account/update-mail"
+                ><span>メールアドレスの変更</span>
+              </router-link>
             </p>
           </div>
         </section>
@@ -24,8 +26,8 @@
               <router-link
                 class="g-btn g-btn-cv g-btn-w-md"
                 to="/my-account/update-profile"
-                ><span>メールアドレス以外の変更</span></router-link
-              >
+                ><span>メールアドレス以外の変更</span>
+              </router-link>
             </p>
           </div>
         </section>

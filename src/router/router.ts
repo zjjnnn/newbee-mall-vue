@@ -9,6 +9,8 @@ import WishList from "../pages/myaccount/WishList.vue";
 import MyStore from "../pages/myaccount/MyStore.vue";
 import profileEditSelect from "../pages/myaccount/ProfileEditSelect.vue";
 import UpdateProfile from "../pages/myaccount/UpdateProfile.vue";
+import CustomerInfo from "../pages/myaccount/CustomerInfo.vue";
+import UpdateMail from "../pages/myaccount/UpdateMail.vue";
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -63,6 +65,16 @@ export default createRouter({
       name: "updateProfile",
       path: "/my-account/update-profile",
       component: UpdateProfile,
+    },
+    {
+      name: "customerInfo",
+      path: "/my-account/customerInfoCompleted",
+      component: CustomerInfo,
+    },
+    {
+      name: "updateMail",
+      path: "/my-account/update-mail",
+      component: UpdateMail,
     },
   ],
 });
