@@ -17,6 +17,8 @@ type Profile = {
   lastNameKana: string;
   firstNameKana: string;
   email: string;
+  newEmail: string;
+  checkEmail: string;
   telA: string;
   telB: string;
   telC: string;
@@ -60,9 +62,22 @@ export default {
     },
     async updateList(context, p: Profile) {
       const id = p.id;
+      await axios.patch("http://localhost:3000/userProfile/" + id, p);
+      context.dispatch("setProfile");
+    },
+    async updateListAndPass(context, p: Profile) {
+      const id = p.id;
       p.password = p.newPassword;
       p.newPassword = "";
       p.checkPassword = "";
+      await axios.patch("http://localhost:3000/userProfile/" + id, p);
+      context.dispatch("setProfile");
+    },
+    async updateEmail(context, p: Profile) {
+      const id = p.id;
+      p.email = p.newEmail;
+      p.newEmail = "";
+      p.checkEmail = "";
       await axios.patch("http://localhost:3000/userProfile/" + id, p);
       context.dispatch("setProfile");
     },

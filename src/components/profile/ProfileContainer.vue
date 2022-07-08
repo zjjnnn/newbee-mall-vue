@@ -13,7 +13,9 @@
           <div class="g-foot-v g-mt-0">
             <p class="g-align-tc">
               <router-link
-                class="g-btn g-btn-cv g-btn-w-md"
+                @mouseover="hover = true"
+                @mouseleave="hover = false"
+                class="g-btn g-btn-cv g-btn-w-md router-link"
                 to="/my-account/update-mail"
                 ><span>メールアドレスの変更</span>
               </router-link>
@@ -24,7 +26,9 @@
           <div class="g-foot-v g-mt-0">
             <p class="g-align-tc">
               <router-link
-                class="g-btn g-btn-cv g-btn-w-md"
+                @mouseover="hover = true"
+                @mouseleave="hover = false"
+                class="g-btn g-btn-cv g-btn-w-md router-link"
                 to="/my-account/update-profile"
                 ><span>メールアドレス以外の変更</span>
               </router-link>
@@ -36,9 +40,14 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const hover = false;
+</script>
 
 <style scoped>
+.router-link:hover {
+  opacity: 0.8;
+}
 .g-inner {
   width: 100%;
   max-width: 1240px;

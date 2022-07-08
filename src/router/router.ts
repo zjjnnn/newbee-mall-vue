@@ -11,6 +11,7 @@ import profileEditSelect from "../pages/myaccount/ProfileEditSelect.vue";
 import UpdateProfile from "../pages/myaccount/UpdateProfile.vue";
 import CustomerInfo from "../pages/myaccount/CustomerInfo.vue";
 import UpdateMail from "../pages/myaccount/UpdateMail.vue";
+import AddressBook from "../pages/myaccount/AddressBook.vue";
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -75,6 +76,11 @@ export default createRouter({
       name: "updateMail",
       path: "/my-account/update-mail",
       component: UpdateMail,
+    },
+    {
+      name: "addressBook",
+      path: "/my-account/address-book",
+      component: AddressBook,
     },
   ],
 });
