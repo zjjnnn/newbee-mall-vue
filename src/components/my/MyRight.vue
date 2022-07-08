@@ -34,11 +34,12 @@
         </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
-        <a href="#"></a>
-        <div class="flex-body">
-          <span class="material-symbols-outlined span-icon"> edit_note </span>
-          <span class="g-card_body span-text">配送先住所の変更・登録</span>
-        </div>
+        <router-link to="/my-account/address-book">
+          <div class="flex-body">
+            <span class="material-symbols-outlined span-icon"> edit_note </span>
+            <span class="g-card_body span-text">配送先住所の変更・登録</span>
+          </div>
+        </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
         <a href="#"></a>
