@@ -42,13 +42,16 @@
         </router-link>
       </li>
       <li class="change" @mouseover="hover = true" @mouseleave="hover = false">
-        <a href="#"></a>
-        <div class="flex-body">
-          <span class="material-symbols-outlined span-icon"> credit_card </span>
-          <span class="g-card_body span-text"
-            >クレジットカードの変更・登録</span
-          >
-        </div>
+        <router-link to="/my-account/payment-details">
+          <div class="flex-body">
+            <span class="material-symbols-outlined span-icon">
+              credit_card
+            </span>
+            <span class="g-card_body span-text"
+              >クレジットカードの変更・登録</span
+            >
+          </div>
+        </router-link>
       </li>
     </ul>
   </div>

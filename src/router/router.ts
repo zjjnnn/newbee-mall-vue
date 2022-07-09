@@ -12,6 +12,7 @@ import UpdateProfile from "../pages/myaccount/UpdateProfile.vue";
 import CustomerInfo from "../pages/myaccount/CustomerInfo.vue";
 import UpdateMail from "../pages/myaccount/UpdateMail.vue";
 import AddressBook from "../pages/myaccount/AddressBook.vue";
+import PaymentDetails from "../pages/myaccount/PaymentDetails.vue";
 
 export default createRouter({
   history: createWebHashHistory(),
@@ -81,6 +82,11 @@ export default createRouter({
       name: "addressBook",
       path: "/my-account/address-book",
       component: AddressBook,
+    },
+    {
+      name: "paymentDetails",
+      path: "/my-account/payment-details",
+      component: PaymentDetails,
     },
   ],
 });
