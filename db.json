@@ -854,18 +854,11 @@
       "variants": [
         {
           "size": "シングル",
-          "color": [
-            "ホワイト",
-            "グレー",
-            "ダークブルー"
-          ]
+          "color": ["ホワイト", "グレー", "ダークブルー"]
         },
         {
           "size": "セミダブル",
-          "color": [
-            "ホワイト",
-            "ダークブルー"
-          ]
+          "color": ["ホワイト", "ダークブルー"]
         }
       ]
     }
@@ -1143,9 +1136,7 @@
       "size": "シングル",
       "sku": "10195m_wh",
       "color": "ホワイト",
-      "photo": [
-        "http://localhost:8080/assets/images/goodsphoto1.jpg"
-      ],
+      "photo": ["http://localhost:8080/assets/images/goodsphoto1.jpg"],
       "price": 1000,
       "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
@@ -1161,9 +1152,7 @@
       "size": "シングル",
       "sku": "10195m_bk",
       "color": "ホワイト",
-      "photo": [
-        "http://localhost:8080/assets/images/goodsphoto2.jpg"
-      ],
+      "photo": ["http://localhost:8080/assets/images/goodsphoto2.jpg"],
       "price": 2000,
       "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
@@ -1179,9 +1168,7 @@
       "size": "シングル",
       "sku": "10195m_wh",
       "color": "ホワイト",
-      "photo": [
-        "http://localhost:8080/assets/images/goodsphoto2.jpg"
-      ],
+      "photo": ["http://localhost:8080/assets/images/goodsphoto2.jpg"],
       "price": 2000,
       "title": "ゴムバンド付き敷きパッド　シングル(NクールWSP n-s WH SD)",
       "shipment": "2~6",
@@ -1371,6 +1358,17 @@
       "conditionValue": "集合住宅",
       "liftValue": "なし",
       "defaultAdderss": false
+    }
+  ],
+  "payment": [
+    {
+      "id": 1,
+      "userId": "user01",
+      "cardNo": "3573731111111140",
+      "cardNoCopy": "357373********40",
+      "expirationMonth": 12,
+      "expirationYear": 2023,
+      "CVV": "123"
     }
   ]
 }
