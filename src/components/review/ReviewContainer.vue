@@ -52,9 +52,8 @@ div {
 }
 .g-btn {
   display: flex;
-  min-height: 46px;
+  min-height: 34px;
   padding: 5px 18px 5px 14px;
-  transform: translateX(5px);
   flex: 1 1 auto;
   align-items: center;
   justify-content: center;

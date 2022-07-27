@@ -15,6 +15,7 @@ import orderDetail from "./myPage/orderDetail";
 import wishList from "./myPage/wishList";
 import userProfile from "./myPage/userProfile";
 import address from "./myPage/address";
+import payment from "./myPage/payment";
 
 type State = {};
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -34,6 +35,7 @@ export const store = createStore<State>({
     wishList,
     userProfile,
     address,
+    payment,
   },
 });
 
