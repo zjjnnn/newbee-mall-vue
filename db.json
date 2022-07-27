@@ -1360,14 +1360,32 @@
       "defaultAdderss": false
     }
   ],
-  "payment": [
+  "paymentInfo": [
     {
       "id": 1,
       "userId": "user01",
       "cardNo": "3573731111111140",
       "cardNoCopy": "357373********40",
-      "expirationMonth": 12,
-      "expirationYear": 2023,
+      "expirationMonth": "12",
+      "expirationYear": "2023",
+      "CVV": "123"
+    },
+    {
+      "id": 2,
+      "userId": "user01",
+      "cardNo": "3573731111111140",
+      "cardNoCopy": "357373********40",
+      "expirationMonth": "01",
+      "expirationYear": "2025",
+      "CVV": "123"
+    },
+    {
+      "id": 3,
+      "userId": "user01",
+      "cardNo": "3573731111111140",
+      "cardNoCopy": "357373********40",
+      "expirationMonth": "01",
+      "expirationYear": "2025",
       "CVV": "123"
     }
   ]

@@ -1,42 +1,30 @@
 <template>
-  <div style="width: 800px">
+  <div style="width: 800px; margin-left: 5px">
     <h1>クレジットカードの変更・登録</h1>
-  </div>
 
-  <!-- modal -->
-  <GDialog v-model="isShow">
-    <div class="modal">
-      <div class="g-modal_el">
-        <header class="g-modal_head">
-          <p class="g-modal_h" id="p-messageModal_h">
-            クレジットカード情報の登録
-          </p>
-          <button
-            @click="isShow = false"
-            class="g-modal_close"
-            type="button"
-            aria-label="閉じる"
-          >
-            <span
-              class="material-symbols-outlined"
-              style="cursor: pointer; color: #ffffff"
-            >
-              close
-            </span>
-          </button>
-        </header>
-        <div class="g-modal_body">
-          <p id="modalMessage">クレジットカード情報の登録が完了しました。</p>
-        </div>
-      </div>
-    </div>
-  </GDialog>
+    <section>
+      <h2 v-if="length && length > 0">登録済みのクレジットカード</h2>
+      <ul class="g-checkableGird">
+        <registered-card></registered-card>
+      </ul>
+    </section>
+    <section>
+      <h2>新しいクレジットカードを登録</h2>
+      <new-card />
+    </section>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-
-const isShow = ref(false);
+import RegisteredCard from "./RegisteredCard.vue";
+import NewCard from "./NewCard.vue";
+import { computed, onMounted } from "vue";
+import { useStore } from "../../store/index";
+const store = useStore();
+onMounted(() => {
+  store.dispatch("setPayment");
+});
+const length = computed(() => store.getters.getPaymentList.length);
 </script>
 <style scoped>
 p,
@@ -61,21 +49,8 @@ h1 {
   margin-top: 20px;
   margin-bottom: 30px;
 }
-.selected {
-  height: 60px;
-  border-bottom: 1px solid #dbdbdb;
-  padding: 20px;
-  background-color: #e9f5f4;
-}
-.notSelected {
-  height: 60px;
-  border-bottom: 1px solid #dbdbdb;
-  padding: 20px;
-  background-color: #fff;
-}
-.checkable-label {
-  font-size: 1rem;
-  font-weight: bold;
+h2 {
+  margin: 20px 0;
 }
 ul,
 ol {
@@ -95,10 +70,7 @@ nav,
 section {
   display: block;
 }
-.g-layout-narrow .g-layout_head,
-.g-layout-narrow .g-layout_body {
-  width: 800px;
-}
+
 .g-checkableGrid_item-accordion,
 .g-checkableGrid_item,
 .g-lg-checkableGrid_item {
